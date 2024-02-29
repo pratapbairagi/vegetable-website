@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+
+/* *{
+  background-color: rgba(192, 191, 191, 0.347);
+} */
+
+.pagination {
+  display: flex;
+  list-style: none;
+}
+
+.pagination-link {
+  display: inline-block;
+  padding: 0.5rem 0.75rem;
+  margin: 0 0.25rem;
+  background-color: #e2e8f0;
+  color: #4a5568;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.pagination-link:hover {
+  background-color: #cbd5e0;
+}
+
+.pagination-link.active {
+  background-color: #2d3748;
+  color: #ffffff;
+}
+
+.pagination-ellipsis {
+  padding: 0.5rem 0.75rem;
+  margin: 0 0.25rem;
+  color: #4a5568;
+}

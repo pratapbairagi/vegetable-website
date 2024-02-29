@@ -1,0 +1,19 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap')
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer {
+    .text-theme-blue-600{
+        color: #4267B2;
+    }
+    .sm-left-125{
+        left: 12.5%;
+    }
+    .scroll-overflow-hidden::-webkit-scrollbar {
+        display: none;
+      }
+    
+    
+}
