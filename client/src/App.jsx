@@ -14,6 +14,7 @@ import Todays_special from './component/todays_special'
 import Service_features from './component/service_features'
 import Service_feedbacks from './component/service_feedbacks'
 import Contact from './component/contact'
+import Footer from './component/footer'
 
 function App() {
   
@@ -30,6 +31,7 @@ function App() {
       <Service_features/>
       <Service_feedbacks/>
       <Contact/>
+      <Footer/>
     </>
   )
 }
