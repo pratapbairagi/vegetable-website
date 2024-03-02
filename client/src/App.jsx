@@ -13,6 +13,7 @@ import Shop_by_category from './component/shop_by_category'
 import Todays_special from './component/todays_special'
 import Service_features from './component/service_features'
 import Service_feedbacks from './component/service_feedbacks'
+import Contact from './component/contact'
 
 function App() {
   
@@ -28,6 +29,7 @@ function App() {
       <Todays_special/>
       <Service_features/>
       <Service_feedbacks/>
+      <Contact/>
     </>
   )
 }
