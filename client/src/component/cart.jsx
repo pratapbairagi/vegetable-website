@@ -16,7 +16,7 @@ const Cart = ({toggleCart, setToggleCart}) => {
                 Your Cart</h5>
 
             <div className="grid grid-cols-12 lg:gap-x-10">
-                <div className="col-span-12 lg:col-span-8 flex flex-col max-h-80vh scroll-overflow-hidden overflow-y-auto  gap-y-1 py-3">
+                <div className="col-span-12 lg:col-span-8 flex flex-col max-h-80vh min-h-50vh lg:min-h-auto scroll-overflow-hidden overflow-y-auto  gap-y-1 py-3">
 
                     <CardCart />
                     <CardCart />
@@ -61,7 +61,7 @@ const Cart = ({toggleCart, setToggleCart}) => {
                     </div>
 
                     <div className="flex mt-2 ">
-                        <button className="w-full flex justify-center text-xl bg-theme-green-600 py-2.5 text-gray-100 font-bold font-nunito">Proceed</button>
+                        <button className="w-full flex justify-center  text-base lg:text-xl bg-theme-green-600 py-2.5 text-gray-100 font-bold font-nunito">Checkout</button>
                     </div>
 
 

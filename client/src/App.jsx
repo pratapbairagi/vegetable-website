@@ -16,15 +16,18 @@ import Service_feedbacks from './component/service_feedbacks'
 import Contact from './component/contact'
 import Footer from './component/footer'
 import Cart from './component/cart'
+import Login from './component/login'
 
 function App() {
   
   const [toggleCart, setToggleCart] = useState(false)
+  const [loginToggle, setLoginToggle] = useState(false)
 
   return (
     <div className='relative'>
-      <Navbar setToggleCart={setToggleCart}/>
+      <Navbar setToggleCart={setToggleCart} setLoginToggle={setLoginToggle}/>
       <Hero/>
+      <Login loginToggle={loginToggle} setLoginToggle={setLoginToggle }/>
       <Features/>
       <About/>
       <Most_selling_section/>

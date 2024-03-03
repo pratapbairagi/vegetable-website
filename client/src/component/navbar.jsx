@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 
-const Navbar = ({setToggleCart}) => {
+const Navbar = ({setToggleCart, setLoginToggle}) => {
     const [isOpenMainMenu, setIsOpenMainMenu] = useState(false);
     const [isOpenMenu1, setIsOpenMenu1] = useState(false);
     const [isOpenMenu2, setIsOpenMenu2] = useState(false);
@@ -86,7 +86,7 @@ const Navbar = ({setToggleCart}) => {
                             </svg>
                         </button>
 
-                        <button className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 md:bg-theme-blue-600 flex justify-center items-center md:p-1 rounded-md mr-2">
+                        <button onClick={()=> setLoginToggle(true)} className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 md:bg-theme-blue-600 flex justify-center items-center md:p-1 rounded-md mr-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6 sm:size-7 md:size-7 lg:size-8 xl:size-9 text-theme-blue-600 md:text-gray-100 ">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                             </svg>
