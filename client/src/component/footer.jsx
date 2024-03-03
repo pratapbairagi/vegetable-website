@@ -7,7 +7,7 @@ const Footer = () => {
                 <ul className="col-span-12 lg:col-span-3">
                     <li className="text-base md:text-xl xl:text-2xl font-semibold text-theme-blue-600 ">About Us</li>
                     <li className="text-xs md:text-sm xl:text-base font-normal text-gray-400 max-w-90% mt-4 max-w-70%" style={{ lineHeight: "150%" }}>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Iste, asperiores! Consequatur, recusandae.</li>
-                    <li className="text-xs md:text-sm xl:text-base font-bold text-gray-500 max-w-90% mt-4 max-w-70%" style={{ lineHeight: "150%" }}>reserved copyright &copy; by Protap</li>
+                    <li className="text-xs md:text-sm xl:text-base font-semibold text-gray-500 max-w-90% mt-8 max-w-70%" style={{ lineHeight: "150%" }}>reserved copyright &copy; by Protap</li>
                 </ul>
 
                 <ul className="col-span-5 lg:col-span-2 flex flex-col gap-y-1">
@@ -54,7 +54,7 @@ const Footer = () => {
                     </svg>
                     RZ-170/1A, Tughlakabad Extn. Delhi - 110019, India
                 </div>
-                <div className="col-span-6 lg:col-span-2 flex justify-center text-gray-700 gap-x-2 text-xs md:text-sm xl:text-base">
+                <div className="col-span-6 lg:col-span-2 flex mr-36 lg:mr-0 justify-center text-gray-700 gap-x-2 text-xs md:text-sm xl:text-base">
                     {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} className="w-4 stroke-gray-700">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 3.75v4.5m0-4.5h-4.5m4.5 0-6 6m3 12c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 0 1 4.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 0 0-.38 1.21 12.035 12.035 0 0 0 7.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 0 1 1.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 0 1-2.25 2.25h-2.25Z" />
                     </svg> */}

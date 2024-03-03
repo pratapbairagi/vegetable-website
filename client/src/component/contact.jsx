@@ -49,19 +49,19 @@ const Contact = () => {
                         <div className="order-2 lg:order-1 col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-12 flex flex-col gap-y-4 md:gap-y-6 xl:h-full">
                            
                             <div className="w-full flex flex-col gap-y-0.5">
-                                <span className="text-base md:text-xl font-bold font-nunito text-gray-300 lg:text-end">Contact No.</span>
-                                <div className="text-xl md:text-2xl font-bold font-nunito text-gray-400 lg:text-end">+91 8287889123</div>
+                                <span className="text-sm md:text-base font-bold font-nunito text-gray-300 lg:text-end">Contact No.</span>
+                                <div className="text-base md:text-xl font-bold font-nunito text-gray-400 lg:text-end">+91 8287889123</div>
                             </div>
 
                             <div className="w-full flex flex-col gap-y-0.5">
-                                <span className="text-base md:text-xl font-bold font-nunito text-gray-300 lg:text-end">Email</span>
-                                <div className="text-xl md:text-2xl font-bold font-nunito text-gray-400 lg:text-end">pratapbairagi@gmail.com</div>
+                                <span className="text-sm md:text-base font-bold font-nunito text-gray-300 lg:text-end">Email</span>
+                                <div className="text-base md:text-xl font-bold font-nunito text-gray-400 lg:text-end">pratapbairagi@gmail.com</div>
                             </div>
 
                             <div className="w-full flex flex-col gap-y-0.5">
-                                <span className="text-base md:text-xl font-bold font-nunito text-gray-300 lg:text-end">Address</span>
-                                <div className="text-xl md:text-2xl font-semibold font-nunito text-gray-400 lg:text-end">RZ-170/1A, Tughlakabad Extn</div>
-                                <div className="text-xl md:text-2xl font-semibold font-nunito text-gray-400 lg:text-end">South Delhi, Delhi - 110019.</div>
+                                <span className="text-sm md:text-base font-bold font-nunito text-gray-300 lg:text-end">Address</span>
+                                <div className="text-base md:text-xl font-semibold font-nunito text-gray-400 lg:text-end">RZ-170/1A, Tughlakabad Extn</div>
+                                <div className="text-base md:text-xl font-semibold font-nunito text-gray-400 lg:text-end">South Delhi, Delhi - 110019.</div>
                             </div>
 
                         </div>

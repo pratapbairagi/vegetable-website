@@ -15,13 +15,15 @@ import Service_features from './component/service_features'
 import Service_feedbacks from './component/service_feedbacks'
 import Contact from './component/contact'
 import Footer from './component/footer'
+import Cart from './component/cart'
 
 function App() {
   
+  const [toggleCart, setToggleCart] = useState(false)
 
   return (
-    <>
-      <Navbar/>
+    <div className='relative'>
+      <Navbar setToggleCart={setToggleCart}/>
       <Hero/>
       <Features/>
       <About/>
@@ -32,7 +34,8 @@ function App() {
       <Service_feedbacks/>
       <Contact/>
       <Footer/>
-    </>
+      <Cart toggleCart={toggleCart} setToggleCart={setToggleCart}/>
+    </div>
   )
 }
 
