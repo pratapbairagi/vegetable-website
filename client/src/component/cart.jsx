@@ -1,4 +1,4 @@
-import { defer } from "react-router-dom"
+// import { defer } from "react-router-dom"
 import CardCart from "./cardCart"
 
 
