@@ -16,29 +16,35 @@ import Service_feedbacks from './component/service_feedbacks'
 import Contact from './component/contact'
 import Footer from './component/footer'
 import Cart from './component/cart'
-import Login from './component/login'
+import Login from './component/login';
+import {Route, Routes, BrowserRouter} from "react-router-dom"
+import Product_details from './component/product_details'
+import Home from './pages/home'
+
 
 function App() {
-  
   const [toggleCart, setToggleCart] = useState(false)
-  const [loginToggle, setLoginToggle] = useState(false)
+    const [loginToggle, setLoginToggle] = useState(false)
+ 
 
   return (
     <div className='relative'>
-      <Navbar setToggleCart={setToggleCart} setLoginToggle={setLoginToggle}/>
-      <Hero/>
-      <Login loginToggle={loginToggle} setLoginToggle={setLoginToggle }/>
-      <Features/>
-      <About/>
-      <Most_selling_section/>
-      <Shop_by_category/>
-      <Todays_special/>
-      <Service_features/>
-      <Service_feedbacks/>
-      <Contact/>
-      <Footer/>
-      <Cart toggleCart={toggleCart} setToggleCart={setToggleCart}/>
-    </div>
+      <BrowserRouter>
+            <Navbar setToggleCart={setToggleCart} setLoginToggle={setLoginToggle} />
+            <Cart toggleCart={toggleCart} setToggleCart={setToggleCart} />
+            <Login loginToggle={loginToggle} setLoginToggle={setLoginToggle} />
+
+
+      
+      <Routes>
+      <Route path='/' element={<Home/>}/>
+
+
+      <Route path='/vegetable/:id' element={<Product_details/>}/>
+      </Routes>
+      </BrowserRouter>
+      </div>
+  
   )
 }
 
