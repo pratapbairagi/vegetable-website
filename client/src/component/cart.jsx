@@ -26,24 +26,24 @@ const Cart = ({toggleCart, setToggleCart}) => {
                 </div>
 
                 <div className="col-span-12 lg:col-span-4 flex flex-col mt-4 lg:mt-6 lg:mx-4">
-                    <h6 className=" text-start text-base lg:text-xl font-bold py-2 text-gray-700">Price Details</h6>
+                    <h6 className=" text-start text-base lg:text-xl font-bold py-2 text-gray-500">Price Details</h6>
                     <div className="grid grid-cols-12 mt-2 lg:mt-4">
-                        <span className="col-span-7 flex justify-start text-sm lg:text-base text-gray-600 font-semibold font-nunito">Total Items</span>
+                        <span className="col-span-7 flex justify-start text-sm lg:text-base text-gray-400 font-semibold font-nunito">Total Items</span>
                         <span className="col-span-5 flex justify-end text-sm lg:text-base text-gray-600 font-bold font-nunito">10</span>
                     </div>
 
                     <div className="grid grid-cols-12 mt-1 ">
-                        <span className="col-span-7 flex justify-start text-sm lg:text-base text-gray-600 font-semibold font-nunito">Total Price</span>
+                        <span className="col-span-7 flex justify-start text-sm lg:text-base text-gray-400 font-semibold font-nunito">Total Price</span>
                         <span className="col-span-5 flex justify-end text-sm lg:text-base text-gray-600 font-bold font-nunito">1999.25</span>
                     </div>
 
                     <div className="grid grid-cols-12 mt-1 ">
-                        <span className="col-span-7 flex justify-start text-sm lg:text-base text-gray-600 font-semibold font-nunito">Discount</span>
+                        <span className="col-span-7 flex justify-start text-sm lg:text-base text-gray-400 font-semibold font-nunito">Discount</span>
                         <span className="col-span-5 flex justify-end text-sm lg:text-base text-theme-green-600 font-bold font-nunito">50</span>
                     </div>
 
                     <div className="grid grid-cols-12 mt-1 border-b border-dashed pb-3">
-                        <span className="col-span-5 flex justify-start text-sm lg:text-base text-gray-600 font-semibold font-nunito">Dilevery Changes</span>
+                        <span className="col-span-5 flex justify-start text-sm lg:text-base text-gray-400 font-semibold font-nunito">Dilevery Changes</span>
                         <span className="col-span-7 gap-x-4 flex flex-wrap justify-end text-gray-600 font-bold font-nunito">
                             <span className="text-theme-green-600 text-sm lg:text-base">Free Delivery</span>
                             <span className="text-red-700 line-through text-sm lg:text-base">50</span>
@@ -51,7 +51,7 @@ const Cart = ({toggleCart, setToggleCart}) => {
                     </div>
 
                     <div className="grid grid-cols-12 mt-1 border-b pb-2 pt-1">
-                        <span className="col-span-7 flex justify-start text-base lg:text-xl text-gray-600 font-bold font-nunito">Total Amount</span>
+                        <span className="col-span-7 flex justify-start text-base lg:text-xl text-gray-500 font-bold font-nunito">Total Amount</span>
                         <span className="col-span-5 flex justify-end text-base lg:text-xl text-gray-600 font-bold font-nunito">1950.25</span>
                     </div>
 

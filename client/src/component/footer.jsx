@@ -46,21 +46,21 @@ const Footer = () => {
             </div>
             <hr className="mt-4" />
             <div className="grid grid-cols-12 py-3 px-4 gap-x-2 gap-y-4">
-                <div className="col-span-5 lg:col-span-4 text-sm md:text-base xl:text-xl text-gray-800 flex justify-center lg:justify-start">copyright &copy; by Protap</div>
+                <div className="col-span-5 lg:col-span-4 text-3xs md:text-2xs xl:text-xs text-gray-800 flex justify-center lg:justify-start">copyright &copy; by Protap</div>
                 
-                <div className="col-span-7 lg:col-span-3 flex justify-center items-start gap-x-3 text-xs md:text-sm xl:text-base text-gray-700 ">
+                <div className="col-span-7 lg:col-span-3 flex justify-center items-start gap-x-3 text-3xs md:text-2xs xl:text-xs text-gray-700 ">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" className="w-4 fill-gray-600">
                         <path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 128a64 64 0 1 1 0 128 64 64 0 1 1 0-128z" />
                     </svg>
                     RZ-170/1A, Tughlakabad Extn. Delhi - 110019, India
                 </div>
-                <div className="col-span-6 lg:col-span-2 flex mr-16 sm:mr-36 lg:mr-0 justify-center text-gray-700 gap-x-2 text-xs md:text-sm xl:text-base">
+                <div className="col-span-6 lg:col-span-2 flex mr-16 sm:mr-36 lg:mr-0 justify-center text-gray-700 gap-x-2 text-3xs md:text-2xs xl:text-xs">
                     {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} className="w-4 stroke-gray-700">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M20.25 3.75v4.5m0-4.5h-4.5m4.5 0-6 6m3 12c-8.284 0-15-6.716-15-15V4.5A2.25 2.25 0 0 1 4.5 2.25h1.372c.516 0 .966.351 1.091.852l1.106 4.423c.11.44-.054.902-.417 1.173l-1.293.97a1.062 1.062 0 0 0-.38 1.21 12.035 12.035 0 0 0 7.143 7.143c.441.162.928-.004 1.21-.38l.97-1.293a1.125 1.125 0 0 1 1.173-.417l4.423 1.106c.5.125.852.575.852 1.091V19.5a2.25 2.25 0 0 1-2.25 2.25h-2.25Z" />
                     </svg> */}
                     +91 8287889123
                 </div>
-                <div className="col-span-6 lg:col-span-3 flex justify-center text-gray-700 gap-x-2 text-xs md:text-sm xl:text-base">
+                <div className="col-span-6 lg:col-span-3 flex justify-center text-gray-700 gap-x-2 text-3xs md:text-3xs xl:text-xs">
                     {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} className="w-4 stroke-gray-700">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
                     </svg> */}

@@ -42,6 +42,7 @@ function App() {
 
       <Route path='/vegetable/:id' element={<Product_details/>}/>
       </Routes>
+      <Footer/>
       </BrowserRouter>
       </div>
   

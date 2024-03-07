@@ -7,7 +7,7 @@ const Product_details = () => {
     const { id } = useParams();
     console.log(id)
     return (
-        <div className="w-full min-h-full grid grid-cols-12 pb-10 lg:max-w-80% mx-auto">
+        <div className="w-full min-h-full grid grid-cols-12 pb-3 lg:max-w-80% mx-auto pt-3">
             <div className="col-span-12 md:col-span-8 grid-cols-12 grid grid-cols-12 gap-y-2 order-1 lg:max-h-70vh">
 
                 <img src="/images/potato.png" className="col-span-12 w-full object-contain lg:max-h-80vh bg-gray-100" alt="" />
@@ -184,7 +184,7 @@ const Product_details = () => {
                 </div>
             </div>
 
-            <div className="col-span-12 order-11 flex flex-col px-3 md:px-4 lg:px-5 xl:px-6 mt-5 md:mt-6 lg:mt-7 py-6 " style={{ background: "#F8F7FF" }}>
+            <div className="col-span-12 order-11 flex flex-col px-3 md:px-4 lg:px-5 xl:px-6 mt-3 md:mt-5 lg:mt-7 py-6" style={{ background: "#F8F7FF" }}>
                 <h6 className="flex  justify-between text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-600">
                     <span>Reviews</span>
                     <div className="flex items-center gap-x-2 md:gap-x-3">

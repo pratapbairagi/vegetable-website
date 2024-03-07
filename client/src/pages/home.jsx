@@ -28,7 +28,6 @@ const Home = () => {
             <Service_features />
             <Service_feedbacks />
             <Contact />
-            <Footer />
         </div>
     )
 }

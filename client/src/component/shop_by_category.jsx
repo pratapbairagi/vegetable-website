@@ -74,11 +74,11 @@ const Shop_by_category = () => {
                             <li className=" h-max w-max sm:w-max md:w-full md:border-b border-gray-300 hover:border-b md:hover:bg-gray-100">
                                 <button className="text-base sm:text-base md:text-xl lg:text-2xl xl:text-2xl px-3 py-1.5 sm:py-1.5 md:py-2 lg:py-2.5 xl:py-3 text-gray-400 font-bold font-nunito w-max sm:w-max md:w-full text-start">Other</button>
                             </li>
-                            <img src="./images/veg_category.png" className="w-full hidden md:block mt-6" alt="" />
+                            <img src="./images/veg_category.png" className="w-full hidden md:block mt-6 " alt="" />
                         </ul>
                     </div>
                     <div className="col-span-12 sm:col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-9 grid grid-cols-12 min-h-96 h-max gap-y-6 relative">
-                        <img src="./images/shop_by_cat_background.png" className="absolute h-full object-contain bottom-0 right-0 opacity-10 z-0" alt="" />
+                        {/* <img src="./images/shop_by_cat_background.png" className="absolute h-full object-contain bottom-0 right-0 opacity-10 z-0" alt="" /> */}
                         {card2.map((v, i) => {
                             return <Card2 key={v.id} title={v.title} price={v.price} image={v.image} description={v.description} ratings={v.ratings} />
                         })}

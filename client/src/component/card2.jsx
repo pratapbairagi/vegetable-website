@@ -1,3 +1,4 @@
+import { NavLink } from "react-router-dom"
 
 
 const Card2 = ({title, price, image, ratings, description}) => {
@@ -15,7 +16,7 @@ const Card2 = ({title, price, image, ratings, description}) => {
                 <img src={image} className=" h-full w-full object-contain" alt="" />
             </div>
             <div className="w-full h-8 sm:h-9 md:h-10 lg:h-12 xl:h-14 flex items-center justify-between px-2 bg-gray-100">
-                <h6 className=" text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-extrabold font-nunito text-theme-blue-600">{title}</h6>
+                <NavLink to={`/vegetable/${title}`} className=" text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-extrabold font-nunito text-theme-blue-600">{title}</NavLink>
                 <h6 className="text-base sm:text-base md:text-xl lg:text-2xl xl:text-2xl font-bold text-theme-green-600 h-max">₹ {price}/KG</h6>
             </div>
         </div>
