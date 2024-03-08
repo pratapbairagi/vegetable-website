@@ -20,6 +20,7 @@ import Login from './component/login';
 import {Route, Routes, BrowserRouter} from "react-router-dom"
 import Product_details from './component/product_details'
 import Home from './pages/home'
+import Profile from './component/profile'
 
 
 function App() {
@@ -38,6 +39,7 @@ function App() {
       
       <Routes>
       <Route path='/' element={<Home/>}/>
+      <Route path='/profile' element={<Profile/>}/>
 
 
       <Route path='/vegetable/:id' element={<Product_details/>}/>
