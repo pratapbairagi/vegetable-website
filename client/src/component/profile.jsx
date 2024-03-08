@@ -3,15 +3,15 @@
 
 const Profile = () => {
     return (
-        <div className="w-full md:w-11/12 lg:10/12 xl:w-10/12 grid grid-cols-12 py-2 px-2 mx-auto">
+        <div className="w-full md:w-11/12 lg:10/12 xl:w-11/12 grid grid-cols-12 py-2 px-2 mx-auto pb-28">
             <div className="col-span-12 sm:col-span-6 md:col-span-4 p-2 mt-2 aspect-square flex items-center justify-center border">
                 <img src="/images/profile_image.png" className="w-full  aspect-square object-contain border" alt="" />
                 {/* <input type="file" name="" className="absolute" id="" /> */}
             </div>
 
-            <div className="col-span-12 sm:col-span-6 md:col-span-8 flex flex-col gap-y-3 md:gap-y-4 lg:gap-y-5 py-4 px-3 md:px-4 lg:px-6 xl:px-8">
+            <div className="col-span-12 sm:col-span-6 md:col-span-8 flex flex-col gap-y-3 md:gap-y-4 lg:gap-y-5 py-4 px-3 md:px-4 lg:px-6 xl:px-8 justify-end">
 
-                <div className="w-full flex flex-col justify-start items-center gap-x-3 sm:gap-x-4 lg:gap-x-5 xl:gap-x-6 gap-y-1 md:gap-y-1.5 lg:gap-y-2 xl:gap-y-2.5 order-1 border-b pb-5 sm:border-b-0 sm:border-t sm:pb-0 sm:pt-6 sm:order-6 md:mt-5">
+                <div className="w-full flex flex-col justify-start items-center gap-x-3 sm:gap-x-4 lg:gap-x-5 xl:gap-x-6 gap-y-1 md:gap-y-1.5 lg:gap-y-2 xl:gap-y-2.5 order-1 border-b pb-5 sm:border-b-0 sm:border-t sm:pb-0 sm:pt-6 sm:order-7 md:mt-8 lg:mt-10 xl:mt-12">
                     <strong className="text-gray-500 text-xl md:text-2xl lg:text-3xl font-nunito font-extrabold">John Doe</strong>
                     <span className="text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-300 w-full bg-gray-100 text-center py-1 rounded">user</span>
                 </div>
