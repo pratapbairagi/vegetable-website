@@ -46,6 +46,9 @@ const Most_selling_section = () => {
                    })} 
                     
                 </div>
+                <div className="w-full col-span-12 flex justify-end mt-3 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-7 px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6">
+                            <button className="text-sm md:text-base lg:text-lg text-theme-blue-600 font-semibold h-7 ">See More</button>
+                </div>
             </div>
         </>
     )

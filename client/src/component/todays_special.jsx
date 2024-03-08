@@ -65,7 +65,7 @@ const Todays_special = () => {
                         
                         </div>
 
-                        <div className=" col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-7 xl:col-span-8 gap-x-2 flex max-w-screen overflow-auto gap-y-4 py-6 scroll-overflow-hidden">
+                        <div className=" col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-7 xl:col-span-8 gap-x-2 flex max-w-screen overflow-auto gap-y-4 py-6 pb-2 scroll-overflow-hidden">
                             <Card3 style={{ backgroundColor: "#F0FFF6" }} />
                             <Card3 style={{ backgroundColor: "#F6F0FF" }} />
                             <Card3 style={{ backgroundColor: "#FFF9F0" }} />
@@ -74,7 +74,9 @@ const Todays_special = () => {
                             <Card3 style={{ backgroundColor: "#FFF9F0" }} />
                             <Card3 style={{ backgroundColor: "#F0FFF6" }} />
                         </div>
-
+                        <div className="w-full order-3 col-span-12 flex justify-end mt-1 md:mt-2 lg:mt-3 px-1.5 sm:px-2 md:px-2.5 lg:px-3 xl:px-4">
+                            <button className="text-sm md:text-base lg:text-lg text-theme-blue-600 font-semibold h-7">See More</button>
+                        </div>
                     </div>
 
                     
@@ -85,7 +87,7 @@ const Todays_special = () => {
                             <img src="./images/todays_deal_bg_img.png" className="w-auto h-full max-h-64 sm:max-h-80 lg:max-h-80 ml-auto" alt="" />
                         </div>
 
-                        <div className=" order-2 sm:order-2 md:order-2 lg:order-1 xl:order-1 col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-7 xl:col-span-8 gap-x-2 flex max-w-screen overflow-auto gap-y-4 py-6 scroll-overflow-hidden">
+                        <div className=" order-2 sm:order-2 md:order-2 lg:order-1 xl:order-1 col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-7 xl:col-span-8 gap-x-2 flex max-w-screen overflow-auto gap-y-4 py-6 pb-2 scroll-overflow-hidden">
                             <Card3 style={{ backgroundColor: "#F0FFF6" }} />
                             <Card3 style={{ backgroundColor: "#F6F0FF" }} />
                             <Card3 style={{ backgroundColor: "#FFF9F0" }} />
@@ -93,6 +95,9 @@ const Todays_special = () => {
                             <Card3 style={{ backgroundColor: "#F6F0FF" }} />
                             <Card3 style={{ backgroundColor: "#FFF9F0" }} />
                             <Card3 style={{ backgroundColor: "#F0FFF6" }} />
+                        </div>
+                        <div className="w-full order-3 col-span-12 flex justify-end mt-1 md:mt-2 lg:mt-3 px-1.5 sm:px-2 md:px-2.5 lg:px-3 xl:px-4">
+                            <button className="text-sm md:text-base lg:text-lg text-theme-blue-600 font-semibold h-7">See More</button>
                         </div>
 
                     </div>

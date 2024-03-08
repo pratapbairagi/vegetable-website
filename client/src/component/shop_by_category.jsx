@@ -77,13 +77,16 @@ const Shop_by_category = () => {
                             <img src="./images/veg_category.png" className="w-full hidden md:block mt-6 " alt="" />
                         </ul>
                     </div>
-                    <div className="col-span-12 sm:col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-9 grid grid-cols-12 min-h-96 h-max gap-y-6 relative">
+                    <div className="col-span-12 sm:col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-9 grid grid-cols-12 min-h-96 h-max gap-y-2 relative">
                         {/* <img src="./images/shop_by_cat_background.png" className="absolute h-full object-contain bottom-0 right-0 opacity-10 z-0" alt="" /> */}
                         {card2.map((v, i) => {
                             return <Card2 key={v.id} title={v.title} price={v.price} image={v.image} description={v.description} ratings={v.ratings} />
                         })}
 
-                    <Pagination/>
+                        {/* <Pagination/> */}
+                        <div className="w-full col-span-12 flex justify-end mt-0 px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6">
+                            <button className="text-sm md:text-base lg:text-lg text-theme-blue-600 font-semibold h-7 ">See More</button>
+                        </div>
 
                     </div>
                 </div>
