@@ -14,6 +14,17 @@
     .scroll-overflow-hidden::-webkit-scrollbar {
         display: none;
       }
-    
+    .top-initial{
+        top: initial;
+    }
+    .bottom-initial{
+        bottom: initial;
+    }
+    .left-initial{
+        left: initial;
+    }
+    .right-initial{
+        right: initial;
+    }
     
 }

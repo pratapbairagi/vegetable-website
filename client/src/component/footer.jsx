@@ -1,8 +1,10 @@
+import { useLocation } from "react-router-dom"
 
 
 const Footer = () => {
+    const location = useLocation()
     return (
-        <div className="w-full flex flex-col py-2 bg-gray-100">
+        <div className={`w-full  ${location.pathname === "/dashboard" ? "hidden": "flex"} flex-col py-2 bg-gray-100`}>
             <div className="grid grid-cols-12 px-6 gap-y-7 gap-x-2 py-4">
                 <ul className="col-span-12 lg:col-span-3">
                     <li className="text-base md:text-xl xl:text-2xl font-semibold text-theme-blue-600 ">About Us</li>

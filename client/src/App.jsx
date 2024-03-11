@@ -21,6 +21,8 @@ import {Route, Routes, BrowserRouter} from "react-router-dom"
 import Product_details from './component/product_details'
 import Home from './pages/home'
 import Profile from './component/profile'
+import Signup from './component/signup'
+import Dashboard from './component/dashboard'
 
 
 function App() {
@@ -33,13 +35,16 @@ function App() {
       <BrowserRouter>
             <Navbar setToggleCart={setToggleCart} setLoginToggle={setLoginToggle} />
             <Cart toggleCart={toggleCart} setToggleCart={setToggleCart} />
-            <Login loginToggle={loginToggle} setLoginToggle={setLoginToggle} />
+            {/* <Login loginToggle={loginToggle} setLoginToggle={setLoginToggle} /> */}
 
 
       
       <Routes>
       <Route path='/' element={<Home/>}/>
       <Route path='/profile' element={<Profile/>}/>
+      <Route path='/signup' element={<Signup/>}/>
+      <Route path='/login' element={<Login/>}/>
+      <Route path='/dashboard' element={<Dashboard/>}/>
 
 
       <Route path='/vegetable/:id' element={<Product_details/>}/>

@@ -1,8 +1,10 @@
 import React, { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation, useParams } from "react-router-dom";
 
 
 const Navbar = ({ setToggleCart, setLoginToggle }) => {
+    const location = useLocation()
+    console.log(location)
     const [isOpenMainMenu, setIsOpenMainMenu] = useState(false);
     const [isOpenMenu1, setIsOpenMenu1] = useState(false);
     const [isOpenMenu2, setIsOpenMenu2] = useState(false);
@@ -16,7 +18,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
     };
     return (
         <>
-            <header className=" text-white py-3 sm:py-3 md:py-3 lg:py-4 xl:py-4 sticky z-20 top-0 shadow" style={{ background: "#F0FFF6" }}>
+            <header className={`text-white py-3 sm:py-3 md:py-3 lg:py-4 xl:py-4 ${location.pathname === "/dashboard" ? "hidden" : "sticky"} z-20 top-0 shadow`} style={{ background: "#F0FFF6" }}>
                 <div className=" mx-auto grid grid-cols-12 gap-y-2 justify-between items-center px-4">
                     <div className=" flex justify-start col-span-3   font-bold md:mb-0 relative z-0">
                         <NavLink to="/" className="text-theme-blue-600 py-0.5 sm:py-0.5 md:py-1 lg:py-1.5 xl:py-2 text-base sm:text-base md:text-xl lg:text-2xl rounded">Website</NavLink>
@@ -77,7 +79,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                                     <button onClick={()=> {
                                         setLoginToggle(true)
                                         setIsOpenMainMenu(false)
-                                    }} className="text-theme-blue-600 font-semibold mx-1 ml-2">Login</button> / <button className="text-theme-blue-600 font-semibold mx-1">Sign Up</button>
+                                    }} className="text-theme-blue-600 font-semibold mx-1 ml-2">Login</button> / <NavLink to="/signup" className="text-theme-blue-600 font-semibold mx-1">Sign Up</NavLink>
                                 </div>
                             </div>
                         </ul>
@@ -104,11 +106,11 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                             </svg>
                         </button>
 
-                        <button onClick={() => setLoginToggle(true)} className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 md:bg-theme-blue-600 flex justify-center items-center md:p-1 rounded-md mr-2">
+                        <NavLink to="/login" onClick={() => setLoginToggle(true)} className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 md:bg-theme-blue-600 flex justify-center items-center md:p-1 rounded-md mr-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" className="size-6 sm:size-7 md:size-7 lg:size-8 xl:size-9 text-theme-blue-600 md:text-gray-100 ">
                                 <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                             </svg>
-                        </button>
+                        </NavLink>
 
                         <button onClick={() => setIsOpenMainMenu(true)} className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 block sm:flex md:hidden bg-gray-100 aspect-square flex items-center justify-center bg-theme-blue-600 text-gray-100 rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 sm:size-7 md:size-8 lg:size-9 xl:size-10">

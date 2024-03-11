@@ -4,6 +4,10 @@
   background-color: rgba(192, 191, 191, 0.347);
 } */
 
+*{
+  box-sizing: border-box;
+}
+
 .pagination {
   display: flex;
   list-style: none;

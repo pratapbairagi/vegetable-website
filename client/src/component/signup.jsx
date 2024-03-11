@@ -1,13 +1,12 @@
 import { NavLink } from "react-router-dom"
 
 
-const Login = ({ loginToggle, setLoginToggle }) => {
+const Signup = ({ loginToggle, setLoginToggle }) => {
     return (
-        <div className={`w-full  h-screen z-30 top-0 bg-white block fixed`}>
+        <div className={`w-full h-max max-h-screen overflow-auto min-h-max z-30 top-0 bg-white block fixed `}  >
 
-            <div className="grid grid-cols-12 relative h-full relative">
+            <div className="grid grid-cols-12 relative h-max min-h-screen relative">
                 <NavLink to="/" onClick={()=> setLoginToggle(false)} className="absolute z-40 right-3 top-5 ">
-                    
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 stroke-gray-300 md:stroke-gray-600">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
@@ -25,25 +24,42 @@ const Login = ({ loginToggle, setLoginToggle }) => {
                     </svg>
                 </div>
 
-                <div className="col-span-12 md:col-span-6 max-h-60vh md:max-h-full flex flex-col md:justify-center items-center">
+                <div className="col-span-12 md:col-span-6 border  min-h-screen max-h-max h-max md:h-full md:max-h-full flex flex-col md:justify-center items-center py-10">
                     
-                    <h5 className="w-full text-center text-xl font-extrabold font-nunito text-theme-blue-600">LOGIN</h5>
+                    <h5 className="w-full text-center text-xl font-extrabold font-nunito text-theme-blue-600">CREATE ACCOUNT</h5>
 
-                    <div className="flex flex-col md:justify-center gap-y-2 md:gap-y-4 mt-4 md:max-w-90% lg:max-w-96 relative">
-                        <fieldset className="flex flex-col">
+                    <div className="grid grid-cols-12 md:justify-center gap-y-2 md:gap-y-4 mt-4 md:max-w-90% lg:max-w-96 gap-x-3 relative h-max"  >
+                        <fieldset className="flex flex-col col-span-12 lg:col-span-6">
+                            <label htmlFor="first_name" className="text-base text-gray-400">First Name</label>
+                            <input type="text" id="first_name" className="border text-sm py-2 px-2" placeholder="Ex: John Doe" />
+                        </fieldset>
+                        <fieldset className="flex flex-col col-span-12 lg:col-span-6">
+                            <label htmlFor="last_name" className="text-base text-gray-400">Last Name</label>
+                            <input type="text" id="name" className="border text-sm py-2 px-2" placeholder="Ex: John Doe" />
+                        </fieldset>
+                        <fieldset className="flex flex-col col-span-12 lg:col-span-6">
                             <label htmlFor="email" className="text-base text-gray-400">Email</label>
-                            <input type="email" className="border text-sm py-2 px-2" placeholder="Ex: johnn@gmail.com" />
+                            <input type="email" id="email" className="border text-sm py-2 px-2" placeholder="Ex: John Doe" />
+                        </fieldset>
+                        <fieldset className="flex flex-col col-span-12 lg:col-span-6">
+                            <label htmlFor="number" className="text-base text-gray-400">Number</label>
+                            <input type="tel" id="number" className="border text-sm py-2 px-2" placeholder="Ex: 1234567890" />
                         </fieldset>
 
-                        <fieldset className="flex flex-col">
+                        <fieldset className="flex flex-col col-span-12 lg:col-span-6">
                             <label htmlFor="password" className="text-base text-gray-400">Password</label>
                             <input type="password" className="border text-sm py-2 px-2" placeholder="Ex: Abcd1@" />
                         </fieldset>
 
-                        <fieldset className="grid grid-cols-12">
+                        <fieldset className="flex flex-col col-span-12 lg:col-span-6">
+                            <label htmlFor="confirm_password" className="text-base text-gray-400">Confirm Password</label>
+                            <input type="password" id="confirm_password" className="border text-sm py-2 px-2" placeholder="Ex: johnn@gmail.com" />
+                        </fieldset>
+
+                        <fieldset className="grid grid-cols-12 col-span-12">
                             <span className="col-span-6 flex gap-x-3">
                                 <input type="checkbox" name="" id="remember_pass" />
-                                <label className="text-xs text-gray-400" htmlFor="#remember_pass">Remember password</label>
+                                <label className="text-xs text-gray-400" htmlFor="#remember_pass">I agree with the T&C</label>
                             </span>
 
                             <span className="col-span-6 flex justify-end">
@@ -51,20 +67,20 @@ const Login = ({ loginToggle, setLoginToggle }) => {
                             </span>
                         </fieldset>
 
-                        <fieldset className="grid grid-cols-12 mt-4">
-                            <button className="bg-theme-blue-600 text-gray-100 py-1.5 col-span-12">Login</button>
+                        <fieldset className="grid grid-cols-12 mt-4 col-span-12">
+                            <button className="bg-theme-blue-600 text-gray-100 py-1.5 col-span-12">Sign Up</button>
                             <span className="col-span-12 flex justify-end mt-2">
-                                <NavLink to="/signup" className="text-xs text-gray-400 text-theme-blue-600">Don't have account ? Sign up</NavLink>
+                                <NavLink to="/login" className="text-xs text-gray-400 text-theme-blue-600">have an account ? Login</NavLink>
                             </span>
                         </fieldset>
 
-                        <fieldset className="grid grid-cols-12 mt-5">
+                        <fieldset className="grid grid-cols-12 mt-5 col-span-12">
                             <span className="col-span-12 flex justify-center text-xl font-bold text-theme-blue-600">
                                 or
                             </span>
                         </fieldset>
 
-                        <div className="flex items-center justify-center gap-x-3 mt-5">
+                        <div className="flex items-center justify-center gap-x-3 mt-5 col-span-12">
                             <span className="w-10 h-px bg-theme-blue-600"></span>
                             <button className="p-2 shadow-md rounded-full">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 488 512" className="w-6 fill-theme-blue-600">
@@ -89,4 +105,4 @@ const Login = ({ loginToggle, setLoginToggle }) => {
     )
 }
 
-export default Login
+export default Signup

@@ -2,7 +2,7 @@
 
 const Pagination = () => {
     return (
-        <div class="col-span-12 flex justify-center sm:justify-center md:justify-end justify-end md:px-10 border-t pt-5">
+        <div class=" flex justify-center sm:justify-center md:justify-end justify-end md:px-10 border-t pt-5 pb-5 bg-white w-full">
             <nav className="">
                 <ul class="pagination">
                     <li>
