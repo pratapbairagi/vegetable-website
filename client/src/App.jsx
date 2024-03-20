@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -23,21 +23,32 @@ import Home from './pages/home'
 import Profile from './component/profile'
 import Signup from './component/signup'
 import Dashboard from './component/dashboard'
+import AddProductForm from './component/addProductForm'
+import ErrorBoundary from './component/errorBoundary.jsx'
+import axios from "axios"
+import { useDispatch, useSelector } from 'react-redux'
+import { get_products } from './redux/product/action.js'
 
 
 function App() {
   const [toggleCart, setToggleCart] = useState(false)
     const [loginToggle, setLoginToggle] = useState(false)
+
+    // const dispatch = useDispatch()
+    // const state = useSelector(state=> state.product)
+
+    // console.log(state)
+
+ 
+
  
 
   return (
+    <ErrorBoundary>
     <div className='relative'>
       <BrowserRouter>
             <Navbar setToggleCart={setToggleCart} setLoginToggle={setLoginToggle} />
             <Cart toggleCart={toggleCart} setToggleCart={setToggleCart} />
-            {/* <Login loginToggle={loginToggle} setLoginToggle={setLoginToggle} /> */}
-
-
       
       <Routes>
       <Route path='/' element={<Home/>}/>
@@ -45,13 +56,14 @@ function App() {
       <Route path='/signup' element={<Signup/>}/>
       <Route path='/login' element={<Login/>}/>
       <Route path='/dashboard' element={<Dashboard/>}/>
-
+      <Route path='/add/vegetable' element={<AddProductForm/>}/>
 
       <Route path='/vegetable/:id' element={<Product_details/>}/>
       </Routes>
       <Footer/>
       </BrowserRouter>
       </div>
+      </ErrorBoundary>
   
   )
 }

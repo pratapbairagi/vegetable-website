@@ -16,11 +16,11 @@ const Login = ({ loginToggle, setLoginToggle }) => {
                     <img src="./images/login_bg2.png" className="h-full object-contain relative z-10" style={{filter:"drop-shadow(2px 2px 5px black)"}} alt="" />
                     <img src="./images/magicpattern-login-blob2-1709559066335.png" className="absolute left-0 size-11/12 top-0 left-0 aspect-square hidden lg:block opacity-10" alt="" />
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="absolute w-full bottom-0 ml-px z-20 rounded-b-3xl md:rounded-b-none md:rounded-r-3xl">
-                        <path className="fill-blue-300" fill-opacity="0.3" d="M0,224L80,234.7C160,245,320,267,480,272C640,277,800,267,960,224C1120,181,1280,107,1360,69.3L1440,32L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
+                        <path className="fill-blue-300" fillOpacity="0.3" d="M0,224L80,234.7C160,245,320,267,480,272C640,277,800,267,960,224C1120,181,1280,107,1360,69.3L1440,32L1440,320L1360,320C1280,320,1120,320,960,320C800,320,640,320,480,320C320,320,160,320,80,320L0,320Z">
                         </path>
                     </svg>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="absolute w-full bottom-0 ml-px z-10 rounded-b-3xl md:rounded-b-none md:rounded-r-3xl">
-                        <path className="fill-blue-500" fill-opacity="0.3" d="M0,0L120,42.7C240,85,480,171,720,213.3C960,256,1200,256,1320,256L1440,256L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z">
+                        <path className="fill-blue-500" fillOpacity="0.3" d="M0,0L120,42.7C240,85,480,171,720,213.3C960,256,1200,256,1320,256L1440,256L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z">
                         </path>
                     </svg>
                 </div>
@@ -78,7 +78,7 @@ const Login = ({ loginToggle, setLoginToggle }) => {
                         
                     </div>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="absolute z-0 bottom-0 left- w-full block md:hidden">
-                            <path className="fill-theme-blue-600"  fill-opacity="1" d="M0,64L120,106.7C240,149,480,235,720,261.3C960,288,1200,256,1320,240L1440,224L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z">
+                            <path className="fill-theme-blue-600"  fillOpacity="1" d="M0,64L120,106.7C240,149,480,235,720,261.3C960,288,1200,256,1320,240L1440,224L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z">
                             </path>
                     </svg>
                 </div>

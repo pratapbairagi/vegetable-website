@@ -1,7 +1,7 @@
 import Card3 from "./card3"
 
 
-const Todays_special = () => {
+const Todays_special = ({products}) => {
     const card3 = [
         {
             title: "Brinjal",

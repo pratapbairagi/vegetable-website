@@ -34,7 +34,7 @@ const Contact = () => {
 
                         <fieldset className="flex flex-col lg:max-w-80%">
                             <label htmlFor="msg" className=" text-sm md:text-base lg:text-xl xl:text-2xl font-semibold font-nunito text-gray-400 px-1">Message</label>
-                            <textarea type="text" rows="6" id="contact" className="border outline-0 px-1 py-2.5 text-xs md:text-sm lg:text-base xl:text-xl text-gray-400 font-nunito rounded" > </textarea>
+                            <textarea  type="text" readOnly value="" rows="6" id="contact" className="border outline-0 px-1 py-2.5 text-xs md:text-sm lg:text-base xl:text-xl text-gray-400 font-nunito rounded" > </textarea>
                         </fieldset>
 
                         <input type="submit" className="text-gray-100 bg-theme-blue-600 text-base mt-1.5 h-9 font-extrabold font-nunito w-32 pt-0.5 tracking-wide hover:bg-blue-500 cursor-pointer" value="SEND" />
