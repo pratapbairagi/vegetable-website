@@ -3,8 +3,8 @@ import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE
 
 export const add_product = (product) => async (dispatch) => {
     console.log(product)
-    // const url = "https://veg-etable.vercel.app/api/vegetable";
-    const url = "http://localhost:5005/api/vegetable";
+    const url = "https://veg-etable.vercel.app/api/vegetable";
+    // const url = "http://localhost:5005/api/vegetable";
     try {
         dispatch({
             type : ADD_PRODUCT_REQUEST
@@ -29,9 +29,9 @@ export const add_product = (product) => async (dispatch) => {
 }
 
 export const get_products = ({title="", category="", price={lte:0,gte:1000}, tags=[], features=[]}) => async (dispatch) => {
-    let url = `http://localhost:5005/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
+    // let url = `http://localhost:5005/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
 
-    // const url = "https://veg-etable.vercel.app/api/vegetables";
+    const url = `https://veg-etable.vercel.app/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;;
 
     try{
         dispatch({
@@ -59,8 +59,8 @@ export const get_products = ({title="", category="", price={lte:0,gte:1000}, tag
 
 export const get_product = (id) => async (dispatch) => {
 
-    const url = `http://localhost:5005/api/vegetable/${id}`;
-    // const url = `https://veg-etable.vercel.app/api/vegetable/${id}`;
+    // const url = `http://localhost:5005/api/vegetable/${id}`;
+    const url = `https://veg-etable.vercel.app/api/vegetable/${id}`;
 
     try {
         dispatch({
@@ -112,7 +112,8 @@ export const get_product = (id) => async (dispatch) => {
 // }
 
 export const filteredProducts = ({ active_category, filteredProducts }) => async (dispatch) => {
-    const url = `http://localhost:5005/api/selected_category/${active_category}`
+    // const url = `http://localhost:5005/api/selected_category/${active_category}`
+    const url = `https://veg-etable.vercel.app/api/selected_category/${active_category}`
     try {
         dispatch({
             type : CATEGORIE_SELECTED_REQUEST
