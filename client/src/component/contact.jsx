@@ -2,7 +2,7 @@
 
 const Contact = () => {
     return (
-        <div className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16" >
+        <div className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 bg-white mt-2" >
             <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-center text-theme-blue-600 ">Contact Us</h2>
 
             <div className="grid grid-cols-12 w-full mt-10 lg:mt-16 gap-y-10 lg:gap-y-16 xl:max-w-80% mx-auto" >

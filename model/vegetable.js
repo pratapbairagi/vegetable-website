@@ -7,7 +7,7 @@ const veg = new mongoose.Schema({
         required : [true, "Must be 3 characters atleast."]
     },
     category : {
-        type : String,
+        type : [String],
         required : [true, "Must be 3 characters atleast."]
     },
     description : {

@@ -35,14 +35,14 @@ const Most_selling_section = ({products}) => {
             ratings : 4,
             id:4
         }
-    ]
+    ].slice(0,4)
     return (
         <>
-            <div className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16" >
+            <div className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 lg:pb-6 xl:pb-8 bg-white mt-2" >
                 <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-center text-theme-blue-600 ">Most Selling</h2>
-                <div className="w-full h-max grid grid-cols-12 gap-y-3 mt-6 sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12">
+                <div className="w-full max-w-full lg:overflow-x-auto scroll-overflow-hidden h-max grid lg:flex grid-cols-12 gap-y-3 mt-6 sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12">
                    {products.map((v,i)=>{
-                    return <Card1 key={v.id} title={v.title} price={v.price} images={v.images} description={v.description} ratings={v.ratings}/>
+                    return  <Card1 key={i} title={v.title} id={v._id} price={v.price} images={v.images} description={v.description} ratings={v.ratings}/>
                    })} 
                     
                 </div>

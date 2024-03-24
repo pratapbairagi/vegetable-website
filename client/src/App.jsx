@@ -34,12 +34,6 @@ function App() {
   const [toggleCart, setToggleCart] = useState(false)
     const [loginToggle, setLoginToggle] = useState(false)
 
-    // const dispatch = useDispatch()
-    // const state = useSelector(state=> state.product)
-
-    // console.log(state)
-
- 
 
  
 

@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom"
 
 
-const Card2 = ({title, price, image, ratings, description}) => {
+const Card2 = ({title, price, image, ratings, description, id}) => {
     return (
         <div className="flex flex-col col-span-6 sm:col-span-6 md:col-span-6 lg:col-span-4 xl:col-span-4 min-h-30 h-max p-2 sm:p-2 md:p-3 lg:p-4 xl:p-5 border-r">
             <div className="w-full h-36 sm:h-36 md:h-48 lg:h-60 xl:h-72 flex items-center justify-center relative ">
@@ -16,7 +16,7 @@ const Card2 = ({title, price, image, ratings, description}) => {
                 <img src={image} className=" h-full w-full object-contain" alt="" />
             </div>
             <div className="w-full h-8 sm:h-9 md:h-10 lg:h-12 xl:h-14 flex items-center justify-between px-2 bg-gray-100">
-                <NavLink to={`/vegetable/${title}`} className=" text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-extrabold font-nunito text-theme-blue-600">{title}</NavLink>
+                <NavLink to={`/vegetable/${id}`} className=" text-sm sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-extrabold font-nunito text-theme-blue-600">{title}</NavLink>
                 <h6 className="text-base sm:text-base md:text-xl lg:text-2xl xl:text-2xl font-bold text-theme-green-600 h-max">₹ {price}/KG</h6>
             </div>
         </div>

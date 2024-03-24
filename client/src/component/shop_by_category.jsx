@@ -1,68 +1,54 @@
+import { useDispatch, useSelector } from "react-redux"
 import Card2 from "./card2"
 import Pagination from "./pagination"
+import { filteredProducts } from "../redux/product/action"
+import { memo, useEffect } from "react"
 
 
 const Shop_by_category = () => {
-    const card2 = [
-        {
-            title: "Cucumber",
-            price: 40,
-            image: "./images/cucumber.png",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, esse?",
-            ratings: 4,
-            id: 1,
-            category: "salad's veg"
-        },
-        {
-            title: "Carrot",
-            price: 30,
-            image: "./images/carrot.png",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, esse?",
-            ratings: 4,
-            id: 2,
-            category: "salad's veg"
-        },
-        {
-            title: "Onion",
-            price: 50,
-            image: "./images/onion.png",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, esse?",
-            ratings: 4,
-            id: 3,
-            category: "salad's veg"
-        },
-        // {
-        //     title : "Tomato",
-        //     price: 60,
-        //     image: "./images/tomato.png",
-        //     description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, esse?",
-        //     ratings : 4,
-        //     id:4,
-        //     category : "salad's veg"
-        // },
-        {
-            title: "Radish",
-            price: 60,
-            image: "./images/radish.png",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, esse?",
-            ratings: 4,
-            id: 4,
-            category: "salad's veg"
-        }
-    ]
+
+
+    const dispatch = useDispatch()
+    const products = useSelector(state => state.product)
+    // let x = 0
+    // useEffect(()=>{
+    //     if(products.filteredProducts.length == 0 && x == 0 ){
+    //         x++
+    // console.log("useEffect")
+
+    //         dispatch(filteredProducts("all"))
+    //     }
+    // },[products.filteredProducts])
+
+    console.log(products)
     return (
         <>
-            <div className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16">
+            <div id="shop_by_category" className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 lg:pb-6 xl:pb-8 bg-white mt-2">
                 <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-center text-theme-blue-600 ">Shop By Category</h2>
 
                 <div className="w-full h-max grid grid-cols-12 gap-y-3 mt-6 sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12">
                     <div className="col-span-12 sm:col-span-12 md:col-span-3 lg:col-span-3 xl:col-span-3 h-full min-h-20 md:border-r">
                         <ul className="flex flex-row sm:flex-row md:flex-col lg:flex-col xl:flex-col h-full items-center sm:items-center md:items-start lg:items-start xl:items-start gap-x-1 max-w-screen overflow-auto px-2 scroll-overflow-hidden">
                             <h5 className="hidden sm:hidden md:block w-full text-center text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl text-theme-blue-600 font-nunito font-extrabold md:mt-5 lg:mt-6 xl:mt-8 md:mb-5 lg:mb-6 xl:mb-8">Category</h5>
-                            <li className=" h-max w-max sm:w-max md:w-full border-b border-green-800 md:border-b md:border-gray-300 md:bg-gray-100">
-                                <button className="text-base sm:text-base md:text-xl lg:text-2xl xl:text-2xl px-3 py-1.5 sm:py-1.5 md:py-2 lg:py-2.5 xl:py-3 text-gray-400 font-bold font-nunito w-max sm:w-max md:w-full text-start">Spinach</button>
+                            {/* {products.categories?.map((v,i)=>{
+
+                                return <li onClick={(e)=> {
+                                    dispatch(filteredProducts( {active_category : v.category, categories : products.categories } ))
+                                }} key={i} className={`cursor-pointer h-max w-max sm:w-max md:w-full ${ v.active ? "border-b" : "border-b-0" }  border-green-800 md:border-b md:border-gray-300 md:bg-gray-100`}>
+                                <button className="text-base sm:text-base md:text-xl lg:text-2xl xl:text-2xl px-3 py-1.5 sm:py-1.5 md:py-2 lg:py-2.5 xl:py-3 text-gray-400 font-bold font-nunito w-max sm:w-max md:w-full text-start">{v.category }</button>
                             </li>
-                            <li className=" h-max w-max sm:w-max md:w-full md:border-b border-gray-300 hover:border-b md:hover:bg-gray-100">
+                           })} */}
+
+                            {products.filteredProducts?.map((v, i) => {
+
+                                return <li onClick={(e) => {
+                                    dispatch(filteredProducts({ active_category: v.category, filteredProducts: products.filteredProducts.map((f)=>{ return { ...f, active : f.category == v.category ? true : false  }}) }))
+                                }} key={i} className={`cursor-pointer h-max w-max sm:w-max md:w-full ${v.active ? "border-b md:bg-gray-100" : "border-b-0 md:bg-transparent"}  border-green-800 md:border-b md:border-gray-300 `}>
+                                    <button className="text-base sm:text-base md:text-xl lg:text-2xl xl:text-2xl px-3 py-1.5 sm:py-1.5 md:py-2 lg:py-2.5 xl:py-3 text-gray-400 font-bold font-nunito w-max sm:w-max md:w-full text-start">{v.category}</button>
+                                </li>
+                            })}
+
+                            {/* <li className=" h-max w-max sm:w-max md:w-full md:border-b border-gray-300 hover:border-b md:hover:bg-gray-100">
                                 <button className="text-base sm:text-base md:text-xl lg:text-2xl xl:text-2xl px-3 py-1.5 sm:py-1.5 md:py-2 lg:py-2.5 xl:py-3 text-gray-400 font-bold font-nunito w-max sm:w-max md:w-full text-start">flowers</button>
                             </li>
                             <li className=" h-max w-max sm:w-max md:w-full md:border-b border-gray-300 hover:border-b md:hover:bg-gray-100">
@@ -73,14 +59,22 @@ const Shop_by_category = () => {
                             </li>
                             <li className=" h-max w-max sm:w-max md:w-full md:border-b border-gray-300 hover:border-b md:hover:bg-gray-100">
                                 <button className="text-base sm:text-base md:text-xl lg:text-2xl xl:text-2xl px-3 py-1.5 sm:py-1.5 md:py-2 lg:py-2.5 xl:py-3 text-gray-400 font-bold font-nunito w-max sm:w-max md:w-full text-start">Other</button>
-                            </li>
+                            </li> */}
                             <img src="./images/veg_category.png" className="w-full hidden md:block mt-6 " alt="" />
                         </ul>
                     </div>
-                    <div className="col-span-12 sm:col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-9 grid grid-cols-12 min-h-96 h-max gap-y-2 relative">
+                    {products.filteredProducts.map((v, i) => {
+                  return  <div key={i} className={`col-span-12 ${v.active ? "flex" : "hidden"} sm:col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-9 grid grid-cols-12 min-h-96 h-max gap-y-2 relative`}>
                         {/* <img src="./images/shop_by_cat_background.png" className="absolute h-full object-contain bottom-0 right-0 opacity-10 z-0" alt="" /> */}
-                        {card2.map((v, i) => {
-                            return <Card2 key={v.id} title={v.title} price={v.price} image={v.image} description={v.description} ratings={v.ratings} />
+                        {/* {products.filteredProducts.map((v, i) => {
+                            console.log("filter cat => ", v)
+                            return <Card2 key={i} title={v.title} price={v.price} image={v.images[0].url} description={v.description} ratings={v.ratings} />
+                        })} */}
+
+
+                        {v.products.map((v, i) => {
+                            // console.log("filter cat => ", v)
+                            return <Card2 key={i} title={v.title} id={v._id} price={v.price} image={v.images[0].url} description={v.description} ratings={v.ratings} />
                         })}
 
                         {/* <Pagination/> */}
@@ -89,6 +83,7 @@ const Shop_by_category = () => {
                         </div>
 
                     </div>
+                    })}
                 </div>
 
             </div>
@@ -96,4 +91,4 @@ const Shop_by_category = () => {
     )
 }
 
-export default Shop_by_category
+export default memo(Shop_by_category)

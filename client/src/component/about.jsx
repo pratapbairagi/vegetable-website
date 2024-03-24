@@ -3,7 +3,7 @@
 const About = () => {
     return (
         <>
-            <div className="w-full h-max grid grid-cols-12 relative">
+            <div className="w-full h-max grid grid-cols-12 relative bg-white">
                
                 <div className=" order-1 sm:order-1 md:order-2 col-span-12 sm:col-span-12 md:col-span-6 lg:col-span-6 xl:col-span-6 h-max md:h-full py-10 relative flex flex-col">
                     <img src="./images/WhatsApp_Image_2024-02-23_at_20.24 1.png" className="absolute h-full bottom-0 opacity-20" alt="" />

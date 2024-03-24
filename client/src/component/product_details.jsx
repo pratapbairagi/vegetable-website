@@ -1,28 +1,41 @@
 import { useParams } from "react-router-dom"
 import Card4 from "./card4";
 import Review_card from "./review_card";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { get_product } from "../redux/product/action";
 
 
 const Product_details = () => {
     const { id } = useParams();
-    console.log(id)
+    const dispatch = useDispatch();
+    const state = useSelector(state => state.product)
+
+    let x = 0
+    useEffect(() => {
+        if (state.product == null && x == 0) {
+            x++
+            dispatch(get_product(id))
+        }
+
+    }, [state.product])
+    console.log("get details => ", state.product)
+
     return (
-        <div className="w-full min-h-full grid grid-cols-12 pb-3 lg:max-w-80% mx-auto pt-3">
+        <div className="w-full min-h-full grid grid-cols-12 pb-3 lg:max-w-80% mx-auto pt-3 lg:pt-32">
             <div className="col-span-12 md:col-span-8 grid-cols-12 grid grid-cols-12 gap-y-2 order-1 lg:max-h-70vh">
 
-                <img src="/images/potato.png" className="col-span-12 w-full object-contain lg:max-h-80vh bg-gray-100" alt="" />
+                <img src={state.product != null ? state.product.product.images[0].url : ""} className="col-span-12 w-full object-contain lg:max-h-80vh bg-gray-100" alt="" />
 
                 <ul className="col-span-12  flex md:hidden max-h-full overflow-x-auto scroll-overflow-hidden px-2 gap-x-2">
-                    <li className="bg-gray-100 border-2 border-gray-300">
-                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li>
-                    <li className="bg-gray-100">
-                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li >
-                    <li className="bg-gray-100">
-                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li >
-                    <li className="bg-gray-100">
+                    {state.product != null ? state.product.product.images.map((v, i) => {
+                        return <li key={i} className="bg-gray-100 border-2 border-gray-300">
+                            <img src={v.url} className="w-20 min-w-20" alt="" />
+                        </li>
+                    })
+                        : ""
+                    }
+                    {/* <li className="bg-gray-100">
                         <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
                     </li >
                     <li className="bg-gray-100">
@@ -31,6 +44,12 @@ const Product_details = () => {
                     <li className="bg-gray-100">
                         <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
                     </li >
+                    <li className="bg-gray-100">
+                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
+                    </li >
+                    <li className="bg-gray-100">
+                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
+                    </li > */}
                 </ul>
 
             </div>
@@ -39,7 +58,7 @@ const Product_details = () => {
             <div className="col-span-12 md:col-span-4 px-2 mt-7 flex items-center md:items-start justify-start content-start  order-2 flex-wrap md:order-2">
 
                 <div className="w-full flex flex-wrap items-center justify-start">
-                    <h5 className="text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-400">Potato</h5>
+                    <h5 className="text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-400">{state.product != null ? state.product.product.title : ""}</h5>
                     <div className="flex">
 
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth={1.5} className="w-4 md:5 lg:w-6 fill-yellow-600 ml-4 mr-1">
@@ -63,8 +82,8 @@ const Product_details = () => {
                     </div>
 
                 </div>
-                <h5 className="text-2xl md:text-3xl lg:text-4xl md:mt-0.5 lg:mt-1 font-bold font-nunito text-gray-600 block hidden md:block">Fresh, Hebrid Tomato</h5>
-                <h4 className="text-3xl md:text-4xl lg:text-5xl md:mt-3.5 lg:mt-5 font-extrabold text-theme-blue-600 font-nunito hidden md:block w-full md:mb-16">50/KG</h4>
+                <h5 className="text-2xl md:text-3xl lg:text-4xl md:mt-0.5 lg:mt-1 font-bold font-nunito text-gray-600 flex hidden md:block">{state.product != null ? state.product.product.features.map((v, i) => { return <span>{v.feature}</span> }) : ""} <span className="ml-2">{state.product != null ? state.product.product.title : ""}</span></h5>
+                <h4 className="text-3xl md:text-4xl lg:text-5xl md:mt-3.5 lg:mt-5 font-extrabold text-theme-blue-600 font-nunito hidden md:block w-full md:mb-16">{state.product != null ? state.product.product.price : ""}/KG</h4>
 
                 <div className="w-full hidden md:flex justify-start flex">
                     <button className="bg-theme-blue-600 p-1 md:py-1.5 md:px-4 lg:px-4 rounded-full md:rounded-none">
@@ -81,8 +100,8 @@ const Product_details = () => {
                 </div>
 
                 <div className="col-span-12 hidden md:flex gap-x-2 items-center px-1.5 mt-3 md:mt-5 w-full ">
-                    <span className="text-theme-green-600 font-bold text-sm bg-green-200 px-4 py-1 rounded">Available</span>
-                    <span className="text-sm font-bold text-gray-400">14kg</span>
+                    <span className="text-theme-green-600 font-bold text-sm bg-green-200 px-4 py-1 rounded">{state.product != null ? state.product.product.stock > 0 ? "Available" : "Unavailable" : ""}</span>
+                    <span className="text-sm font-bold text-gray-400">{state.product != null ? state.product.product.stock / 1000 : ""}kg</span>
                 </div>
 
 
@@ -105,9 +124,21 @@ const Product_details = () => {
                 </div>
 
                 <ul className="col-span-12  hidden md:flex max-h-full overflow-x-auto scroll-overflow-hidden px-2 gap-x-2 md:mt-6">
-                    <li className="bg-gray-100 border-2 border-gray-300">
+                    {state.product != null ? state.product.product.images.map((v, i) => {
+                        return <li key={i} className="bg-gray-100 border-2 border-gray-300">
+                            <img src={v.url} className="w-20 min-w-20" alt="" />
+                        </li>
+                    })
+                        : ""
+                    }
+
+
+                    {/* <li className="bg-gray-100">
                         <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li>
+                    </li >
+                    <li className="bg-gray-100">
+                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
+                    </li >
                     <li className="bg-gray-100">
                         <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
                     </li >
@@ -116,30 +147,24 @@ const Product_details = () => {
                     </li >
                     <li className="bg-gray-100">
                         <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li >
-                    <li className="bg-gray-100">
-                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li >
-                    <li className="bg-gray-100">
-                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li >
+                    </li > */}
                 </ul>
 
 
 
             </div>
             <div className="col-span-12 px-2 mt-1 sm:mt-1.5 flex items-center gap-x-3 order-4">
-                <h5 className="text-2xl font-bold font-nunito text-gray-600 block block md:hidden">Fresh, Hebrid Tomato</h5>
+                <h5 className="text-2xl font-bold font-nunito text-gray-600 flex md:hidden">{state.product != null ? state.product.product.features.map((v, i) => { return <span>{v.feature}</span> }): ""} <span className="ml-2">{state.product != null ? state.product.product.title : ""}</span></h5>
             </div>
 
 
 
             <div className="col-span-12 flex justify-start px-2 mt-5 sm:mt-6 order-5">
-                <h4 className="text-3xl font-extrabold text-theme-blue-600 font-nunito block md:hidden">50/KG</h4>
+                <h4 className="text-3xl font-extrabold text-theme-blue-600 font-nunito block md:hidden">{state.product != null ? state.product.product.price : ""}/KG</h4>
             </div>
             <div className="col-span-12 flex md:hidden gap-x-2 items-center px-2 mt-3 order-6">
-                <span className="text-theme-green-600 font-bold text-sm bg-green-200 px-4 py-1 rounded">Available</span>
-                <span className="text-sm font-bold text-gray-400">14kg</span>
+                <span className="text-theme-green-600 font-bold text-sm bg-green-200 px-4 py-1 rounded">{state.product != null ? state.product.product.stock > 0 ? "Available" : "Unavailable" : ""}</span>
+                <span className="text-sm font-bold text-gray-400">{state.product != null ? state.product.product.stock / 1000 : ""}kg</span>
             </div>
             <div className="col-span-11 w-full ml-3 flex md:hidden justify-center border-b border-t border-theme-blue-600 mt-5 py-2 order-7 ">
                 <fieldset className=" w-11/12 flex border rounded-full p-1">
@@ -158,26 +183,32 @@ const Product_details = () => {
 
             <div className="col-span-12 flex flex-col items-start gap-y-3 px-3 mt-8 justify-between order-9">
                 <h6 className="text-xl md:text-2xl lg:text-3xl font-nunito text-gray-600 font-bold">Description</h6>
-                <p className="text-sm md:text-base lg:text-2xl text-gray-400 md:mt-2 lg:mt-3" style={{ lineHeight: "160%" }}>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Assumenda similique incidunt illum quam officia hic ut ad, optio, voluptatem quas repellat repellendus qui laboriosam exercitationem dignissimos nihil.</p>
+                <p className="text-sm md:text-base lg:text-2xl text-gray-400 md:mt-2 lg:mt-3" style={{ lineHeight: "160%" }}>{state.product != null ? state.product.product.description : ""}</p>
             </div>
 
             <div className="col-span-12 px-3 flex hap-x-2 order-10 mt-5 md:mt-7 lg:mt-9">
                 <ul className="flex flex-wrap gap-x-2 gap-y-2">
-                    <li><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100"># potato</button></li>
-                    <li><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100"># hybrid</button></li>
+                    {state.product != null ? state.product.product.tags.map((v, i) => {
+                        return <li key={i}><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100">#{v}</button></li>
+                    }) : ""}
+
+                    {/* <li><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100"># hybrid</button></li>
                     <li><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100"># fresh</button></li>
-                    <li><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100"># off</button></li>
+                    <li><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100"># off</button></li> */}
 
                 </ul>
             </div>
 
-            <div className="col-span-12 order-11 flex flex-col px-3 md:px-4 lg:px-5 xl:px-6 mt-5 md:mt-6 lg:mt-7 py-6" style={{background:"#FFF4E7"}}>
+            <div className="col-span-12 order-11 flex flex-col px-3 md:px-4 lg:px-5 xl:px-6 mt-5 md:mt-6 lg:mt-7 py-6" style={{ background: "#FFF4E7" }}>
                 <h6 className="text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-600">Related Vegetables</h6>
                 <ul className="flex max-w-full overflow-x-auto pt-6 md:pt-8 lg:pt-10 gap-x-3 md:gap-x-4 lg:gap-x-5 scroll-overflow-hidden">
+                    {state.product != null ? state.product.relatedProducts.map((v, i) => {
+                        return <Card4 key={i} product={v} />
+                    }) : ""}
+
+                    {/* <Card4 />
                     <Card4 />
-                    <Card4 />
-                    <Card4 />
-                    <Card4 />
+                    <Card4 /> */}
                 </ul>
                 <div className="w-full flex justify-end mt-3">
                     <button className="text-sm text-theme-blue-600 font-semibold h-7">See More</button>
@@ -234,9 +265,9 @@ const Product_details = () => {
                     </div>
                 </div>
                 <ul className="flex max-w-full overflow-x-auto pt-6 md:pt-8 lg:pt-10 gap-x-3 md:gap-x-4 lg:gap-x-5 scroll-overflow-hidden mt-8">
-                    <Review_card/>
-                    <Review_card/>
-                    <Review_card/>
+                    <Review_card />
+                    <Review_card />
+                    <Review_card />
                 </ul>
             </div>
         </div>

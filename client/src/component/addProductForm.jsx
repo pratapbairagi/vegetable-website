@@ -1,11 +1,14 @@
 import axios from "axios";
 import { useState } from "react";
-import {useDispatch} from "react-redux"
+import {useDispatch, useSelector} from "react-redux"
 import { add_product } from "../redux/product/action";
 
 
 const AddProductForm = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const state = useSelector(state=> state.product);
+
+    console.log("added success => ", state)
 
     const [createProduct, setCreateProduct] = useState({
         title: "",

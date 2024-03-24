@@ -2,7 +2,7 @@
 
 const Service_features = () => {
     return (
-        <div className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16" >
+        <div className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 bg-white" >
             <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-center text-theme-blue-600 ">Features Of Our Service</h2>
 
             <div className="grid grid-cols-12 w-full h-60vh mt-10 mx-auto gap-y-6" style={{maxWidth:"1700px"}}>
