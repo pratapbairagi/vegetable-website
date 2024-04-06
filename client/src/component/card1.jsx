@@ -1,8 +1,13 @@
 import { memo } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { NavLink } from "react-router-dom";
+import { add_to_cart } from "../redux/cart/action";
 
 
 const Card1 = ({title, price, images, ratings, description, id}) => {
+    const dispatch = useDispatch()
+    const {cart} = useSelector(state=> state.cart)
+    console.log(cart)
     return (
         <>
             <div className="card col-span-6 sm:col-span-6 md:col-span-4 lg:min-w-650px lg:col-span-4 xl:col-span-3  flex flex-col lg:flex-row p-1 border-r">
@@ -33,9 +38,9 @@ const Card1 = ({title, price, images, ratings, description, id}) => {
                         </svg>
                     </ul>
                     <NavLink to={`/vegetable/${id}`} className="col-span-12 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-theme-blue-600 mt-4 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-7 cursor-pointer">{title}</NavLink>
-                    <p className="col-span-12 text-sm sm:text-sm md:text-base lg:text-xl xl:text-2xl text-gray-400 font-nunito mt-1 sm:mt-1 md:mt-2 lg:mt-3 xl:mt-4 line-clamp-3 lg:min-h-20">{description}</p>
+                    <p className="col-span-12 text-sm sm:text-sm md:text-base lg:text-xl xl:text-2xl text-gray-400 font-nunito mt-1 sm:mt-1 md:mt-2 lg:mt-3 xl:mt-4 line-clamp-3 min-h-16 lg:min-h-20">{description}</p>
                     <div className="col-span-6 mt-4 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-7">
-                        <button className="w-max text-2xs sm:text-2xs md:text-xs lg:text-sm xl:text-base font-semibold text-gray-100 bg-theme-blue-600 px-1.5 sm:px-1.5 md:px-2.5 lg:px-3.5 xl:px-4 py-1 sm:py-1 md:py-1.5 lg:py-2 xl:py-2.5 rounded-sm hover:bg-blue-500">ADD TO CART</button>
+                        <button onClick={()=> dispatch(add_to_cart(id))} className={`w-max text-2xs sm:text-2xs md:text-xs lg:text-sm xl:text-base font-semibold text-gray-100 ${cart.map(v=> v._id === id ? "bg-theme-green-600" : "bg-theme-blue-600")}  px-2 sm:px-2 md:px-2.5 lg:px-3.5 xl:px-4 py-1 sm:py-1 md:py-1.5 lg:py-2 xl:py-2.5 rounded-sm hover:bg-blue-500`}>{cart.map(v=> v._id === id ? "ADDED" : "ADD TO CART")}</button>
                     </div>
                     <div className="col-span-6 mt-4 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-7 flex justify-end items-center">
                         <span className="text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-bold text-theme-green-600 h-max w-max whitespace-nowrap">₹ {price}/KG</span>

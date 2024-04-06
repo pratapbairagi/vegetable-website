@@ -74,7 +74,7 @@ const Products = () => {
     const getInitialProductsFun = ({ type, value, sort, sortType }) => {
         
         if (type && value) {
-
+            
             dispatch(get_filter_and_sort_products({
 
                 [type]: [value]

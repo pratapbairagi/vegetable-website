@@ -104,17 +104,17 @@ const Dashboard = () => {
         category : [],
         price : {lte : 0, gte : 1000},
         tags : [],
-        features : [],
-        nameSort : 0,
-        sold : 0,
-        dateSort : 0,
-        ratingSort : 0
+        features : []
+        // nameSort : 0,
+        // sold : 0,
+        // dateSort : 0,
+        // ratingSort : 0
     })
     let x = 0
     useEffect(()=>{
         if( !state.success && x == 0 && location.state == null){
             x++
-            dispatch(get_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features, nameSort, dateSort, sold, ratingSort}))
+            dispatch(get_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features}))
         }
 
        

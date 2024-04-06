@@ -179,7 +179,8 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
     // console.log("queries => ", features)
     // console.log("queries => ", category)
     // console.log("queries => ", tags)
-    console.log("queries => ", productsPerPage)
+    console.log("queries => ", category)
+    console.log("queries 2 => ", req.query["features"])
 
     let query = {}
     let sort = {}
@@ -207,6 +208,7 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
       if(key == "category" || key == "tags" ){
         if( req.query[key] && req.query[key] != "all" ){
           let array = await req.query[key].split(",")
+          console.log("category => ", array)
           query[key] = { $in : array }
         }
         else{
@@ -215,7 +217,12 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
       }
       else if(key == "features"){
         if( req.query[key] && req.query[key] != "all" ){
-        query["features.feature"] = { $in : req.query[key] }
+          let array = await req.query[key].split(",")
+
+          console.log("features => ", array)
+          
+        // query["features.feature"] = { $in : array }
+        query.features = { $elemMatch: { feature: { $in: array } } };
         }
         else{
           
@@ -310,6 +317,27 @@ exports.getVegetable = async (req, res, next) => {
       relatedProducts
     })
 
+  } catch (error) {
+    console.log(error)
+  }
+}
+
+exports.addToCart = async ( req, res, next ) => {
+  try {
+    const {id} = req.params;
+
+    const product = await Vegetable.findById(id)
+
+    if( !product){
+      
+    }
+
+    res.status(200).json({
+      success : true,
+      message : "",
+      product
+    })
+    
   } catch (error) {
     console.log(error)
   }
