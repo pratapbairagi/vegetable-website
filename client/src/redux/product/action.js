@@ -80,7 +80,7 @@ export const get_filter_and_sort_products = ({title="", category=[], price=[{gte
 
     console.log(category)
     // let url = `http://localhost:5005/api/store/vegetables?title=${title}&category=${category.join(",")}&price[lte]=${prices.lte}&price[gte]=${prices.gte}&tags=${tags.join(",")}&features=${features.join(",")}&nameSort=${nameSort}&dateSort=${dateSort}&ratingSort=${ratingSort}&priceSort=${priceSort}&sold=${sold}&productsPerPage=${productsPerPage}&pageNo=${pageNo}`;
-    let url = `https://veg-etable.vercel.app/api/vegetables?title=${title}&category=${category.join(",")}&price[lte]=${prices.lte}&price[gte]=${prices.gte}&tags=${tags.join(",")}&features=${features.join(",")}&nameSort=${nameSort}&dateSort=${dateSort}&ratingSort=${ratingSort}&priceSort=${priceSort}&sold=${sold}&productsPerPage=${productsPerPage}&pageNo=${pageNo}`
+    let url = `https://veg-etable.vercel.app/api/store/vegetables?title=${title}&category=${category.join(",")}&price[lte]=${prices.lte}&price[gte]=${prices.gte}&tags=${tags.join(",")}&features=${features.join(",")}&nameSort=${nameSort}&dateSort=${dateSort}&ratingSort=${ratingSort}&priceSort=${priceSort}&sold=${sold}&productsPerPage=${productsPerPage}&pageNo=${pageNo}`
     try {
         dispatch({
             type : GET_FILTER_AND_SORT_PRODUCTS_REQUEST
