@@ -42,21 +42,20 @@ const Products = () => {
                 if (searchQueries.category.length == 0 || searchQueries.features.length == 0 || searchQueries.sold != 0) {
                     if (x == 0) {
                         x++
-                        if (location.state.productsType == "category") {
+                        if (location.state.productsType == "category" || location.state.productsType == "features") {
                             setSearchQuaries({
                                 ...searchQueries,
-                                category: [location.state.other]
+                                [location.state.productsType]: [location.state.other]
                             })
                             getInitialProductsFun({ type: location.state.productsType, value: [location.state.other] })
                         }
-                        if (location.state.productsType == "features") {
+                        // if (location.state.productsType == "features") {
 
-                            setSearchQuaries({
-                                ...searchQueries,
-                                features: [location.state.other]
-                            })
-                            getInitialProductsFun({ type: location.state.productsType, value: [location.state.other] })
-                        }
+                        //     setSearchQuaries({
+                        //         ...searchQueries,
+                        //         features: [location.state.other]
+                        //     })
+                        // }
                         if (location.state.productsType == "sold") {
 
                             setSearchQuaries({
@@ -66,6 +65,7 @@ const Products = () => {
                             getInitialProductsFun({ type: location.state.productsType, value: location.state.other })
                         }
                     }
+                        // getInitialProductsFun({ type: location.state.productsType, value: [location.state.other] })
                 }
             }
         }
@@ -149,19 +149,23 @@ const Products = () => {
                 ...searchQueries,
                 pageNo : e
             })
+                dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: e }))
+
         }
         else{
             setSearchQuaries({
                 ...searchQueries,
                 pageNo : searchQueries.pageNo + Number(e)
             })
+            dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo + Number(e) }))
+
         }
 
     }
 
-    useEffect(()=>{
-               dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo }))
-    },[searchQueries.pageNo])
+    // useEffect(()=>{
+    //             dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo }))
+    // },[searchQueries.pageNo])
 
 
 
@@ -206,7 +210,7 @@ const Products = () => {
                     </span>
                     <ul className="flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1">
 
-                        {state.categories2.length > 0 ? state.categories2.map((cat, catIndex)=>{
+                        {state.categories2?.length > 0 ? state.categories2.map((cat, catIndex)=>{
                            return <li key={catIndex} className="text-gray-400 text-sm md:text-base flex justify-between">
                                 <span className="flex gap-x-1">
                                     {cat}
@@ -226,7 +230,7 @@ const Products = () => {
                         </svg>
                     </span>
                     <ul className="flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1">
-                    {state.features2.length > 0 ? state.features2.map((feat, featIndex)=>{
+                    {state.features2?.length > 0 ? state.features2.map((feat, featIndex)=>{
                        return feat != "" && <li key={featIndex} className="text-gray-400 text-sm md:text-base flex justify-between">
                             <span className="flex gap-x-1">
                                 {feat}
@@ -246,7 +250,7 @@ const Products = () => {
                         </svg>
                     </span>
                     <ul className="flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1">
-                    {state.tags.length > 0 ? state.tags.map((tag, tagIndex)=>{
+                    {state.tags?.length > 0 ? state.tags.map((tag, tagIndex)=>{
                        return <li key={tagIndex} className="text-gray-400 text-sm md:text-base flex justify-between">
                             <span className="flex gap-x-1">
                                 {tag}
