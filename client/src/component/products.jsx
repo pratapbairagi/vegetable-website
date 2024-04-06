@@ -167,6 +167,28 @@ const Products = () => {
     //             dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo }))
     // },[searchQueries.pageNo])
 
+    const toggleFilterTabs =(e) => {
+        let tabs = document.querySelectorAll(".filterBtns")
+        let filterBtnGroups = document.querySelectorAll(".filterTab")
+        filterBtnGroups.forEach((el, index)=>{
+            if(e == index+1 ){
+                if(el.classList.contains("hidden")){
+                    tabs[index].classList.add("rotate-180")
+                    el.classList.replace("hidden", "flex")
+                }
+                else{
+                    tabs[index].classList.remove("rotate-180")
+                    el.classList.replace("flex", "hidden")
+                }
+            }
+            // else{
+            //    if( !el.classList.contains("hidden")){ 
+            //     el.classList.add("hidden")
+            // }
+            // }
+        })
+    }
+
 
 
     console.log(searchQueries)
@@ -184,7 +206,7 @@ const Products = () => {
             {/* <div className="w-full h-1 bg-gray-100"></div> */}
             <div className="grid grid-cols-12 relative ">
 
-                <div ref={ref} className="pb-14 md:pb-0 col-span-12 hidden md:flex fixed md:relative bg-gray-100 z-20 w-full  min-h-80% max-h-screen scroll-overflow-hidden md:col-span-3 xl:col-span-2 flex flex-col overflow-y-auto">
+                <div ref={ref} className="pb-14 md:pb-0 col-span-12 hidden md:flex fixed md:relative bg-gray-100 z-20 w-full  min-h-90vh md:min-h-80vh max-h-screen scroll-overflow-hidden md:col-span-3 xl:col-span-2 flex flex-col overflow-y-auto">
                     <span className="flex sticky top-0 gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-6 lg:px-8 py-4 pb-3 border-b text-base lg:text-lg text-gray-400 font-semibold">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-6 fill-gray-400">
                             <path d="M3.9 54.9C10.5 40.9 24.5 32 40 32H472c15.5 0 29.5 8.9 36.1 22.9s4.6 30.5-5.2 42.5L320 320.9V448c0 12.1-6.8 23.2-17.7 28.6s-23.8 4.3-33.5-3l-64-48c-8.1-6-12.8-15.5-12.8-25.6V320.9L9 97.3C-.7 85.4-2.8 68.8 3.9 54.9z" />
@@ -204,11 +226,11 @@ const Products = () => {
                     </span>
                     <span className="flex justify-between gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 py-3 border-b text-base lg:text-lg text-gray-400 font-semibold">
                         <span>Category</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 fill-gray-400">
+                        <svg onClick={()=> toggleFilterTabs(1)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-8 fill-gray-400 px-2 filterBtns">
                             <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
                         </svg>
                     </span>
-                    <ul className="flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1">
+                    <ul className={`flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1 hidden filterTab`}>
 
                         {state.categories2?.length > 0 ? state.categories2.map((cat, catIndex)=>{
                            return <li key={catIndex} className="text-gray-400 text-sm md:text-base flex justify-between">
@@ -225,11 +247,11 @@ const Products = () => {
 
                     <span className="flex justify-between gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 py-3 border-b text-base lg:text-lg text-gray-400 font-semibold">
                         <span>Feature</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 fill-gray-400">
+                        <svg onClick={()=> toggleFilterTabs(2)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-8 fill-gray-400 px-2 filterBtns">
                             <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
                         </svg>
                     </span>
-                    <ul className="flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1">
+                    <ul className={`flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1 hidden filterTab`}>
                     {state.features2?.length > 0 ? state.features2.map((feat, featIndex)=>{
                        return feat != "" && <li key={featIndex} className="text-gray-400 text-sm md:text-base flex justify-between">
                             <span className="flex gap-x-1">
@@ -245,11 +267,11 @@ const Products = () => {
 
                     <span className="flex justify-between gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 py-3 border-b text-base lg:text-lg text-gray-400 font-semibold">
                         <span>Tags</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 fill-gray-400">
+                        <svg onClick={()=> toggleFilterTabs(3)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-8 fill-gray-400 px-2 filterBtns">
                             <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
                         </svg>
                     </span>
-                    <ul className="flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1">
+                    <ul className={`flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1 hidden filterTab`}>
                     {state.tags?.length > 0 ? state.tags.map((tag, tagIndex)=>{
                        return <li key={tagIndex} className="text-gray-400 text-sm md:text-base flex justify-between">
                             <span className="flex gap-x-1">
@@ -267,11 +289,11 @@ const Products = () => {
 
                     <span className="flex justify-between gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 py-3 border-b text-base lg:text-lg text-gray-400 font-semibold">
                         <span>Price</span>
-                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-4 fill-gray-400">
+                        <svg onClick={()=> toggleFilterTabs(4)} xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-8 fill-gray-400 px-2 filterBtns">
                             <path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
                         </svg>
                     </span>
-                    <ul className="flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1">
+                    <ul className={`flex flex-col gap-y-4 w-full max-w-70% md:max-w-full bg-white h-max px-8 pt-6 pb-8 mb-1 hidden filterTab`}>
                         <li className="text-gray-400 text-sm md:text-base flex justify-between">
                             <span className="flex gap-x-1">
                                 0 - 50
@@ -304,10 +326,11 @@ const Products = () => {
                             <input type="checkbox" onChange={filterProducts_handler} value={JSON.stringify({ gte: 201, lte: 250 })} className="w-6" name="price" id="" />
                         </li>
                     </ul>
-                    <div className="flex justify-center bg-white py-2 " style={{ width: "100%", gap: "10%" }}>
-                        <button className="w-5/12 text-sm md:text-base lg:text-lg font-bold text-gray-100 bg-red-700 py-1">CLEAR</button>
+                    <div className="min-h-50vh w-full max-w-70% md:max-w-full bg-white"></div>
+                    <div className="border flex justify-center items-center bg-white  min-h-20 sticky bottom-0 max-w-70% md:max-w-full bg-white" style={{ width: "100%", gap: "10%" }}>
+                        <button className="w-5/12 text-sm md:text-base lg:text-lg font-bold text-gray-100 bg-red-700 py-3">CLEAR</button>
 
-                        <button onClick={getInitialProductsFun} className="w-5/12 text-sm md:text-base lg:text-lg font-bold text-gray-100 bg-theme-blue-600 py-1">SUBMIT</button>
+                        <button onClick={getInitialProductsFun} className="w-5/12 text-sm md:text-base lg:text-lg font-bold text-gray-100 bg-theme-blue-600 py-3">SUBMIT</button>
 
                     </div>
                 </div>
