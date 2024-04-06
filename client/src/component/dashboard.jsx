@@ -1,7 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Tabs from "./tabs"
 import DashboardOrders from "./dashboardOrders";
 import DashboardProducts from "./dashboardProducts";
+import { useDispatch, useSelector } from "react-redux";
+import { get_product, get_products } from "../redux/product/action";
+import { useLocation } from "react-router-dom";
+import Toaster from "./toaster";
 
 
 const Dashboard = () => {
@@ -83,13 +87,57 @@ const Dashboard = () => {
             index : 6
         }
     ])
+    const state = useSelector(state => state.product)
+    const dispatch = useDispatch()
+    const location = useLocation()
+
+   
 
     const tabToggleFun = (i) => {
         setTabList([...tabList.map(v=> v.index === i.i ? {...v, active : true} : {...v, active : false} )])
     }
 
+  
+
+    const [searchProduct, setSearchProduct] = useState({
+        title : "",
+        category : [],
+        price : {lte : 0, gte : 1000},
+        tags : [],
+        features : [],
+        nameSort : 0,
+        sold : 0,
+        dateSort : 0,
+        ratingSort : 0
+    })
+    let x = 0
+    useEffect(()=>{
+        if( !state.success && x == 0 && location.state == null){
+            x++
+            dispatch(get_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features, nameSort, dateSort, sold, ratingSort}))
+        }
+
+       
+    },[state.products])
+
+    useState(()=>{
+        if( location.state != null){
+            dispatch(get_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features, nameSort, dateSort, sold, ratingSort}))
+            setTabList([...tabList.map(v=> v.index === location.state.i ? {...v, active : true} : {...v, active : false} )]);
+    }
+    },[ location.state])
+
+    // useEffect(()=>{
+    //     if( location.state != null){
+    //             dispatch(get_products())
+    //             setTabList([...tabList.map(v=> v.index === location.state.i ? {...v, active : true} : {...v, active : false} )]);
+    //     }
+    // },[location.state])
+
+    
     return (
         <div className=" bg-gray-100 w-full max-w-screen z-30 top-0 left-0 overflow-y-hidden max-h-screen min-h-screen h-max min-h-screen">
+           {state.success && <Toaster message={state.message} success={state.success} /> }
             <div className="w-full grid grid-cols-12 px-1 py-1 gap-x-2">
                 <div className="w-full scroll-overflow-hidden overflow-x-auto md:overflow-x-hidden md:col-span-4 lg:col-span-4 xl:col-span-3 h-max md:h-full bg-white fixed  md:sticky bottom-0 left-0 md:bottom-initial md:top-0 order-2 md:order-1 ">
                     <h4 className="w-full hidden md:flex text-3xl font-extrabold font-nunito bg-theme-blue-600 text-gray-100 md:px-14 lg:px-14 xl:px-16 md:py-4 lg:py-5 xl:py-5">Website</h4>
@@ -154,7 +202,7 @@ const Dashboard = () => {
                              </div> */}
 
                              {v.label == "Orders" && <DashboardOrders/>}
-                             {v.label == "Vegetables" && <DashboardProducts/>}
+                             {v.label == "Vegetables" && <DashboardProducts products={state.products}/>}
                         
                         {/* <div className="col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 aspect-video bg-white"></div>
                         <div className="col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 aspect-video bg-white"></div>

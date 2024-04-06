@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { NavLink } from "react-router-dom";
 
 
@@ -45,4 +46,4 @@ const Card1 = ({title, price, images, ratings, description, id}) => {
     )
 }
 
-export default Card1;
+export default memo(Card1)

@@ -1,8 +1,9 @@
 import axios from "axios"
-import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_FAILED, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS } from "./types"
+import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_FAILED, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_SUCCESS, EDIT_PRODUCT_FAILED, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, GET_FILTER_AND_SORT_PRODUCTS_FAILED, GET_FILTER_AND_SORT_PRODUCTS_REQUEST, GET_FILTER_AND_SORT_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS } from "./types"
+import setTimeoutForClearSuccess from "./clearSucces";
+// import SetTimeoutForClearSuccess from "./clearSucces";
 
 export const add_product = (product) => async (dispatch) => {
-    console.log(product)
     const url = "https://veg-etable.vercel.app/api/vegetable";
     // const url = "http://localhost:5005/api/vegetable";
     try {
@@ -18,8 +19,11 @@ export const add_product = (product) => async (dispatch) => {
         
         dispatch({
             type : ADD_PRODUCT_SUCCESS,
-            payload : data.product
+            payload : data
         })
+
+        setTimeoutForClearSuccess
+
     } catch (error) {
         dispatch({
             type : ADD_PRODUCT_FAILED,
@@ -28,11 +32,10 @@ export const add_product = (product) => async (dispatch) => {
     }
 }
 
-export const get_products = ({title="", category="", price={lte:0,gte:1000}, tags=[], features=[]}) => async (dispatch) => {
+export const get_products = ({title="", category="", price={lte:0,gte:1000}, tags=[], features=[], sold = 0, nameSort = 0, dateSort = 0, ratingSort = 0 }) => async (dispatch) => {
     // let url = `http://localhost:5005/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
-
     const url = `https://veg-etable.vercel.app/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;;
-
+console.log(features)
     try{
         dispatch({
             type : GET_PRODUCTS_REQUEST
@@ -43,15 +46,66 @@ export const get_products = ({title="", category="", price={lte:0,gte:1000}, tag
         }
 
         const {data} = await axios.get(url, config )
-        console.log("data => ", data)
 
         dispatch({
             type : GET_PRODUCTS_SUCCESS,
             payload : data
         })
+
+        let timeOut = setTimeout(()=>{
+            dispatch({
+                type : CLEAR_SUCCESS
+            })
+            return clearTimeout(timeOut)
+        },5000);
+    
+
     }catch (error) {
         dispatch({
             type : GET_PRODUCTS_FAILED,
+            payload : error
+        })
+    }
+}
+
+export const get_filter_and_sort_products = ({title="", category=[], price=[{gte : 0, lte : 1000}], tags=[], features=[], sold = 0, nameSort = "", dateSort = "", ratingSort = "", priceSort = "", productsPerPage=5, pageNo=1 }) => async (dispatch) => {
+    let prices = {gte : 0, lte : 1000}
+    if(price.length > 0){
+        prices = {
+            ...prices,
+            gte : Math.min(price.map(v=> v.gte)),
+            lte : Math.max(price.map(v=> v.lte)),
+        }
+    }
+
+    console.log(category)
+    // let url = `http://localhost:5005/api/store/vegetables?title=${title}&category=${category.join(",")}&price[lte]=${prices.lte}&price[gte]=${prices.gte}&tags=${tags.join(",")}&features=${features.join(",")}&nameSort=${nameSort}&dateSort=${dateSort}&ratingSort=${ratingSort}&priceSort=${priceSort}&sold=${sold}&productsPerPage=${productsPerPage}&pageNo=${pageNo}`;
+    let url = `https://veg-etable.vercel.app/api/vegetables?title=${title}&category=${category.join(",")}&price[lte]=${prices.lte}&price[gte]=${prices.gte}&tags=${tags.join(",")}&features=${features.join(",")}&nameSort=${nameSort}&dateSort=${dateSort}&ratingSort=${ratingSort}&priceSort=${priceSort}&sold=${sold}&productsPerPage=${productsPerPage}&pageNo=${pageNo}`
+    try {
+        dispatch({
+            type : GET_FILTER_AND_SORT_PRODUCTS_REQUEST
+        });
+
+            const config = {
+                headers : { "Content-Type" : "application/json" }
+            };
+
+            const {data} = await axios.get(url, config);
+
+            dispatch({
+                type : GET_FILTER_AND_SORT_PRODUCTS_SUCCESS,
+                payload : data
+            })
+
+            let timeOut = setTimeout(()=>{
+                dispatch({
+                    type : CLEAR_SUCCESS
+                })
+                return clearTimeout(timeOut)
+            },1000);
+    } catch (error) {
+        dispatch({
+            type : GET_FILTER_AND_SORT_PRODUCTS_FAILED,
             payload : error
         })
     }
@@ -73,11 +127,17 @@ export const get_product = (id) => async (dispatch) => {
 
         const {data} = await axios.get(url, config)
 
-
         dispatch({
             type : GET_PRODUCT_SUCCESS,
             payload : data
         })
+
+        let timeOut = setTimeout(()=>{
+            dispatch({
+                type : CLEAR_SUCCESS
+            })
+            return clearTimeout(timeOut)
+        },5000);
 
     } catch (error) {
         dispatch({
@@ -137,10 +197,57 @@ export const filteredProducts = ({ active_category, filteredProducts }) => async
             type : CATEGORIE_SELECTED_SUCCESS,
             payload : filteredProducts
         })
+
+        let timeOut = setTimeout(()=>{
+            dispatch({
+                type : CLEAR_SUCCESS
+            })
+            return clearTimeout(timeOut)
+        },5000);
         
     } catch (error) {
         dispatch({
             type : CATEGORIE_SELECTED_FAILED,
+            payload : error
+        })
+    }
+}
+
+export const editProduct = ({id, createProduct}) => async (dispatch) => {
+    console.log(createProduct)
+    // const url = `http://localhost:5005/api/vegetable/edit/${id}`
+    const url = `https://veg-etable.vercel.app/api/vegetable/edit/${id}`
+
+    try {
+        dispatch({
+            type : EDIT_PRODUCT_REQUEST
+        });
+
+        const config = {
+            headers : {
+                "Content-type" : "application/json"
+            }
+        }
+
+        const {data} = await axios.put(
+            url, createProduct, config
+        )
+
+        dispatch({
+            type : EDIT_PRODUCT_SUCCESS,
+            payload : data
+        });
+
+        let timeOut = setTimeout(()=>{
+            dispatch({
+                type : CLEAR_SUCCESS
+            })
+            return clearTimeout(timeOut)
+        },5000);
+
+    } catch (error) {
+        dispatch({
+            type : EDIT_PRODUCT_FAILED,
             payload : error
         })
     }

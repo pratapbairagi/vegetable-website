@@ -1,5 +1,6 @@
 import { useDispatch, useSelector } from "react-redux"
 import Card3 from "./card3"
+import { NavLink } from "react-router-dom"
 
 
 const Todays_special = () => {
@@ -61,7 +62,7 @@ const Todays_special = () => {
                 <div className="w-full flex flex-col min-h-40vh gap-y-10">
                     {products.features.map((v, i) => {
                         // console.log(v)
-                        return v.feature != "" && <> <div key={i} className="w-full grid grid-cols-12 lg:min-h-40vh px-2">
+                        return v.feature != "" && <div key={i}> <div  className="w-full grid grid-cols-12 lg:min-h-40vh px-2">
 
                             {
                                 v.feature == "fresh" && <div className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-12 flex max-w-full overflow-x-auto scroll-overflow-hidden items-center relative rounded min-h-40 lg:min-h-80 gap-x-2 lg:gap-x-6">
@@ -106,11 +107,11 @@ const Todays_special = () => {
                                 <Card3 style={{ backgroundColor: "#F0FFF6" }} /> */}
                             </div>
                             <div className="w-full order-3 col-span-12 flex justify-end mt-1 md:mt-2 lg:mt-3 px-1.5 sm:px-2 md:px-2.5 lg:px-3 xl:px-4">
-                                <button className="text-sm md:text-base lg:text-lg text-theme-blue-600 font-semibold h-7">See More</button>
+                                <NavLink to={`/products`} state={{productsType: "features", other : v.feature }} className="text-sm md:text-base lg:text-lg text-theme-blue-600 font-semibold h-7">See More</NavLink>
                             </div>
                         </div>
                             <div className="h-2 w-full col-span-12" style={{background:"rgb(248, 248, 248)"}}></div>
-                            </>
+                            </div>
                     })}
 
 

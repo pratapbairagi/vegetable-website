@@ -1,8 +1,8 @@
+import { memo } from "react"
 import { NavLink } from "react-router-dom"
 
 
 const Card4 = ({product}) => {
-    console.log(product)
     return (
         <li className="card_related flex flex-col min-w-32 lg:max-w-72 lg:min-w-72 p-1.5 bg-white">
                     <img src={product.images[0].url} className="h-20 md:h-28 lg:h-36 xl:h-44 border-b object-contain" alt="" />
@@ -22,4 +22,4 @@ const Card4 = ({product}) => {
     )
 }
 
-export default Card4
+export default memo(Card4)

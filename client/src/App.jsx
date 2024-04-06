@@ -25,17 +25,16 @@ import Signup from './component/signup'
 import Dashboard from './component/dashboard'
 import AddProductForm from './component/addProductForm'
 import ErrorBoundary from './component/errorBoundary.jsx'
-import axios from "axios"
-import { useDispatch, useSelector } from 'react-redux'
-import { get_products } from './redux/product/action.js'
+import { EditVegetable } from './component/editVegetable.jsx'
+import SearchResults_page from './component/searchResultsPage.jsx'
+import Products from './component/products.jsx'
+// import Products from './component/products.jsx'
+// import EditVegetable from "./component/editVegetable.jsx"
 
 
 function App() {
   const [toggleCart, setToggleCart] = useState(false)
     const [loginToggle, setLoginToggle] = useState(false)
-
-
- 
 
   return (
     <ErrorBoundary>
@@ -51,8 +50,11 @@ function App() {
       <Route path='/login' element={<Login/>}/>
       <Route path='/dashboard' element={<Dashboard/>}/>
       <Route path='/add/vegetable' element={<AddProductForm/>}/>
+      <Route path='/search' element={<SearchResults_page/>}/>
+      <Route path='/products' element={<Products/>}/>
 
       <Route path='/vegetable/:id' element={<Product_details/>}/>
+      <Route path='/vegetable/edit/:id' element={<EditVegetable/>}/>
       </Routes>
       <Footer/>
       </BrowserRouter>

@@ -14,55 +14,69 @@ import Shop_by_category from "../component/shop_by_category"
 import Todays_special from "../component/todays_special"
 import React, { useEffect, useState } from "react"
 import { get_products } from "../redux/product/action"
+import Spinner from "../component/spinner"
 
 
 const Home = () => {
+    console.log("home")
     const dispatch = useDispatch()
-    const state = useSelector(state=> state.product);
+    const state = useSelector(state => state.product);
     const [searchFilter, setSeachFilter] = useState({
-        category : "",
-        title : "",
-        price : {
-            lte : 0,
-            gte : 1000
+        category: "",
+        title: "",
+        price: {
+            lte: 0,
+            gte: 1000
         },
-        tags : [],
-        features : []
+        tags: [],
+        features: [],
+        nameSort : 0, 
+        dateSort : 0, 
+        sold : 0, 
+        ratingSort : 0
     })
 
     let x = 0
-    useEffect(()=>{
-        if(state.products.length == 0 && state.success == false ){
-            if(x == 0 ){
-                x++
-            dispatch(get_products({
-                title : searchFilter.title,
-                category : searchFilter.category,
-                price : searchFilter.price,
-                tags : searchFilter.tags,
-                features : searchFilter.features
-            }))
+    useEffect(() => {
+        console.log("1")
+        if ((state.products.length == 0 && state.success == false) || (state.features2.length > 0 && state.success == false)) {
 
-            console.log("useEffect")
+            if (x == 0) {
+        console.log("3")
+
+                x++
+                dispatch(get_products({
+                    title: searchFilter.title,
+                    category: searchFilter.category,
+                    price: searchFilter.price,
+                    tags: searchFilter.tags,
+                    features: searchFilter.features,
+                    nameSort : searchFilter.nameSort, 
+                    dateSort : searchFilter.dateSort, 
+                    sold : searchFilter.sold, 
+                    ratingSort : searchFilter.ratingSort
+                }))
             }
         }
-       
-      },[])
 
-console.log("render")
-
-   
+    }, [])
+    
     return (
-        <div className='relative' style={{background:"rgb(248, 248, 248)"}}>
-            <Hero />
-            <Features />
-            <About />
-            <Most_selling_section products={state.products.slice(0,4)}  />
-            <Shop_by_category />
-            <Todays_special products={state} />
-            <Service_features />
-            <Service_feedbacks />
-            <Contact />
+        <div className='relative' style={{ background: "rgb(248, 248, 248)" }}>
+             {/* <Spinner /> */}
+                
+                <>
+                    <Hero />
+                    <Features />
+                    <About />
+                    {state.products && <Most_selling_section products={state.most_sold} />}
+                    <Shop_by_category />
+                    <Todays_special products={state} />
+                    <Service_features />
+                    <Service_feedbacks />
+                    <Contact />
+                </>
+            
         </div>
     )
 }

@@ -1,12 +1,14 @@
 import React, { useRef, useState } from "react";
-import { NavLink, useLocation, useParams } from "react-router-dom";
+import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { get_products } from "../redux/product/action";
 import { useDispatch } from "react-redux";
 
 
 const Navbar = ({ setToggleCart, setLoginToggle }) => {
-    const location = useLocation()
+    const location = useLocation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
+
 
     const [isOpenMainMenu, setIsOpenMainMenu] = useState(false);
     const [isOpenMenu1, setIsOpenMenu1] = useState(false);
@@ -21,9 +23,19 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
     };
 
 
+    const searchFun = ({value})=> {
+        if(location.pathname != "/search"){
+        navigate("/search", { state : { value : value }})
+        }
+        else{
+            dispatch(get_products({title : value}))
+        }
+    }
+
+
     return (
         <>
-            <header className={`text-white py-3 sm:py-3 md:py-3 lg:py-4 xl:py-4 ${location.pathname === "/dashboard" ? "hidden" : "sticky lg:fixed lg:w-full lg:bg-transparent lg:shadow-none"} z-20 top-0 shadow`}>
+            <header className={`text-white py-3 sm:py-3 md:py-3 lg:py-4 xl:py-4 ${location.pathname === "/dashboard" || location.pathname === "/products" ? "hidden" : "sticky lg:fixed lg:w-full lg:bg-transparent lg:shadow-none"} z-20 top-0 shadow`}>
                 <div className=" mx-auto grid grid-cols-12 gap-y-2 justify-between items-center px-4">
                     <div className=" flex justify-start col-span-3 font-bold md:mb-0 relative z-0">
                         <NavLink to="/" className="text-theme-blue-600 py-0.5 sm:py-0.5 md:py-1 lg:py-1.5 xl:py-2 text-base sm:text-base md:text-xl lg:text-2xl rounded">Website</NavLink>
@@ -93,9 +105,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                     <div className=" md:order-2 col-span-12 sm:col-span-12 md:col-span-8 flex flex-row justify-end sm:justify-end md:justify-start fixed sm:fixed md:relative bottom-6 sm:bottom-6 md:bottom-0 w-3/4">
                         <fieldset className=" shadow-md h-10 sm:h-10 md:h-10 lg:h-12 xl:h-12 w-full sm:w-full md:w-3/4 lg:w-2/4  sm-left-125 md:left-0 z-10 relative rounded-full" >
                             <input defaultValue=""  className="block w-full h-full px-6 rounded-full text-gray-400" type="text" placeholder="Search for..." name="" id="search_veg" />
-                            <button onClick={(e)=> dispatch(get_products({
-                                title : document.getElementById('search_veg').value
-                            }))} className="absolute top-0 right-0 h-full text-white grid place-items-center w-12 sm:w-12 md:w-12 lg:w-16 xl:w-16">
+                            <button onClick={(e)=> searchFun({value : document.getElementById("search_veg").value}) } className="absolute top-0 right-0 h-full text-white grid place-items-center w-12 sm:w-12 md:w-12 lg:w-16 xl:w-16">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} className="size-7 sm:size-7 md:size-7 lg:size-8 xl:size-8 stroke-theme-blue-600">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                                 </svg>

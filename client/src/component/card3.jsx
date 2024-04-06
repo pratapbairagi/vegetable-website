@@ -1,3 +1,4 @@
+import { memo } from "react"
 import { NavLink } from "react-router-dom"
 
 
@@ -6,13 +7,15 @@ const Card3 = ({product}) => {
         <div className="card col-span-6 sm:col-span-5 md:col-span-5 lg:col-span-8 xl:col-span-10 h-full lg:h-max min-h-30vh max-w-44 min-w-44 md:min-w-48 lg:min-w-70% xl:min-w-40% w-max flex flex-col lg:flex-row py-2 pb-1">
             <div className="h-3/6 lg:h-60 w-full lg:w-3/6 relative">
                 <img src={product.images[0].url} className="w-full h-full  object-contain" alt="" />
-                <NavLink to={`/vegetable/${product._id}`} className="absolute top-0 left-2 text-xs sm:text-xs font-nunito text-theme-blue-600 md:text-sm lg:text-sm xl:text-base font-bold">{product.title}</NavLink>
-                <span className="absolute bottom-2 right-2 text-xs sm:text-xs font-nunito text-theme-blue-600 md:text-sm lg:text-sm xl:text-base font-bold">20% Off</span>
+                <NavLink to={`/vegetable/${product._id}`} className="absolute top-0 left-2 text-xs sm:text-sm font-nunito text-theme-blue-600 md:text-base lg:text-lg xl:text-xl font-bold">{product.title}</NavLink>
+               {product.features && product.features.feature == "discount" &&  <span className="absolute bottom-2 right-3 text-xs sm:text-xs font-nunito text-theme-blue-600 md:text-sm lg:text-sm xl:text-base font-bold">{product.features.feature == "discount" && `${product.features.value} Off`}</span> }
+               {product.features && product.features.feature == "fresh" &&  <span className={`absolute bottom-2 left-3 text-xs sm:text-xs font-nunito text-theme-blue-600 md:text-sm lg:text-sm xl:text-base font-bold ${product.features.feature == "fresh" ? "bg-green-600 px-3 text-green-100 py-0.5" : "bg-transparent"}`}>{product.features.feature == "fresh" && `${product.features.feature} `}</span> }
+            
             </div>
             <div className=" lg:w-3/6 lg:px-4 flex flex-col justify-between lg:py-2 lg:min-w-72">
             <h5 className="w-full flex items-center gap-x-4 px-2">
                 <span className="text-base sm:text-base md:text-xl lg:text-2xl xl:text-3xl font-extrabold text-theme-green-600 font-nunito ">₹ {product.price}/KG</span>
-                <span className="text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg font-bold line-through text-red-400">₹ 40/KG</span>
+               {product.features && product.features.feature == "discount" &&  <span className="text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg font-bold line-through text-red-400">₹ 40/KG</span> } 
             </h5>
 
             <p className="px-2 text-2xs sm:text-2xs md:text-xs lg:text-sm xl:text-base line-clamp-3 lg:line-clamp-5 lg:min-h-32 text-gray-400 mt-2">{product.description}</p>
@@ -23,4 +26,4 @@ const Card3 = ({product}) => {
     )
 }
 
-export default Card3
+export default memo(Card3)

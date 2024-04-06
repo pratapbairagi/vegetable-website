@@ -3,6 +3,7 @@ import Card2 from "./card2"
 import Pagination from "./pagination"
 import { filteredProducts } from "../redux/product/action"
 import { memo, useEffect } from "react"
+import { NavLink } from "react-router-dom"
 
 
 const Shop_by_category = () => {
@@ -20,7 +21,6 @@ const Shop_by_category = () => {
     //     }
     // },[products.filteredProducts])
 
-    console.log(products)
     return (
         <>
             <div id="shop_by_category" className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 lg:pb-6 xl:pb-8 bg-white mt-2">
@@ -40,7 +40,6 @@ const Shop_by_category = () => {
                            })} */}
 
                             {products.filteredProducts?.map((v, i) => {
-
                                 return <li onClick={(e) => {
                                     dispatch(filteredProducts({ active_category: v.category, filteredProducts: products.filteredProducts.map((f)=>{ return { ...f, active : f.category == v.category ? true : false  }}) }))
                                 }} key={i} className={`cursor-pointer h-max w-max sm:w-max md:w-full ${v.active ? "border-b md:bg-gray-100" : "border-b-0 md:bg-transparent"}  border-green-800 md:border-b md:border-gray-300 `}>
@@ -79,7 +78,7 @@ const Shop_by_category = () => {
 
                         {/* <Pagination/> */}
                         <div className="w-full col-span-12 flex justify-end mt-0 px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6">
-                            <button className="text-sm md:text-base lg:text-lg text-theme-blue-600 font-semibold h-7 ">See More</button>
+                            <NavLink to={`/products`} state={{productsType : "category", other : products.filteredProducts.filter(f=> f.active ? f : "")[0]?.category}} className="text-sm md:text-base lg:text-lg text-theme-blue-600 font-semibold h-7 ">See More</NavLink>
                         </div>
 
                     </div>

@@ -19,13 +19,16 @@ const Product_details = () => {
         }
 
     }, [state.product])
-    console.log("get details => ", state.product)
 
     return (
         <div className="w-full min-h-full grid grid-cols-12 pb-3 lg:max-w-80% mx-auto pt-3 lg:pt-32">
             <div className="col-span-12 md:col-span-8 grid-cols-12 grid grid-cols-12 gap-y-2 order-1 lg:max-h-70vh">
-
-                <img src={state.product != null ? state.product.product.images[0].url : ""} className="col-span-12 w-full object-contain lg:max-h-80vh bg-gray-100" alt="" />
+                <div className="flex min-w-full scroll-overflow-hidden col-span-12 w-full max-w-full overflow-x-auto">
+                {state.product != null && state.product.product.images.map((v, i)=>{
+                    return <img key={i} src={v.url} className="col-span-12 w-full min-w-full object-contain lg:max-h-80vh bg-gray-100" alt="" />
+                })}
+                </div>
+                
 
                 <ul className="col-span-12  flex md:hidden max-h-full overflow-x-auto scroll-overflow-hidden px-2 gap-x-2">
                     {state.product != null ? state.product.product.images.map((v, i) => {
@@ -82,7 +85,7 @@ const Product_details = () => {
                     </div>
 
                 </div>
-                <h5 className="text-2xl md:text-3xl lg:text-4xl md:mt-0.5 lg:mt-1 font-bold font-nunito text-gray-600 flex hidden md:block">{state.product != null ? state.product.product.features.map((v, i) => { return <span>{v.feature}</span> }) : ""} <span className="ml-2">{state.product != null ? state.product.product.title : ""}</span></h5>
+                <h5 className="text-2xl md:text-3xl lg:text-4xl md:mt-0.5 lg:mt-1 font-bold font-nunito text-gray-600 flex hidden md:block">{state.product != null ? state.product.product.features.map((v, i) => { return <span key={i}>{v.feature}</span> }) : ""} <span className="ml-2">{state.product != null ? state.product.product.title : ""}</span></h5>
                 <h4 className="text-3xl md:text-4xl lg:text-5xl md:mt-3.5 lg:mt-5 font-extrabold text-theme-blue-600 font-nunito hidden md:block w-full md:mb-16">{state.product != null ? state.product.product.price : ""}/KG</h4>
 
                 <div className="w-full hidden md:flex justify-start flex">
@@ -154,7 +157,7 @@ const Product_details = () => {
 
             </div>
             <div className="col-span-12 px-2 mt-1 sm:mt-1.5 flex items-center gap-x-3 order-4">
-                <h5 className="text-2xl font-bold font-nunito text-gray-600 flex md:hidden">{state.product != null ? state.product.product.features.map((v, i) => { return <span>{v.feature}</span> }): ""} <span className="ml-2">{state.product != null ? state.product.product.title : ""}</span></h5>
+                <h5 className="text-2xl font-bold font-nunito text-gray-600 flex md:hidden">{state.product != null ? state.product.product.features.map((v, i) => { return <span key={i}>{v.feature}</span> }): ""} <span className="ml-2">{state.product != null ? state.product.product.title : ""}</span></h5>
             </div>
 
 
