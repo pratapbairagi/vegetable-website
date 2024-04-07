@@ -1,4 +1,4 @@
-import { ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS } from "./types";
+import { ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, QTY_TO_CART_REQUEST, QTY_TO_CART_SUCCESS } from "./types";
 
 
 export const cart = (state={
@@ -12,7 +12,8 @@ export const cart = (state={
 }, action) => {
 
     switch(action.type){
-        case ADD_TO_CART_REQUEST :
+        case ADD_TO_CART_REQUEST,
+        QTY_TO_CART_REQUEST :
             return {
                 ...state,
                 loading : true
@@ -25,7 +26,7 @@ export const cart = (state={
                 ...state,
                 success : true,
                 loading : false,
-                cart : state.cart.map(v=> v._id === action.payload.product._id ? action.payload.product : v ) 
+                cart : state.cart.map(v=> v._id === action.payload.product._id ? {...v, qty : v.qty + 1 } : v ) 
             }
         }
         else{
@@ -33,7 +34,35 @@ export const cart = (state={
                 ...state,
                 loading : false,
                 success : true,
-                cart : [...state.cart, action.payload.product]
+                cart : [...state.cart, {...action.payload.product, qty : 1}]
+            }
+        }
+        case QTY_TO_CART_SUCCESS :
+            const isProductExist = state.cart.find(v=> v._id == action.payload.product._id)
+            if(isProductExist){
+                if(action.payload.operator == "1"){
+            return {
+                ...state,
+                loading : false,
+                success : true,
+                cart : state.cart.map(v=> v._id == isProductExist._id ? {...v, qty : v.qty + Number(action.payload.operator) } : v)
+            }
+        }
+        else if(action.payload.operator == "-1"){
+            return {
+                ...state,
+                loading : false,
+                success : true,
+                cart : isProductExist.qty > 1 ? state.cart.map(v=> v._id == isProductExist._id ? {...v, qty : v.qty + Number(action.payload.operator) } : v) : isProductExist.qty == 1 ? state.cart.filter(v=> v._id !== action.payload.product._id) : isProductExist
+            }
+        }
+        }
+        else{
+            return {
+                ...state,
+                loading : false,
+                success : true,
+                cart : [...state.cart, {...action.payload.product, qty : 1 }]
             }
         }
         default :

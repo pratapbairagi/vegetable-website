@@ -18,7 +18,6 @@ import Spinner from "../component/spinner"
 
 
 const Home = () => {
-    console.log("home")
     const dispatch = useDispatch()
     const state = useSelector(state => state.product);
     const [searchFilter, setSeachFilter] = useState({

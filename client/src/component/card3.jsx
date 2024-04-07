@@ -9,7 +9,7 @@ const Card3 = ({product}) => {
                 <img src={product.images[0].url} className="w-full h-full  object-contain" alt="" />
                 <NavLink to={`/vegetable/${product._id}`} className="absolute top-0 left-2 text-xs sm:text-sm font-nunito text-theme-blue-600 md:text-base lg:text-lg xl:text-xl font-bold">{product.title}</NavLink>
                {product.features && product.features.feature == "discount" &&  <span className="absolute bottom-2 right-3 text-xs sm:text-xs font-nunito text-theme-blue-600 md:text-sm lg:text-sm xl:text-base font-bold">{product.features.feature == "discount" && `${product.features.value} Off`}</span> }
-               {product.features && product.features.feature == "fresh" &&  <span className={`absolute bottom-2 left-3 text-xs sm:text-xs font-nunito text-theme-blue-600 md:text-sm lg:text-sm xl:text-base font-bold ${product.features.feature == "fresh" ? "bg-green-600 px-3 text-green-100 py-0.5" : "bg-transparent"}`}>{product.features.feature == "fresh" && `${product.features.feature} `}</span> }
+               {product.features && product.features.feature == "fresh" &&  <span className={`absolute bottom-2 pt-1 left-3 text-xs sm:text-xs font-nunito text-white md:text-sm lg:text-sm xl:text-base font-bold ${product.features.feature == "fresh" ? "bg-green-600 px-3 text-green-100 py-0.5" : "bg-transparent"}`}>{product.features.feature == "fresh" && `${product.features.feature} `}</span> }
             
             </div>
             <div className=" lg:w-3/6 lg:px-4 flex flex-col justify-between lg:py-2 lg:min-w-72">

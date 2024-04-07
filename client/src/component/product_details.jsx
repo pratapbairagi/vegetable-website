@@ -4,12 +4,14 @@ import Review_card from "./review_card";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { get_product } from "../redux/product/action";
+import { cart_qty } from "../redux/cart/action";
 
 
 const Product_details = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
     const state = useSelector(state => state.product)
+    const {cart} = useSelector(state => state.cart)
 
     let x = 0
     useEffect(() => {
@@ -71,13 +73,13 @@ const Product_details = () => {
                     </div>
 
                     <div className="flex md:hidden ml-auto ">
-                        <button className="bg-theme-blue-600 p-1 rounded-full ml-auto">
+                        <button  onClick={()=> cart.find(v=> v._id == id )?.qty  >= 1 && dispatch( cart_qty( {product : state.product.product, operator : "-1"} ))} className="bg-theme-blue-600 p-1 rounded-full ml-auto">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-6 stroke-gray-100">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
                             </svg>
                         </button>
-                        <span className="px-3 text-xl text-gray-600">1</span>
-                        <button className="bg-theme-blue-600 p-1 rounded-full">
+                        <span className="px-3 text-xl text-gray-600">{state.product != null ? cart.find(v=> v._id == state.product.product._id ) ? cart.find(v=> v._id == state.product.product._id ).qty : 0  : 0}</span>
+                        <button disabled={state.product != null && state.product.product.stock > 0 ? false : true} onClick={()=> dispatch( cart_qty({product : state.product.product, operator : "1"}))} className="bg-theme-blue-600 p-1 rounded-full">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-6 stroke-gray-100">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                             </svg>
@@ -89,13 +91,13 @@ const Product_details = () => {
                 <h4 className="text-3xl md:text-4xl lg:text-5xl md:mt-3.5 lg:mt-5 font-extrabold text-theme-blue-600 font-nunito hidden md:block w-full md:mb-16">{state.product != null ? state.product.product.price : ""}/KG</h4>
 
                 <div className="w-full hidden md:flex justify-start flex">
-                    <button className="bg-theme-blue-600 p-1 md:py-1.5 md:px-4 lg:px-4 rounded-full md:rounded-none">
+                    <button disabled={cart.find(v=> v._id == id )?.qty == 0 ? true : false} onClick={()=> dispatch( cart_qty( {product : state.product.product, operator : "-1"} ))} className="bg-theme-blue-600 p-1 md:py-1.5 md:px-4 lg:px-4 rounded-full md:rounded-none">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-6 md:w-7 stroke-gray-100">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
                         </svg>
                     </button>
-                    <span className="px-3 md:px-4 text-xl md:text-2xl lg:text-3xl text-gray-600 flex items-center">1</span>
-                    <button className="bg-theme-blue-600 p-1 md:px-4 lg:px-4 rounded-full md:rounded-none">
+                    <span className="px-3 md:px-4 text-xl md:text-2xl lg:text-3xl text-gray-600 flex items-center">{state.product != null ? cart.find(v=> v._id == state.product.product._id )?.qty  : 0}</span>
+                    <button disabled={state.product != null && state.product.product.stock > 0 ? false : true} onClick={()=> dispatch( cart_qty({product : state.product.product, operator : "1"}))} className="bg-theme-blue-600 p-1 md:px-4 lg:px-4 rounded-full md:rounded-none">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-6 md:w-7 stroke-gray-100">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                         </svg>

@@ -1,33 +1,37 @@
+import { useDispatch } from "react-redux"
+import { cart_qty } from "../redux/cart/action"
 
 
-const CardCart = () => {
+const CardCart = ({item}) => {
+    const dispatch = useDispatch()
+
     return (
         <div className="grid grid-cols-12 border-b">
 
         <div className="col-span-2 flex justify-center">
-            <img src="./images/onion.png" className="w-36 bg-gray-100 object-contain" alt="" />
+            <img src={item.images[0].url} className="w-36 bg-gray-100 object-contain" alt="" />
         </div>
 
         <div className="col-span-3 lg:col-span-3 flex items-center">
-            <p className="text-sm lg:text-2xl font-bold font-nunito w-full text-center text-gray-500">Onion</p>
+            <p className="text-sm lg:text-2xl font-bold font-nunito w-full text-center text-gray-500">{item.title}</p>
         </div>
 
         <div className="col-span-3 flex flex-row items-center justify-center">
-            <button className="size-6 lg:size-10 border flex items-center justify-center">
+            <button onClick={()=> item.qty  >= 1 && dispatch( cart_qty( {product : item, operator : "-1"} ))} className="size-6 lg:size-10 border flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
                 </svg>
 
             </button>
-            <span className="h-10 px-4 lg:px-6 flex items-center text-base lg:text-xl font-bold">1</span>
-            <button className="text-xl size-6 lg:size-10 border flex items-center justify-center">
+            <span className="h-10 px-4 lg:px-6 flex items-center text-base lg:text-xl font-bold">{item.qty}</span>
+            <button onClick={()=> dispatch( cart_qty( {product : item, operator : "1"} ))} className="text-xl size-6 lg:size-10 border flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
             </button>
         </div>
 
-        <div className="col-span-3 flex items-center justify-center text-base lg:text-2xl font-bold text-gray-500"> 60.00 </div>
+        <div className="col-span-3 flex items-center justify-center text-base lg:text-2xl font-bold text-gray-500"> {item.price}/KG </div>
 
         <div className="col-span-1 flex justify-center">
             <button className="">

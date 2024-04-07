@@ -1,13 +1,15 @@
 import React, { useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { get_products } from "../redux/product/action";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 
 const Navbar = ({ setToggleCart, setLoginToggle }) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
+    const {cart} = useSelector(state => state.cart)
+
 
 
     const [isOpenMainMenu, setIsOpenMainMenu] = useState(false);
@@ -31,7 +33,6 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
             dispatch(get_products({title : value}))
         }
     }
-
 
     return (
         <>
@@ -117,7 +118,8 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
 
 
 
-                        <button onClick={() => setToggleCart(true)} className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12">
+                        <button onClick={() => setToggleCart(true)} className="w-8 relative sm:w-10 md:w-12 lg:w-12 xl:w-12">
+                           <span className={`absolute flex justify-center items-center rounded-full w-5 top-0 right-0 aspect-square text-white text-2xs font-semibold ${cart.length > 0 ? "bg-green-600" : "bg-red-600"}`} style={{ paddingBottom:"0.5px"}}>{ cart.reduce((accum, cv)=> accum + cv.qty, 0)}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 sm:size-7 md:size-8 lg:size-9 xl:size-10 text-theme-blue-600">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                             </svg>

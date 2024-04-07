@@ -1,11 +1,11 @@
 import axios from "axios";
-import { ADD_TO_CART_FAILED, ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS } from "./types";
+import { ADD_TO_CART_FAILED, ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, QTY_TO_CART_FAILED, QTY_TO_CART_REQUEST, QTY_TO_CART_SUCCESS } from "./types";
 
 
 
 export const add_to_cart = (id) => async (dispatch, getState) => {
-    const url = `http://localhost:5005/api/vegetable/cart/${id}`
-   //  const url = `https://veg-etable.vercel.app/api/vegetable/cart/${id}`
+    // const url = `http://localhost:5005/api/vegetable/cart/${id}`
+    const url = `https://veg-etable.vercel.app/api/vegetable/cart/${id}`
    try {
        dispatch({
            type : ADD_TO_CART_REQUEST
@@ -18,8 +18,6 @@ export const add_to_cart = (id) => async (dispatch, getState) => {
        };
 
        const {data} = await axios.get(url, config);
-
-       console.log("add to caryt product => ", data)
 
        dispatch({
            type : ADD_TO_CART_SUCCESS,
@@ -35,4 +33,24 @@ export const add_to_cart = (id) => async (dispatch, getState) => {
            payload : error
        })
    }
+}
+
+export const cart_qty = ({product, operator}) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type : QTY_TO_CART_REQUEST
+        });
+
+        dispatch({
+            type : QTY_TO_CART_SUCCESS,
+            payload : {product, operator}
+        })
+
+        localStorage.setItem("cart", JSON.stringify(getState().cart.cart))
+    } catch (error) {
+        dispatch({
+            type : QTY_TO_CART_FAILED,
+            payload : "something went wrong !"
+        })
+    }
 }
