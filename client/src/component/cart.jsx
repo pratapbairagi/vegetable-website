@@ -31,7 +31,7 @@ const Cart = ({toggleCart, setToggleCart}) => {
                     <h6 className=" text-start text-base lg:text-xl font-bold py-2 text-gray-500">Price Details</h6>
                     <div className="grid grid-cols-12 mt-2 lg:mt-4">
                         <span className="col-span-7 flex justify-start text-sm lg:text-base text-gray-400 font-semibold font-nunito">Total Items</span>
-                        <span className="col-span-5 flex justify-end text-sm lg:text-base text-gray-600 font-bold font-nunito">{cart.reduce((accum, cv)=> accum + cv.qty, 0)}/KG</span>
+                        <span className="col-span-5 flex justify-end text-sm lg:text-base text-gray-600 font-bold font-nunito">{ cart.reduce((accum, cv)=> accum + cv.qty, 0)}/KG</span>
                     </div>
 
                     <div className="grid grid-cols-12 mt-1 ">
@@ -47,8 +47,8 @@ const Cart = ({toggleCart, setToggleCart}) => {
                     <div className="grid grid-cols-12 mt-1 border-b border-dashed pb-3">
                         <span className="col-span-5 flex justify-start text-sm lg:text-base text-gray-400 font-semibold font-nunito">Dilevery Changes</span>
                         <span className="col-span-7 gap-x-4 flex flex-wrap justify-end text-gray-600 font-bold font-nunito">
-                            <span className={`text-theme-green-600 text-sm lg:text-base ${cart.reduce((accum, cv)=> accum + cv.price * cv.qty ) >= 300 ? "" : "line-through"}`}>Free Delivery</span>
-                            <span className={`text-red-700 ${cart.reduce((accum, cv)=> accum + cv.price * cv.qty) >= 300 ? "line-through" : ""}  text-sm lg:text-base`}>{cart.reduce((accum, cv)=> accum + cv.price * cv.qty, 0 ) >= 300 ? "0" : "50" }</span>
+                            <span className={`text-theme-green-600 text-sm lg:text-base ${cart.reduce((accum, cv)=> accum + cv.price * cv.qty, 0 ) >= 300 ? "" : "line-through"}`}>Free Delivery</span>
+                            <span className={`text-red-700 ${cart.reduce((accum, cv)=> accum + cv.price * cv.qty, 0) >= 300 ? "line-through" : ""}  text-sm lg:text-base`}>{cart.reduce((accum, cv)=> accum + cv.price * cv.qty, 0 ) >= 300 ? "0" : "50" }</span>
                         </span>
                     </div>
 
