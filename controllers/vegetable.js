@@ -175,11 +175,11 @@ exports.getVegetables = async (req, res, next) => {
 
 exports.getFilteredAndSortedProducts = async (req, res, next) => {
   try {
-    const {title,category, features, tags, price, ratings, nameSort, dateSort, ratingSort, priceSort, sold, productsPerPage=5, pageNo=1} = req.query
+    const {title,category, features, tags, price, ratings, nameSort, dateSort, ratingSort, priceSort, sold, productsPerPage, pageNo=1} = req.query
     // console.log("queries => ", features)
     // console.log("queries => ", category)
     // console.log("queries => ", tags)
-    console.log("queries => ", category)
+    console.log("queries => ", productsPerPage)
     console.log("queries 2 => ", req.query["features"])
 
     let query = {}

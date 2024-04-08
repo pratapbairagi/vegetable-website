@@ -1,15 +1,17 @@
 import { NavLink } from "react-router-dom"
 import Pagination from "./pagination"
 import { useDispatch, useSelector } from "react-redux"
+import { paginationFun } from "./paginationFun"
 
 
 
-const DashboardProducts = ({products}) =>{
+const DashboardProducts = ({products, searchProduct, setSearchProduct, dispatch}) =>{
+    const state = useSelector(state => state.product)
     
 
     
 
-    // console.log("product list => ", state)
+    console.log("product list => ", products)
     return (
         <div className="w-full col-span-12 max-w-full h-max min-h-screen max-w-full flex flex-col md:mb-0 ">
             {/* <h6 className=" w-max text-base md:text-xl lg:text-lg xl:text-xl font-bold text-gray-600 mt-2 md:mt-2 lg:mt-3 xl:mt-3">Products Overview</h6>
@@ -115,7 +117,8 @@ const DashboardProducts = ({products}) =>{
                     </tbody>
                 </table>
             </div>
-            <Pagination />
+            <Pagination fun={(e)=> paginationFun({e, searchQueries : searchProduct, setSearchQuaries : setSearchProduct, dispatch})} activePage={searchProduct.pageNo} numbersOfButton={(state.productsLength / searchProduct.productsPerPage)} />
+
         </div>
     )
 }

@@ -3,7 +3,7 @@ import Tabs from "./tabs"
 import DashboardOrders from "./dashboardOrders";
 import DashboardProducts from "./dashboardProducts";
 import { useDispatch, useSelector } from "react-redux";
-import { get_product, get_products } from "../redux/product/action";
+import { get_filter_and_sort_products, get_product, get_products } from "../redux/product/action";
 import { NavLink, useLocation } from "react-router-dom";
 import Toaster from "./toaster";
 
@@ -100,21 +100,36 @@ const Dashboard = () => {
   
 
     const [searchProduct, setSearchProduct] = useState({
-        title : "",
-        category : [],
-        price : {lte : 0, gte : 1000},
-        tags : [],
-        features : []
-        // nameSort : 0,
-        // sold : 0,
-        // dateSort : 0,
-        // ratingSort : 0
+        title: "",
+        category: [],
+        features: [],
+        tags: [],
+        price: [{
+            gte: 0,
+            lte: 1000
+        }],
+        sold: 0,
+        nameSort: "",
+        priceSort: "",
+        ratingSort: "",
+        dateSort: "",
+        productsPerPage: 6,
+        pageNo: 1
+
     })
     let x = 0
     useEffect(()=>{
         if( !state.success && x == 0 && location.state == null){
+            console.log("previous list 1")
             x++
-            dispatch(get_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features}))
+            dispatch(get_filter_and_sort_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features,
+                sold : searchProduct.sold,
+                 nameSort : searchProduct.nameSort, 
+                 dateSort : searchProduct.dateSort,
+                ratingSort : searchProduct.ratingSort, 
+                priceSort : searchProduct.priceSort, 
+                productsPerPage : searchProduct.productsPerPage, 
+                pageNo : searchProduct.pageNo}))
         }
 
        
@@ -122,7 +137,15 @@ const Dashboard = () => {
 
     useState(()=>{
         if( location.state != null){
-            dispatch(get_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features}))
+            dispatch(get_filter_and_sort_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features,
+                sold : searchProduct.sold,
+                nameSort : searchProduct.nameSort, 
+                dateSort : searchProduct.dateSort,
+               ratingSort : searchProduct.ratingSort, 
+               priceSort : searchProduct.priceSort, 
+               productsPerPage : searchProduct.productsPerPage, 
+               pageNo : searchProduct.pageNo}))
+
             setTabList([...tabList.map(v=> v.index === location.state.i ? {...v, active : true} : {...v, active : false} )]);
     }
     },[ location.state])
@@ -207,7 +230,7 @@ const Dashboard = () => {
                              </div> */}
 
                              {v.label == "Orders" && <DashboardOrders/>}
-                             {v.label == "Vegetables" && <DashboardProducts products={state.products}/>}
+                             {v.label == "Vegetables" && <DashboardProducts searchProduct={searchProduct} setSearchProduct={setSearchProduct} dispatch={dispatch} products={state.products}/>}
                         
                         {/* <div className="col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 aspect-video bg-white"></div>
                         <div className="col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 aspect-video bg-white"></div>

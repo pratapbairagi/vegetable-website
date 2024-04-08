@@ -6,6 +6,7 @@ import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { get_filter_and_sort_products, get_products } from "../redux/product/action";
 import Pagination from "./pagination";
+import { paginationFun } from "./paginationFun";
 
 
 
@@ -74,7 +75,7 @@ const Products = () => {
     const getInitialProductsFun = ({ type, value, sort, sortType }) => {
         
         if (type && value) {
-            
+
             dispatch(get_filter_and_sort_products({
 
                 [type]: [value]
@@ -142,26 +143,7 @@ const Products = () => {
         }
     }
 
-    const paginationNext = (e) => {
-
-        if(typeof e == "number"){
-            setSearchQuaries({
-                ...searchQueries,
-                pageNo : e
-            })
-                dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: e }))
-
-        }
-        else{
-            setSearchQuaries({
-                ...searchQueries,
-                pageNo : searchQueries.pageNo + Number(e)
-            })
-            dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo + Number(e) }))
-
-        }
-
-    }
+    
 
     // useEffect(()=>{
     //             dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo }))
@@ -416,7 +398,7 @@ const Products = () => {
                     </div>
 
                     <div className="pagination sticky">
-                        <Pagination fun={paginationNext} activePage={searchQueries.pageNo} numbersOfButton={(state.productsLength / searchQueries.productsPerPage)} />
+                        <Pagination fun={(e)=> paginationFun({e, searchQueries, setSearchQuaries, dispatch})} activePage={searchQueries.pageNo} numbersOfButton={(state.productsLength / searchQueries.productsPerPage)} />
                     </div>
 
                 </div>
