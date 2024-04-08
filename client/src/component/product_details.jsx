@@ -20,7 +20,7 @@ const Product_details = () => {
             dispatch(get_product(id))
         }
 
-    }, [state.product])
+    }, [state.product, id])
 
     return (
         <div className="w-full min-h-full grid grid-cols-12 pb-3 lg:max-w-80% mx-auto pt-3 lg:pt-32">

@@ -22,6 +22,8 @@ let x = 0
             }
         }
     },[location.state])
+
+    console.log("results => ", state)
     return (
         <div className="w-full flex flex-col px-1 py-2 lg:pt-28" style={{background:"rgb(248, 248, 248)"}}>
             <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-center text-theme-blue-600 ">Results</h2>
