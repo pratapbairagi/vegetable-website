@@ -30,7 +30,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
         navigate("/search", { state : { value : value }})
         }
         else{
-            dispatch(get_products({title : value}))
+            dispatch(get_products({title : value }))
         }
     }
 

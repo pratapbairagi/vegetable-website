@@ -56,8 +56,8 @@ const Home = () => {
                     dateSort : searchFilter.dateSort, 
                     sold : searchFilter.sold, 
                     ratingSort : searchFilter.ratingSort,
-                    productsPerPage,
-                    pageNo
+                    productsPerPage : searchFilter.productsPerPage,
+                    pageNo : searchFilter.pageNo
                 }))
             }
         }
