@@ -46,11 +46,11 @@ const AddProductForm = () => {
         }
     },[state.message])
 
-
+console.log(state)
 
     return (
     <>
-    {state.loading ? <Spinner/> : state.product && state.product._d &&
+    {state.loading ? <Spinner/> : 
         <div className="w-full h-max  min-h-screen flex flex-col pb-10">
             <h6 className="text-base sm:text-lg md:text-xl xl:text-2xl font-extrabold font-nunito text-center mt-5 md:mt-6 lg:mt-7 text-theme-blue-600">Add Vegetable</h6>
 

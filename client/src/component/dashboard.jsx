@@ -4,7 +4,7 @@ import DashboardOrders from "./dashboardOrders";
 import DashboardProducts from "./dashboardProducts";
 import { useDispatch, useSelector } from "react-redux";
 import { get_product, get_products } from "../redux/product/action";
-import { useLocation } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import Toaster from "./toaster";
 
 
@@ -122,7 +122,7 @@ const Dashboard = () => {
 
     useState(()=>{
         if( location.state != null){
-            dispatch(get_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features, nameSort, dateSort, sold, ratingSort}))
+            dispatch(get_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features}))
             setTabList([...tabList.map(v=> v.index === location.state.i ? {...v, active : true} : {...v, active : false} )]);
     }
     },[ location.state])
@@ -140,7 +140,7 @@ const Dashboard = () => {
            {state.success && <Toaster message={state.message} success={state.success} /> }
             <div className="w-full grid grid-cols-12 px-1 py-1 gap-x-2">
                 <div className="w-full scroll-overflow-hidden overflow-x-auto md:overflow-x-hidden md:col-span-4 lg:col-span-4 xl:col-span-3 h-max md:h-full bg-white fixed  md:sticky bottom-0 left-0 md:bottom-initial md:top-0 order-2 md:order-1 ">
-                    <h4 className="w-full hidden md:flex text-3xl font-extrabold font-nunito bg-theme-blue-600 text-gray-100 md:px-14 lg:px-14 xl:px-16 md:py-4 lg:py-5 xl:py-5">Website</h4>
+                    <h4 className="w-full hidden md:flex text-3xl font-extrabold font-nunito bg-theme-blue-600 text-gray-100 md:px-14 lg:px-14 xl:px-16 md:py-4 lg:py-5 xl:py-5"> <NavLink to="/"> Website </NavLink></h4>
                     <ul className="flex relative z-20 flex-row md:flex-col gap-y-4 justify-between md:mt-8 lg:mt-10 xl:mt-12  md:px-4">
                         
                         {tabList.map((v,i)=>{
@@ -186,12 +186,17 @@ const Dashboard = () => {
                 </div>
                 <div className="col-span-12 overflow-x-hidden overflow-y-auto h-screen max-h-screen md:col-span-8 lg:col-span-8 xl:col-span-9 order-1 md:order-2">
                     <div className="col-span-12 flex items-center py-1 bg-white px-2 md:px-2 lg:px-3 sticky z-20 top-0">
+                    <NavLink to="/" className="text-theme-blue-600 flex md:hidden mr-3 md:mr-4 ml-1 md:ml-2 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-semibold ">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512" className="w-5 md:w-6 lg:w-7 fill-gray-300">
+                                <path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
+                            </svg>
+                            </NavLink>
                         <div className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-theme-blue-600 py-2 sm:py-3 md:py-4 lg:py-5">Hello, <span className="font-semibold text-gray-500">Pratap Bairagi</span></div>
                         <div className="flex ml-auto  pr-2 md:pr-4 lg:pr-5 xl:pr-6 gap-x-4 sm:gap-x-5 md:gap-x-6 lg:gap-x-7 xl:gap-x-8">
-                            <button className="text-theme-blue-600 text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-semibold ">Logout</button>
                             <button className="text-theme-blue-600 font-semibold p-1  border rounded-full ">
                                 <img src="/images/profile_image.png" className="w-8 sm:w-9 md:w-10 lg:w-12 rounded-full" alt="" />
                             </button>
+                            
 
                         </div>
                     </div>
