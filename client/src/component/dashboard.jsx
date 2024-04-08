@@ -3,7 +3,7 @@ import Tabs from "./tabs"
 import DashboardOrders from "./dashboardOrders";
 import DashboardProducts from "./dashboardProducts";
 import { useDispatch, useSelector } from "react-redux";
-import { get_filter_and_sort_products, get_product, get_products } from "../redux/product/action";
+import { get_filter_and_sort_products } from "../redux/product/action";
 import { NavLink, useLocation } from "react-router-dom";
 import Toaster from "./toaster";
 
@@ -149,13 +149,6 @@ const Dashboard = () => {
             setTabList([...tabList.map(v=> v.index === location.state.i ? {...v, active : true} : {...v, active : false} )]);
     }
     },[ location.state])
-
-    // useEffect(()=>{
-    //     if( location.state != null){
-    //             dispatch(get_products())
-    //             setTabList([...tabList.map(v=> v.index === location.state.i ? {...v, active : true} : {...v, active : false} )]);
-    //     }
-    // },[location.state])
 
     
     return (

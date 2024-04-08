@@ -5,6 +5,7 @@ const Vegetable = require("../model/vegetable")
 exports.getVegetables = async (req, res, next) => {
 
   console.log("params => ", req.query)
+  const {productsPerPage, pageNo} = req.query
 
   try {
     let query = {};
@@ -141,9 +142,14 @@ exports.getVegetables = async (req, res, next) => {
 
 
     for (const key in req.query) {
-      if (key == "features" || key == "tags"|| key == "category") {
+      if (key == "tags"|| key == "category") {
         if (req.query[key]) {
           query[key] = req.query[key].split(",")
+        }
+      }
+      else if(key == "features"){
+        if(req.query[key]){
+          query["features.feature"] = req.query[key].split(",")
         }
       }
       // if( key == "price" ){
@@ -151,13 +157,16 @@ exports.getVegetables = async (req, res, next) => {
       if (key == "title" ) {
         let searchStrings = req.query[key].split(" ")
           if (req.query[key]) {
-            query[key] = { $in : searchStrings}
+            // query[key] = { $in : searchStrings}
+            // query["features.feature"] = { $in : searchStrings}
+            // query["category"] = { $in : searchStrings}
+            query["tags"] = { $in : searchStrings}
           }
       }
     }
 
     
-    const products = await Vegetable.find(query).limit(10);
+    const products = await Vegetable.find(query).skip( Number(productsPerPage) * Number(pageNo - 1)).limit(Number(productsPerPage));
 
     res.status(200).json({
       success: true,

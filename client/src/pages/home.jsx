@@ -32,7 +32,9 @@ const Home = () => {
         nameSort : 0, 
         dateSort : 0, 
         sold : 0, 
-        ratingSort : 0
+        ratingSort : 0,
+        productsPerPage : 10,
+        pageNo : 1
     })
 
     let x = 0
@@ -53,7 +55,9 @@ const Home = () => {
                     nameSort : searchFilter.nameSort, 
                     dateSort : searchFilter.dateSort, 
                     sold : searchFilter.sold, 
-                    ratingSort : searchFilter.ratingSort
+                    ratingSort : searchFilter.ratingSort,
+                    productsPerPage,
+                    pageNo
                 }))
             }
         }

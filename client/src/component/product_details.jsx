@@ -15,12 +15,12 @@ const Product_details = () => {
 
     let x = 0
     useEffect(() => {
-        if (state.product == null && x == 0) {
+        if (x == 0 && id) {
             x++
             dispatch(get_product(id))
         }
 
-    }, [state.product, id])
+    }, [id])
 
     return (
         <div className="w-full min-h-full grid grid-cols-12 pb-3 lg:max-w-80% mx-auto pt-3 lg:pt-32">

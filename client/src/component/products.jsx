@@ -4,7 +4,7 @@ import Card5 from "./card5";
 // import Pagination from "./pagination";
 import { useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { get_filter_and_sort_products, get_products } from "../redux/product/action";
+import { get_filter_and_sort_products } from "../redux/product/action";
 import Pagination from "./pagination";
 import { paginationFun } from "./paginationFun";
 
