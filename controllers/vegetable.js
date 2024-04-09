@@ -154,8 +154,10 @@ exports.getVegetables = async (req, res, next) => {
       // if( key == "price" ){
       // }
       if (key == "title" ) {
-        let searchStrings = req.query[key].split(" ")
-          if (req.query[key]) {
+        if (req.query[key]) {
+            let searchStrings = req.query[key].toLowerCase();
+            searchStrings = searchStrings.split(" ")
+
             // query[key] = { $in : searchStrings}
             // query["features.feature"] = { $in : searchStrings}
             // query["category"] = { $in : searchStrings}
@@ -251,7 +253,8 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
       }
       if( key == "title"){
         if( req.query[key] ){
-        const searchString = req.query[key].split(" ");
+        let searchString = req.query[key].toLowerCase();
+        searchString = searchString.split(" ")
 
         query[key] = {
           $in : searchString 

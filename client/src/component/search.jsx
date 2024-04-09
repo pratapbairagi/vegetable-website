@@ -5,7 +5,7 @@ import { memo, useRef, useState } from "react";
 
 
 
-const Search = ({fieldCss="", inputCss="", buttonCss="", svgCss="", searchQueries={}, setSearchQuaries=""}) => {
+const Search = ({fieldCss="", inputCss="", buttonCss="", svgCss="", searchQueries={}, setSearchQuaries=()=>""}) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();

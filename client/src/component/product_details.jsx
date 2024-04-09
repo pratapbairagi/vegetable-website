@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { get_product } from "../redux/product/action";
 import { cart_qty } from "../redux/cart/action";
+import Spinner from "./spinner";
 
 
 const Product_details = () => {
@@ -23,9 +24,11 @@ const Product_details = () => {
     }, [id])
 
     return (
+        <>
+        {state.loading ? <Spinner/> : state.product?.product != null &&
         <div className="w-full min-h-full grid grid-cols-12 pb-3 lg:max-w-80% mx-auto pt-3 lg:pt-32">
             <div className="col-span-12 md:col-span-8 grid-cols-12 grid grid-cols-12 gap-y-2 order-1 lg:max-h-70vh">
-                <div className="flex min-w-full scroll-overflow-hidden col-span-12 w-full max-w-full overflow-x-auto">
+                <div id="imageScroll" className="flex min-w-full scroll-overflow-hidden col-span-12 w-full max-w-full overflow-x-auto">
                 {state.product != null && state.product.product.images.map((v, i)=>{
                     return <img key={i} src={v.url} className="col-span-12 w-full min-w-full object-contain lg:max-h-80vh bg-gray-100" alt="" />
                 })}
@@ -34,7 +37,7 @@ const Product_details = () => {
 
                 <ul className="col-span-12  flex md:hidden max-h-full overflow-x-auto scroll-overflow-hidden px-2 gap-x-2">
                     {state.product != null ? state.product.product.images.map((v, i) => {
-                        return <li key={i} className="bg-gray-100 border-2 border-gray-300">
+                        return <li key={i} onClick={()=> document.getElementById("imageScroll").scrollLeft = (document.getElementById("imageScroll").clientWidth) * i } className="bg-gray-100 border-gray-300 cursor-pointer">
                             <img src={v.url} className="w-20 min-w-20" alt="" />
                         </li>
                     })
@@ -136,33 +139,12 @@ const Product_details = () => {
                     })
                         : ""
                     }
-
-
-                    {/* <li className="bg-gray-100">
-                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li >
-                    <li className="bg-gray-100">
-                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li >
-                    <li className="bg-gray-100">
-                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li >
-                    <li className="bg-gray-100">
-                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li >
-                    <li className="bg-gray-100">
-                        <img src="/images/potato.png" className="w-20 min-w-20" alt="" />
-                    </li > */}
                 </ul>
-
-
 
             </div>
             <div className="col-span-12 px-2 mt-1 sm:mt-1.5 flex items-center gap-x-3 order-4">
                 <h5 className="text-2xl font-bold font-nunito text-gray-600 flex md:hidden">{state.product != null ? state.product.product.features.map((v, i) => { return <span key={i}>{v.feature}</span> }): ""} <span className="ml-2">{state.product != null ? state.product.product.title : ""}</span></h5>
             </div>
-
-
 
             <div className="col-span-12 flex justify-start px-2 mt-5 sm:mt-6 order-5">
                 <h4 className="text-3xl font-extrabold text-theme-blue-600 font-nunito block md:hidden">{state.product != null ? state.product.product.price : ""}/KG</h4>
@@ -196,11 +178,6 @@ const Product_details = () => {
                     {state.product != null ? state.product.product.tags.map((v, i) => {
                         return <li key={i}><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100">#{v}</button></li>
                     }) : ""}
-
-                    {/* <li><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100"># hybrid</button></li>
-                    <li><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100"># fresh</button></li>
-                    <li><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100"># off</button></li> */}
-
                 </ul>
             </div>
 
@@ -211,9 +188,6 @@ const Product_details = () => {
                         return <Card4 key={i} product={v} />
                     }) : ""}
 
-                    {/* <Card4 />
-                    <Card4 />
-                    <Card4 /> */}
                 </ul>
                 <div className="w-full flex justify-end mt-3">
                     <button className="text-sm text-theme-blue-600 font-semibold h-7">See More</button>
@@ -275,7 +249,8 @@ const Product_details = () => {
                     <Review_card />
                 </ul>
             </div>
-        </div>
+        </div> }
+        </>
     )
 }
 

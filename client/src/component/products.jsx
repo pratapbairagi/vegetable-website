@@ -8,6 +8,7 @@ import { get_filter_and_sort_products } from "../redux/product/action";
 import Pagination from "./pagination";
 import { paginationFun } from "./paginationFun";
 import Search from "./search";
+import Spinner from "./spinner";
 
 
 
@@ -407,9 +408,11 @@ const Products = ({toggleCart,setToggleCart}) => {
                         <div className="w-full col-span-12">
                             <span className="fonnt-bold text-gray-400"> Result : {state.productsLength} products found</span>
                         </div>
-                        {state.products.map((v, i) => {
+                        {state.loading ? <Spinner/> : state.products.length > 0 &&
+                        state.products.map((v, i) => {
                             return <Card5 key={i} product={v} />
-                        })}
+                        })
+                    }
 
                     </div>
 

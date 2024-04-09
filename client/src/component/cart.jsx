@@ -17,7 +17,7 @@ const Cart = ({toggleCart, setToggleCart}) => {
 
                 Your Cart</h5>
 
-            <div className="grid grid-cols-12 lg:gap-x-10 overflow-y-auto max-h-90vh" >
+            <div className="grid grid-cols-12 lg:gap-x-10 overflow-y-auto scroll-overflow-hidden max-h-90vh" >
                 <div className="col-span-12 lg:col-span-8 flex flex-col max-h-80vh min-h-50vh lg:min-h-auto scroll-overflow-hidden overflow-y-auto  gap-y-1 py-3">
                 {cart.map((v,i)=>{
                    return <CardCart 
