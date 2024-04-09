@@ -75,7 +75,7 @@ const Products = ({toggleCart,setToggleCart}) => {
                 dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo }))
             }
         }
-    }, [location.state, searchQueries.title]);
+    }, [location.state, searchQueries]);
 
     const getInitialProductsFun = ({ type, value, sort, sortType }) => {
         

@@ -16,16 +16,14 @@ const Search = ({fieldCss="", inputCss="", buttonCss="", svgCss="", searchQuerie
         if (location.pathname != "/search" && location.pathname != "/products") {
             navigate("/search", { state: { value: searchString } })
         }
-        else if(location.pathname == "/products"){
+        else{
 
             setSearchQuaries({
                 ...searchQueries,
                 title : searchString
             })
         }
-        else {
-            dispatch(get_products({ title: searchString }))
-        }
+        
     }
 
     return (
