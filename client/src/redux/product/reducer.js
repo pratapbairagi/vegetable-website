@@ -45,7 +45,8 @@ export const product = ( state = {
                 categories : action.payload.categories,
                 filteredProducts : action.payload.filteredProducts,
                 features : action.payload.features,
-                most_sold : action.payload.soldVegetables
+                most_sold : action.payload.soldVegetables,
+                productsLength : action.payload.productsLength
             }
         case GET_FILTER_AND_SORT_PRODUCTS_SUCCESS :
             return {

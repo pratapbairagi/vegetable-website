@@ -7,16 +7,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { get_filter_and_sort_products } from "../redux/product/action";
 import Pagination from "./pagination";
 import { paginationFun } from "./paginationFun";
+import Search from "./search";
 
 
 
-const Products = () => {
+const Products = ({toggleCart,setToggleCart}) => {
     const location = useLocation()
     const ref = useRef()
     const refFilterAndSearchBar = useRef()
     const navigate = useNavigate()
     const dispatch = useDispatch()
     const state = useSelector(state => state.product)
+    const {cart} = useSelector(state => state.cart)
 
     const [searchQueries, setSearchQuaries] = useState({
         title: "",
@@ -39,7 +41,7 @@ const Products = () => {
     let x = 0
     useEffect(() => {
         if (location.state) {
-            if (location.state.productsType && location.state.other) {
+            if (location.state.productsType && location.state.other && !searchQueries.title) {
                 if (searchQueries.category.length == 0 || searchQueries.features.length == 0 || searchQueries.sold != 0) {
                     if (x == 0) {
                         x++
@@ -69,8 +71,11 @@ const Products = () => {
                         // getInitialProductsFun({ type: location.state.productsType, value: [location.state.other] })
                 }
             }
+            if(searchQueries.title){
+                dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo }))
+            }
         }
-    }, [location.state]);
+    }, [location.state, searchQueries.title]);
 
     const getInitialProductsFun = ({ type, value, sort, sortType }) => {
         
@@ -180,8 +185,16 @@ const Products = () => {
                 <div className="col-span-3 flex justify-start items-center px-3 md:px-4 lg:px-5 xl:px-6">
                     <NavLink to="/" className="font-bold text-theme-blue-600">Website</NavLink>
                 </div>
-                <div className="col-span-6"></div>
-                <div className="col-span-3 px-3 md:px-4 lg:px-5 xl:px-6 flex justify-end items-center">
+                <div className="col-span-4">
+                
+                </div>
+                <div className="col-span-5 px-3 md:px-4 lg:px-5 xl:px-6 flex justify-end items-center gap-x-3 mg:gap-x-4 lg:gap-x-5">
+                <button onClick={() => setToggleCart(true)} className="w-8 relative sm:w-10 md:w-12 lg:w-12 xl:w-12">
+                           <span className={`absolute flex justify-center items-center rounded-full w-5 md:w-6 lg:w-7 top-0 right-0 md:right-1.5 lg:right-0.5 aspect-square text-white text-2xs md:text-xs lg:text-sm font-semibold ${cart.length > 0 ? "bg-green-600" : "bg-red-600"}`} style={{ paddingBottom:"0.5px"}}>{ cart.reduce((accum, cv)=> accum + cv.qty, 0)}</span>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 sm:size-7 md:size-8 lg:size-9 xl:size-10 text-theme-blue-600">
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
+                            </svg>
+                </button>
                     <img onClick={() => navigate("/profile")} src="./images/profile_image.png" className="w-10 rounded-full aspect-square cursor-pointer" alt="" />
                 </div>
             </div>
@@ -309,7 +322,7 @@ const Products = () => {
                         </li>
                     </ul>
                     <div className="min-h-50vh w-full max-w-70% md:max-w-full bg-white"></div>
-                    <div className="border flex justify-center items-center bg-white  min-h-20 sticky bottom-0 max-w-70% md:max-w-full bg-white" style={{ width: "100%", gap: "10%" }}>
+                    <div className="flex justify-center items-center bg-white  min-h-20 sticky bottom-0 max-w-70% md:max-w-full bg-white" style={{ width: "100%", gap: "10%" }}>
                         <button className="w-5/12 text-sm md:text-base lg:text-lg font-bold text-gray-100 bg-red-700 py-3">CLEAR</button>
 
                         <button onClick={getInitialProductsFun} className="w-5/12 text-sm md:text-base lg:text-lg font-bold text-gray-100 bg-theme-blue-600 py-3">SUBMIT</button>
@@ -381,9 +394,13 @@ const Products = () => {
 
                         </div>
                         <div className="w-8/12 lg:w-3/12 h-14 bg-white border-gray-600 flex flex-row items-center px-2">
-                            <span className="px-2 py-1 w-full rounded" style={{ boxShadow: "0 0 2px gray" }}>
-                                <input type="text" placeholder="Search here.." name="" className=" w-full h-7 rounded outline-0 px-3 py-1 text-gray-400 text-xs md:text-sm lg:text-base" id="" />
-                            </span>
+                            <Search 
+                            searchQueries={searchQueries}
+                            setSearchQuaries={setSearchQuaries}
+                            fieldCss="shadow-md h-10 w-full  z-10 relative rounded-full"
+                            inputCss="block w-full h-full px-6 rounded-full text-gray-400"
+                            buttonCss="absolute top-0 right-0 h-full text-white grid place-items-center w-12 sm:w-12 md:w-12 lg:w-16 xl:w-16"
+                            svgCss="size-7 sm:size-7 md:size-7 lg:size-8 xl:size-8 stroke-theme-blue-600"/>
                         </div>
                     </div>
 

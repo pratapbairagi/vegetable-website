@@ -39,12 +39,8 @@ const Home = () => {
 
     let x = 0
     useEffect(() => {
-        console.log("1")
         if ((state.products.length == 0 && state.success == false) || (state.features2.length > 0 && state.success == false)) {
-
             if (x == 0) {
-        console.log("3")
-
                 x++
                 dispatch(get_products({
                     title: searchFilter.title,

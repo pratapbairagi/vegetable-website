@@ -2,15 +2,12 @@ import React, { useRef, useState } from "react";
 import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { get_products } from "../redux/product/action";
 import { useDispatch, useSelector } from "react-redux";
+import Search from "./search";
 
 
 const Navbar = ({ setToggleCart, setLoginToggle }) => {
     const location = useLocation();
-    const dispatch = useDispatch();
-    const navigate = useNavigate();
     const {cart} = useSelector(state => state.cart)
-
-
 
     const [isOpenMainMenu, setIsOpenMainMenu] = useState(false);
     const [isOpenMenu1, setIsOpenMenu1] = useState(false);
@@ -25,14 +22,14 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
     };
 
 
-    const searchFun = ({value})=> {
-        if(location.pathname != "/search"){
-        navigate("/search", { state : { value : value }})
-        }
-        else{
-            dispatch(get_products({title : value }))
-        }
-    }
+    // const searchFun = ({value})=> {
+    //     if(location.pathname != "/search"){
+    //     navigate("/search", { state : { value : value }})
+    //     }
+    //     else{
+    //         dispatch(get_products({title : value }))
+    //     }
+    // }
 
     return (
         <>
@@ -104,14 +101,19 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                     </nav>
 
                     <div className=" md:order-2 col-span-12 sm:col-span-12 md:col-span-8 flex flex-row justify-end sm:justify-end md:justify-start fixed sm:fixed md:relative bottom-6 sm:bottom-6 md:bottom-0 w-3/4">
-                        <fieldset className=" shadow-md h-10 sm:h-10 md:h-10 lg:h-12 xl:h-12 w-full sm:w-full md:w-3/4 lg:w-2/4  sm-left-125 md:left-0 z-10 relative rounded-full" >
+                        {/* <fieldset className=" shadow-md h-10 sm:h-10 md:h-10 lg:h-12 xl:h-12 w-full sm:w-full md:w-3/4 lg:w-2/4  sm-left-125 md:left-0 z-10 relative rounded-full" >
                             <input defaultValue=""  className="block w-full h-full px-6 rounded-full text-gray-400" type="text" placeholder="Search for..." name="" id="search_veg" />
                             <button onClick={(e)=> searchFun({value : document.getElementById("search_veg").value}) } className="absolute top-0 right-0 h-full text-white grid place-items-center w-12 sm:w-12 md:w-12 lg:w-16 xl:w-16">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} className="size-7 sm:size-7 md:size-7 lg:size-8 xl:size-8 stroke-theme-blue-600">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
                                 </svg>
                             </button>
-                        </fieldset>
+                        </fieldset> */}
+                        <Search 
+                        fieldCss="shadow-md h-10 sm:h-10 md:h-10 lg:h-12 xl:h-12 w-full sm:w-full md:w-3/4 lg:w-2/4  sm-left-125 md:left-0 z-10 relative rounded-full"
+                        inputCss="block w-full h-full px-6 rounded-full text-gray-400"
+                        buttonCss="absolute top-0 right-0 h-full text-white grid place-items-center w-12 sm:w-12 md:w-12 lg:w-16 xl:w-16"
+                        svgCss="size-7 sm:size-7 md:size-7 lg:size-8 xl:size-8 stroke-theme-blue-600" />
                     </div>
 
                     <div className="order-2 ms:order-2 md:order-3 col-span-9 sm:col-span-19 md:col-span-4 flex justify-end gap-x-1 sm:gap-x-2.5 md:gap-x-3.5 lg:gap-x-4 xl:gap-x-5">
@@ -119,7 +121,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
 
 
                         <button onClick={() => setToggleCart(true)} className="w-8 relative sm:w-10 md:w-12 lg:w-12 xl:w-12">
-                           <span className={`absolute flex justify-center items-center rounded-full w-5 md:w-6 lg:w-7 top-0 right-0 aspect-square text-white text-2xs md:text-xs lg:text-sm font-semibold ${cart.length > 0 ? "bg-green-600" : "bg-red-600"}`} style={{ paddingBottom:"0.5px"}}>{ cart.reduce((accum, cv)=> accum + cv.qty, 0)}</span>
+                           <span className={`absolute flex justify-center items-center rounded-full w-5 md:w-6 lg:w-7 top-0 right-0 md:right-1.5 lg:right-0.5 aspect-square text-white text-2xs md:text-xs lg:text-sm font-semibold ${cart.length > 0 ? "bg-green-600" : "bg-red-600"}`} style={{ paddingBottom:"0.5px"}}>{ cart.reduce((accum, cv)=> accum + cv.qty, 0)}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 sm:size-7 md:size-8 lg:size-9 xl:size-10 text-theme-blue-600">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                             </svg>

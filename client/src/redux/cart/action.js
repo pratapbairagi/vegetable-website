@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_TO_CART_FAILED, ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, QTY_TO_CART_FAILED, QTY_TO_CART_REQUEST, QTY_TO_CART_SUCCESS } from "./types";
+import { ADD_TO_CART_FAILED, ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, QTY_TO_CART_FAILED, QTY_TO_CART_REQUEST, QTY_TO_CART_SUCCESS, REMOVE_FROM_CART_FAILED, REMOVE_FROM_CART_REQUEST, REMOVE_FROM_CART_SUCCESS } from "./types";
 
 
 
@@ -53,4 +53,23 @@ export const cart_qty = ({product, operator}) => async (dispatch, getState) => {
             payload : "something went wrong !"
         })
     }
+}
+
+export const remove_from_cart = (id) => async (dispatch, getState) => {
+    try {
+        dispatch({
+            type : REMOVE_FROM_CART_REQUEST
+        });
+    
+        dispatch({
+            type : REMOVE_FROM_CART_SUCCESS,
+            payload : id
+        })
+    } catch (error) {
+        dispatch({
+            type : REMOVE_FROM_CART_FAILED,
+            payload : error
+        })
+    }
+    
 }

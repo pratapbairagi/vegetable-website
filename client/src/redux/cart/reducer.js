@@ -1,4 +1,4 @@
-import { ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, QTY_TO_CART_REQUEST, QTY_TO_CART_SUCCESS } from "./types";
+import { ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, QTY_TO_CART_REQUEST, QTY_TO_CART_SUCCESS, REMOVE_FROM_CART_FAILED, REMOVE_FROM_CART_REQUEST, REMOVE_FROM_CART_SUCCESS } from "./types";
 
 
 export const cart = (state={
@@ -13,7 +13,8 @@ export const cart = (state={
 
     switch(action.type){
         case ADD_TO_CART_REQUEST,
-        QTY_TO_CART_REQUEST :
+        QTY_TO_CART_REQUEST,
+        REMOVE_FROM_CART_REQUEST :
             return {
                 ...state,
                 loading : true
@@ -65,7 +66,22 @@ export const cart = (state={
                 cart : [...state.cart, {...action.payload.product, qty : 1 }]
             }
         }
-        default :
-        return state
+        case REMOVE_FROM_CART_SUCCESS :
+            let isCartItemExist = state.cart.find(v=> v._id === action.payload)
+            if(isCartItemExist){
+            return {
+                ...state,
+                loading : false,
+                success : true,
+                cart : state.cart.filter(v=> v._id !== isCartItemExist._id)
+            }
+        }
+        case REMOVE_FROM_CART_FAILED :
+            return {
+                ...state,
+                loading : false,
+                error : "Unable to remove items from cart. something went wrong !"
+            }
+        default : return state
     }
 }

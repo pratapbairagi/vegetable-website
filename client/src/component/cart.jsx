@@ -1,12 +1,11 @@
 // import { defer } from "react-router-dom"
-import { useDispatch, useSelector } from "react-redux"
+import { useSelector } from "react-redux"
 import CardCart from "./cardCart"
 
 
 
 const Cart = ({toggleCart, setToggleCart}) => {
     const {cart} = useSelector(state=> state.cart)
-    const dispatch = useDispatch()
     return (
         <div className={`w-full fixed h-screen bg-white z-30 top-0 px-3 transition-all duration-200`} style={{left:`${toggleCart ? "0" : "-100%"} `}}>
             <h5 className="border-b text-2xl md:text-3xl text-gray-600 font-bold text-center py-4 lg:py-5 lg:py-10 font-nunito relative">

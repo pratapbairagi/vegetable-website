@@ -165,7 +165,7 @@ exports.getVegetables = async (req, res, next) => {
       }
     }
 
-    
+    let productsLength = await Vegetable.countDocuments(query)
     const products = await Vegetable.find(query).skip( Number(productsPerPage) * Number(pageNo - 1)).limit(Number(productsPerPage));
 
     res.status(200).json({
@@ -175,7 +175,8 @@ exports.getVegetables = async (req, res, next) => {
       categories,
       filteredProducts,
       features: featureBasedProducts,
-      soldVegetables
+      soldVegetables,
+      productsLength
     })
   } catch (error) {
     console.log("catch error => ", error)
@@ -188,7 +189,7 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
     // console.log("queries => ", features)
     // console.log("queries => ", category)
     // console.log("queries => ", tags)
-    console.log("queries => ", productsPerPage)
+    console.log("queries => ", title)
     console.log("queries 2 => ", req.query["features"])
 
     let query = {}
@@ -214,7 +215,7 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
     let prices = await Vegetable.distinct("price")
 
     for (const key in req.query ){
-      if(key == "category" || key == "tags" ){
+      if(key == "category" ){
         if( req.query[key] && req.query[key] != "all" ){
           let array = await req.query[key].split(",")
           console.log("category => ", array)
@@ -228,7 +229,6 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
         if( req.query[key] && req.query[key] != "all" ){
           let array = await req.query[key].split(",")
 
-          console.log("features => ", array)
           
         // query["features.feature"] = { $in : array }
         query.features = { $elemMatch: { feature: { $in: array } } };
@@ -240,6 +240,7 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
       }
 
       if(key == "price" || key == "ratings"){
+
         if( req.query[key] ){
           const range = req.query[key]
           query[key] = {
@@ -248,12 +249,17 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
           }
         }
       }
-      if( key == "title"){
-        if( req.query[key] ){
+      if( key == "title" || key == "tags" ){
+        if( req.query[key] && req.query[key] != "all"){
         const searchString = req.query[key].split(" ");
 
-        query[key] = {
+        query["tags"] = {
           $in : searchString 
+        }
+      }
+      else{
+        query["tags"] = {
+          $in : tag 
         }
       }
       }
