@@ -34,7 +34,7 @@ export const add_product = (product) => async (dispatch) => {
 
 export const get_products = ({title="", category="", price={lte:0,gte:1000}, tags=[], features=[],productsPerPage=10, pageNo=1}) => async (dispatch) => {
     // let url = `http://localhost:5005/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
-    const url = `https://veg-etable.vercel.app/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;;
+    const url = `https://veg-etable.vercel.app/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
     try{
         dispatch({
             type : GET_PRODUCTS_REQUEST
