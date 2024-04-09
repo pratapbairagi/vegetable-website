@@ -2,7 +2,7 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Star from "./star";
 import Card5 from "./card5";
 // import Pagination from "./pagination";
-import { useEffect, useRef, useState } from "react";
+import { memo, useEffect, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { get_filter_and_sort_products } from "../redux/product/action";
 import Pagination from "./pagination";
@@ -41,7 +41,7 @@ const Products = ({toggleCart,setToggleCart}) => {
     let x = 0
     useEffect(() => {
         if (location.state) {
-            if (location.state.productsType && location.state.other && !searchQueries.title) {
+            if (location.state.productsType && location.state.other) {
                 if (searchQueries.category.length == 0 || searchQueries.features.length == 0 || searchQueries.sold != 0) {
                     if (x == 0) {
                         x++
@@ -59,7 +59,7 @@ const Products = ({toggleCart,setToggleCart}) => {
                         //         features: [location.state.other]
                         //     })
                         // }
-                        if (location.state.productsType == "sold") {
+                        else if (location.state.productsType == "sold") {
 
                             setSearchQuaries({
                                 ...searchQueries,
@@ -71,14 +71,13 @@ const Products = ({toggleCart,setToggleCart}) => {
                         // getInitialProductsFun({ type: location.state.productsType, value: [location.state.other] })
                 }
             }
-            if(searchQueries.title){
-                dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo }))
-            }
+            // if(searchQueries.title){
+            //     dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo }))
+            // }
         }
-    }, [location.state, searchQueries]);
+    }, [location.state]);
 
     const getInitialProductsFun = ({ type, value, sort, sortType }) => {
-        
         if (type && value) {
 
             dispatch(get_filter_and_sort_products({
@@ -425,4 +424,4 @@ const Products = ({toggleCart,setToggleCart}) => {
     )
 }
 
-export default Products;
+export default memo(Products);
