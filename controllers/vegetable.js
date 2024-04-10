@@ -169,8 +169,6 @@ exports.getVegetables = async (req, res, next) => {
     
     const products = await Vegetable.find(query).limit(10);
 
-    console.log("searched => ", products)
-
     res.status(200).json({
       success: true,
       message: "",
@@ -263,7 +261,10 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
       }
     }
     let productsLength = await Vegetable.countDocuments(query).sort(sort)
-    products = await Vegetable.find(query).sort(sort).skip(productsPerPage * (pageNo - 1)).limit(productsPerPage)
+
+      products = productsLength <= productsPerPage ? await Vegetable.find(query).sort(sort).limit(productsPerPage)
+       : await Vegetable.find(query).sort(sort).skip(productsPerPage * (pageNo - 1)).limit(productsPerPage)
+   
     
 
     categories.unshift("all")

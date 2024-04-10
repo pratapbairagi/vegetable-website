@@ -59,6 +59,7 @@ const Home = () => {
         }
 
     }, [])
+    console.log(state)
     
     return (
         <div className='relative' style={{ background: "rgb(248, 248, 248)" }}>
@@ -68,13 +69,19 @@ const Home = () => {
                     <Hero />
                     <Features />
                     <About />
-                    {state.products && <Most_selling_section products={state.most_sold} />}
-                    <Shop_by_category />
-                    <Todays_special products={state} />
-                    <Service_features />
-                    <Service_feedbacks />
-                    <Contact />
-                </>
+                    {state.loading ? 
+                    <Spinner/> 
+                     : state.products?.length > 0 &&
+                     <>
+                      <Most_selling_section products={state.most_sold} />
+                     <Shop_by_category />
+                     <Todays_special products={state} />
+                     </>
+                     }
+                     <Service_features />
+                     <Service_feedbacks />
+                     <Contact />
+                 </>
             
         </div>
     )

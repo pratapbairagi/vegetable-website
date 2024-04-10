@@ -35,7 +35,7 @@ const Products = ({toggleCart,setToggleCart}) => {
         priceSort: "",
         ratingSort: "",
         dateSort: "",
-        productsPerPage: 5,
+        productsPerPage: 12,
         pageNo: 1
     })
 
@@ -46,10 +46,11 @@ const Products = ({toggleCart,setToggleCart}) => {
                 if (searchQueries.category.length == 0 || searchQueries.features.length == 0 || searchQueries.sold != 0) {
                     if (x == 0) {
                         x++
-                        if (location.state.productsType == "category" || location.state.productsType == "features") {
+                        if (location.state.productsType == "category" || location.state.productsType == "sold") {
                             setSearchQuaries({
                                 ...searchQueries,
-                                [location.state.productsType]: [location.state.other]
+                                [location.state.productsType]: [location.state.other],
+                                productsPerPage : 12
                             })
                             getInitialProductsFun({ type: location.state.productsType, value: [location.state.other] })
                         }
@@ -64,9 +65,21 @@ const Products = ({toggleCart,setToggleCart}) => {
 
                             setSearchQuaries({
                                 ...searchQueries,
-                                sold: location.state.other
+                                sold: location.state.other,
+                                productsPerPage : 12
                             })
                             getInitialProductsFun({ type: location.state.productsType, value: location.state.other })
+                        }
+                        else if(location.state.productsType == "all" && location.state.other == "all"){
+                            setSearchQuaries({
+                                ...searchQueries,
+                                category: [...searchQueries.category,location.state.other],
+                                tags: [...searchQueries.tags,location.state.other],
+                                features: [...searchQueries.features, location.state.other],
+                                productsPerPage : 12
+                            })
+                            getInitialProductsFun({ type: location.state.productsType, value: location.state.other })
+
                         }
                     }
                         // getInitialProductsFun({ type: location.state.productsType, value: [location.state.other] })
@@ -79,11 +92,21 @@ const Products = ({toggleCart,setToggleCart}) => {
     }, [location.state]);
 
     const getInitialProductsFun = ({ type, value, sort, sortType }) => {
-        if (type && value) {
+        if (type && value && type != "all" && value != "all") {
 
             dispatch(get_filter_and_sort_products({
 
-                [type]: [value]
+                [type]: [value],
+                productsPerPage : 12
+            }))
+        }
+        else if(type == "all" && value == "all"){
+            dispatch(get_filter_and_sort_products({
+
+                category: [value],
+                tags: [value],
+                features: [value],
+                productsPerPage : 12
             }))
         }
         else if (!type && !value && sort && sortType) {
@@ -232,7 +255,7 @@ const Products = ({toggleCart,setToggleCart}) => {
                                 <span className="flex gap-x-1">
                                     {cat}
                                 </span>
-                                <input type="checkbox" onChange={filterProducts_handler} defaultChecked={location.state.productsType == "category" ? location.state.other == cat ? true : false : false} value={cat} className="w-6" name="category" id="" />
+                                <input type="checkbox" onChange={filterProducts_handler} defaultChecked={location.state.productsType == "category" || location.state.productsType == "all" ? location.state.other == cat ? true : false : false} value={cat} className="w-6" name="category" id="" />
                             </li>
                              })
                             :
@@ -252,7 +275,7 @@ const Products = ({toggleCart,setToggleCart}) => {
                             <span className="flex gap-x-1">
                                 {feat}
                             </span>
-                            <input type="checkbox" onChange={filterProducts_handler} value={feat} defaultChecked={location.state.productsType == "features" ? location.state.other == feat ? true : false : false} className="w-6" name="features" id="" />
+                            <input type="checkbox" onChange={filterProducts_handler} value={feat} defaultChecked={location.state.productsType == "features" || location.state.productsType == "all" ? location.state.other == feat ? true : false : false} className="w-6" name="features" id="" />
                         </li>
                     })
                 :
@@ -272,7 +295,7 @@ const Products = ({toggleCart,setToggleCart}) => {
                             <span className="flex gap-x-1">
                                 {tag}
                             </span>
-                            <input type="checkbox" onChange={filterProducts_handler} value={tag} defaultChecked={location.state.productsType == "tags" ? location.state.other == tag ? true : false : false} className="w-6" name="tags" id="" />
+                            <input type="checkbox" onChange={filterProducts_handler} value={tag} defaultChecked={location.state.productsType == "tags" || location.state.productsType == "all" ? location.state.other == tag ? true : false : false} className="w-6" name="tags" id="" />
                         </li>
                     })
                     :
@@ -404,11 +427,13 @@ const Products = ({toggleCart,setToggleCart}) => {
                         </div>
                     </div>
 
-                    <div style={{ alignContent:"start"}} className="products md:min-h-80vh w-full grid grid-cols-12 gap-2  sm:gap-3 md:gap-6 p-3 md:p-4 lg:p-6 xl:p-6 py-4 items-start justify-start md:py-5 lg:py-6 xl:py-8">
-                        <div className="w-full col-span-12">
+                    <div style={{ alignContent:"start"}} className={`products md:min-h-80vh w-full grid ${state.loading ? "" : "p-3 md:p-4 lg:p-6 xl:p-6"} grid-cols-12 gap-2  sm:gap-3 md:gap-6  py-3 items-start justify-start md:py-4 lg:py-5 xl:py-6`}>
+                        <div className="w-full col-span-12 pl-2">
                             <span className="fonnt-bold text-gray-400"> Result : {state.productsLength} products found</span>
                         </div>
-                        {state.loading ? <Spinner/> : state.products.length > 0 &&
+                        {state.loading ?
+                         <Spinner/>  
+                         : state.products.length > 0 &&
                         state.products.map((v, i) => {
                             return <Card5 key={i} product={v} />
                         })

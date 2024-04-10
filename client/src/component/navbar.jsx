@@ -31,6 +31,22 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
     //     }
     // }
 
+    const navLinksActivate = (e) => {
+        let links = document.querySelectorAll(".nav-link")
+        links.forEach((v,i)=>{
+            if(e === i){
+                v.children[0].classList.add("bg-theme-blue-600")
+                v.children[0].classList.add("text-white")
+            }
+            else{
+                v.children[0].classList.remove("bg-theme-blue-600")
+                v.children[0].classList.remove("text-white")
+                v.children[0].classList.add("text-theme-blue-600")
+            }
+        })
+    }
+    
+
     return (
         <>
             <header className={`text-white py-3 sm:py-3 md:py-3 lg:py-4 xl:py-4 ${location.pathname === "/dashboard" || location.pathname === "/products" ? "hidden" : "sticky lg:fixed lg:w-full lg:bg-transparent lg:shadow-none"} z-20 top-0 shadow`}>
@@ -43,7 +59,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                     <nav onClick={() => setIsOpenMainMenu(false)} className={`w-full sm:w-full md:w-auto md:col-span-9 ${isOpenMainMenu ? "flex sm:flex" : "hidden sm:hidden"} md:flex justify-end fixed sm:fixed md:relative h-full z-30 bottom-0 right-0  bg-gray-100 sm:bg-gray-100 md:bg-transparent`} style={{ background: `${isOpenMainMenu ? "rgba(192, 191, 191, 0.347)" : "transparent"}` }}>
 
 
-                        <ul onClick={(e) => e.stopPropagation()} className="flex justify-start sm:justify-start md:justify-end flex-col sm:flex-col md:flex-row gap-y-1  w-5/6 sm:w-5/6 md:w-auto bg-white sm:bg-white md:bg-transparent h-full sm:h-full md:h-auto py-8 sm:py-8 px-3 sm:px-3 md:px-0 md:py-0 relative">
+                        <ul onClick={(e) => e.stopPropagation()} className="flex justify-start sm:justify-start md:justify-end flex-col md:items-center sm:flex-col md:flex-row gap-y-1  w-5/6 sm:w-5/6 md:w-auto bg-white sm:bg-white md:bg-transparent h-full sm:h-full md:h-auto py-8 sm:py-8 px-3 sm:px-3 md:px-0 md:py-0 relative">
 
                             <button onClick={() => setIsOpenMainMenu(false)} className="block sm:block md:hidden absolute left-3 top-3">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-8 stroke-theme-blue-600">
@@ -55,31 +71,60 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
 
                             <hr className="mt-5 mt-6 md:hiddenn" />
 
-                            <li className="mt-5 sm-mt-6 md:mt-0">
-                                <button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-300 bg-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">Home</button>
+                            <li onClick={()=> navLinksActivate(0)} className="mt-5 sm-mt-6 md:mt-0 p-0 nav-link">
+                                <NavLink to="/" className="w-full font-semibold text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-300 bg-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">Home</NavLink>
                             </li>
-                            <li className="relative">
-                                <button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500" onClick={toggleMenu1}>Vegetables</button>
-                                {isOpenMenu1 && (
-                                    <ul className="absolute top-12 w-full left-0 bg-gray-800 text-white py-2 rounded shadow-lg">
-                                        <li><a href="#" className="block px-4 py-2 hover:bg-gray-700">Item 1</a></li>
-                                        <li><a href="#" className="block px-4 py-2 hover:bg-gray-700">Item 2</a></li>
-                                        <li><a href="#" className="block px-4 py-2 hover:bg-gray-700">Item 3</a></li>
-                                    </ul>
-                                )}
+                            <li onClick={()=> navLinksActivate(1)} className="relative flex items-center justify-center nav-link">
+                                <NavLink to="/products" state={{productsType : "all", other : "all"}} 
+                                // onClick={()=> {
+                                //     let x = document.getElementById("submenu1")
+                                //     if(x.classList.contains("h-0") ){
+                                //         x.classList.replace("h-0", "h-max")
+                                //         x.classList.replace("y-0", "y-2")
+                                //         x.classList.replace("hidden", "block")
+                                //     }
+                                //     else{
+                                //         x.classList.replace("h-max", "h-0")
+                                //         x.classList.replace("y-2", "y-0")
+                                //         x.classList.replace("block", "hidden")
+                                //     }
+                                //     } } 
+                                    className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500" >Vegetables</NavLink>
+                                
+                                    {/* <ul id="submenu1" className={`h-0 py-0 hidden md:absolute min-w-28 bg-white top-12 w-full left-0 text-blue-600  rounded shadow-sm`}>
+                                        <li><a href="#" className="block px-4 py-2 hover:bg-theme-blue-600 hover:text-white">Item 1</a></li>
+                                        <li><a href="#" className="block px-4 py-2 hover:bg-theme-blue-600 hover:text-white">Item 2</a></li>
+                                        <li><a href="#" className="block px-4 py-2 hover:bg-theme-blue-600 hover:text-white">Item 3</a></li>
+                                    </ul> */}
+                                
                             </li>
-                            <li className="relative">
-                                <button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500" onClick={toggleMenu2}>Menu</button>
-                                {isOpenMenu2 && (
-                                    <ul className="absolute w-40 top-12 right-0 bg-gray-800 text-white py-2 rounded shadow-lg">
-                                        <li className=""><button className="block px-4 py-2 hover:bg-gray-700">Item A</button></li>
-                                        <li><button className="block px-4 py-2 hover:bg-gray-700">Item B</button></li>
-                                        <li><button className="block px-4 py-2 hover:bg-gray-700">Item C</button></li>
-                                    </ul>
-                                )}
+                            <li onClick={()=> navLinksActivate(2)} className="relative flex items-center justify-center nav-link">
+                                <NavLink 
+                                // onClick={()=>{
+                                //     let x = document.getElementById("submenu2")
+                                //     if(x.classList.contains("h-0") ){
+                                //         x.classList.replace("h-0", "h-max")
+                                //         x.classList.replace("y-0", "y-2")
+                                //         x.classList.replace("hidden", "block")
+                                //     }
+                                //     else{
+                                //         x.classList.replace("h-max", "h-0")
+                                //         x.classList.replace("y-2", "y-0")
+                                //         x.classList.replace("block", "hidden")
+
+                                //     }
+                                // }} 
+                                className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500" >Menu</NavLink>
+                                
+                                {/* <ul id="submenu2" className={`h-0 py-0 hidden md:absolute bg-white top-12 w-full min-w-28 left-0 text-blue-600  rounded shadow-sm `}>
+                                        <li><a href="#" className="block px-4 py-2 hover:bg-theme-blue-600 hover:text-white">Item 1</a></li>
+                                        <li><a href="#" className="block px-4 py-2 hover:bg-theme-blue-600 hover:text-white">Item 2</a></li>
+                                        <li><a href="#" className="block px-4 py-2 hover:bg-theme-blue-600 hover:text-white">Item 3</a></li>
+                                    </ul> */}
+                                
                             </li>
-                            <li><button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-autotext-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">About</button></li>
-                            <li><button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">Contact</button></li>
+                            <li onClick={()=> navLinksActivate(3)} className="nav-link flex items-center justify-center"><button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-autotext-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">About</button></li>
+                            <li onClick={()=> navLinksActivate(4)} className="nav-link flex items-center justify-center"><button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">Contact</button></li>
 
                             <div className="w-11/12 h-16 grid grid-cols-12 md:hidden absolute bottom-5 bg-gray-100 rounded">
                                 <div className="col-span-3 flex items-center justify-center border-r">
@@ -135,7 +180,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
 
                         <button onClick={() => setIsOpenMainMenu(true)} className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 block sm:flex md:hidden bg-gray-100 aspect-square flex items-center justify-center bg-theme-blue-600 text-gray-100 rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 sm:size-7 md:size-8 lg:size-9 xl:size-10">
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
+                             <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
                             </svg>
                         </button>
 
