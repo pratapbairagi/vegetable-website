@@ -10,26 +10,6 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
     const {cart} = useSelector(state => state.cart)
 
     const [isOpenMainMenu, setIsOpenMainMenu] = useState(false);
-    const [isOpenMenu1, setIsOpenMenu1] = useState(false);
-    const [isOpenMenu2, setIsOpenMenu2] = useState(false);
-
-    const toggleMenu1 = () => {
-        setIsOpenMenu1(!isOpenMenu1);
-    };
-
-    const toggleMenu2 = () => {
-        setIsOpenMenu2(!isOpenMenu2);
-    };
-
-
-    // const searchFun = ({value})=> {
-    //     if(location.pathname != "/search"){
-    //     navigate("/search", { state : { value : value }})
-    //     }
-    //     else{
-    //         dispatch(get_products({title : value }))
-    //     }
-    // }
 
     const navLinksActivate = (e) => {
         let links = document.querySelectorAll(".nav-link")
@@ -44,6 +24,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                 v.children[0].classList.add("text-theme-blue-600")
             }
         })
+        setIsOpenMainMenu(false)
     }
     
 
@@ -71,10 +52,10 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
 
                             <hr className="mt-5 mt-6 md:hiddenn" />
 
-                            <li onClick={()=> navLinksActivate(0)} className="mt-5 sm-mt-6 md:mt-0 p-0 nav-link">
-                                <NavLink to="/" className="w-full font-semibold text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-300 bg-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">Home</NavLink>
+                            <li onClick={()=> navLinksActivate(0)} className=" mt-5 sm-mt-6 md:mt-0 p-0 flex items-center justify-center nav-link w-full md:w-max ">
+                                <NavLink to="/" className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl  hover:text-gray-100 bg-theme-blue-600 text-white hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">Home</NavLink>
                             </li>
-                            <li onClick={()=> navLinksActivate(1)} className="relative flex items-center justify-center nav-link">
+                            <li onClick={()=> navLinksActivate(1)} className="relative flex items-center justify-center nav-link w-full md:w-max">
                                 <NavLink to="/products" state={{productsType : "all", other : "all"}} 
                                 // onClick={()=> {
                                 //     let x = document.getElementById("submenu1")
@@ -98,7 +79,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                                     </ul> */}
                                 
                             </li>
-                            <li onClick={()=> navLinksActivate(2)} className="relative flex items-center justify-center nav-link">
+                            <li onClick={()=> navLinksActivate(2)} className="relative flex items-center justify-center nav-link w-full md:w-max">
                                 <NavLink 
                                 // onClick={()=>{
                                 //     let x = document.getElementById("submenu2")
@@ -123,12 +104,14 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                                     </ul> */}
                                 
                             </li>
-                            <li onClick={()=> navLinksActivate(3)} className="nav-link flex items-center justify-center"><button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-autotext-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">About</button></li>
-                            <li onClick={()=> navLinksActivate(4)} className="nav-link flex items-center justify-center"><button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">Contact</button></li>
+                            <li onClick={()=> navLinksActivate(3)} className="nav-link flex items-center justify-center w-full md:w-max"><button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">About</button></li>
+                            <li onClick={()=> navLinksActivate(4)} className="nav-link flex items-center justify-center w-full md:w-max"><button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-xl hover:text-gray-100 hover:bg-theme-blue-600 font-semibold text-theme-blue-600 px-4 py-1.5 pb-2 rounded transition-all duration-500">Contact</button></li>
 
                             <div className="w-11/12 h-16 grid grid-cols-12 md:hidden absolute bottom-5 bg-gray-100 rounded">
                                 <div className="col-span-3 flex items-center justify-center border-r">
-                                   <NavLink to="/profile"> 
+                                   <NavLink onClick={()=>{
+                                    setIsOpenMainMenu(false)
+                                   }} to="/profile"> 
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1} className="w-14 stroke-gray-300">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M17.982 18.725A7.488 7.488 0 0 0 12 15.75a7.488 7.488 0 0 0-5.982 2.975m11.963 0a9 9 0 1 0-11.963 0m11.963 0A8.966 8.966 0 0 1 12 21a8.966 8.966 0 0 1-5.982-2.275M15 9.75a3 3 0 1 1-6 0 3 3 0 0 1 6 0Z" />
                                     </svg> 
@@ -165,20 +148,29 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
 
 
 
-                        <button onClick={() => setToggleCart(true)} className="w-8 relative sm:w-10 md:w-12 lg:w-12 xl:w-12">
+                        <button onClick={() =>{ 
+                            setIsOpenMainMenu(false)
+                            setToggleCart(true)}
+                            } className="w-8 relative sm:w-10 md:w-12 lg:w-12 xl:w-12">
                            <span className={`absolute flex justify-center items-center rounded-full w-5 md:w-6 lg:w-7 top-0 right-0 md:right-1.5 lg:right-0.5 aspect-square text-white text-2xs md:text-xs lg:text-sm font-semibold ${cart.length > 0 ? "bg-green-600" : "bg-red-600"}`} style={{ paddingBottom:"0.5px"}}>{ cart.reduce((accum, cv)=> accum + cv.qty, 0)}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 sm:size-7 md:size-8 lg:size-9 xl:size-10 text-theme-blue-600">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                             </svg>
                         </button>
 
-                        <NavLink to="/login" onClick={() => setLoginToggle(true)} className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 md:bg-theme-blue-600 flex justify-center items-center md:p-1 rounded-md mr-2">
+                        <NavLink to="/login" onClick={() => {
+                            setIsOpenMainMenu(false)
+                            setLoginToggle(true)}
+                            } className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 md:bg-theme-blue-600 flex justify-center items-center md:p-1 rounded-md mr-2">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-6 sm:size-7 md:size-7 lg:size-8 xl:size-9 text-theme-blue-600 md:text-gray-100 ">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0ZM4.501 20.118a7.5 7.5 0 0 1 14.998 0A17.933 17.933 0 0 1 12 21.75c-2.676 0-5.216-.584-7.499-1.632Z" />
                             </svg>
                         </NavLink>
 
-                        <button onClick={() => setIsOpenMainMenu(true)} className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 block sm:flex md:hidden bg-gray-100 aspect-square flex items-center justify-center bg-theme-blue-600 text-gray-100 rounded">
+                        <button onClick={() =>{
+                            setIsOpenMainMenu(false)
+                             setIsOpenMainMenu(true)}
+                             } className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 block sm:flex md:hidden bg-gray-100 aspect-square flex items-center justify-center bg-theme-blue-600 text-gray-100 rounded">
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 sm:size-7 md:size-8 lg:size-9 xl:size-10">
                              <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 9h16.5m-16.5 6.75h16.5" />
                             </svg>
