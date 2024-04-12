@@ -15,6 +15,7 @@ import Todays_special from "../component/todays_special"
 import React, { useEffect, useState } from "react"
 import { get_products } from "../redux/product/action"
 import Spinner from "../component/spinner"
+import StoresMap from "../component/map"
 
 
 const Home = () => {
@@ -81,6 +82,8 @@ const Home = () => {
                      <Service_features />
                      <Service_feedbacks />
                      <Contact />
+                    <StoresMap/>
+
                  </>
             
         </div>

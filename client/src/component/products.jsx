@@ -370,7 +370,7 @@ const Products = ({toggleCart,setToggleCart}) => {
                                 </svg>
                             </button>
 
-                            <span className="sorting_sec hidden  md:flex w-8/12 w-max-w-8/12 overflow-x-auto px-2 py-2 md:w-full flex gap-x-4 absolute z-10 right-0 bg-white md:relative">
+                            <span className="sorting_sec hidden  md:flex w-8/12 w-max-w-8/12 overflow-x-auto px-2 py-2 md:w-full flex gap-x-4 absolute z-30 right-0 bg-white md:relative">
                                 <button onClick={() => {
                                     !searchQueries.nameSort ? setSearchQuaries({ ...searchQueries, nameSort: "-1" }) : searchQueries.nameSort == "-1" ? setSearchQuaries({ ...searchQueries, nameSort: "1" }) : setSearchQuaries({ ...searchQueries, nameSort: "" })
                                     getInitialProductsFun({ sort: true, sortType: "nameSort" })

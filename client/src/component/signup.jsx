@@ -1,7 +1,38 @@
+import { useState } from "react"
 import { NavLink } from "react-router-dom"
+import {useDispatch} from "react-redux"
+import { user_register } from "../redux/user/action"
 
 
 const Signup = ({ loginToggle, setLoginToggle }) => {
+    const dispatch = useDispatch()
+    const [user, setUser] = useState({
+        first_name : "", 
+        last_name : "",
+        phone : "",
+        email : "",
+        password : "",
+        confirmPassword : ""
+    })
+
+    const userInputHandler = (e) => {
+        const {name, value} = e.target;
+
+        setUser({...user, [name] : value})
+    }
+    console.log("user => ", user)
+
+    const submitUSerForm = (e) => {
+        e.preventDefault();
+        if( !user.first_name || !user.last_name || !user.email || !user.phone || !user.password || !user.confirmPassword){
+            console.log("please fill all fields !")
+        }
+        else{
+            dispatch(user_register(user))
+        }
+        
+        
+    }
     return (
         <div className={`w-full h-max max-h-screen overflow-auto min-h-max z-30 top-0 bg-white block fixed `}  >
 
@@ -28,32 +59,32 @@ const Signup = ({ loginToggle, setLoginToggle }) => {
                     
                     <h5 className="w-full text-center text-xl font-extrabold font-nunito text-theme-blue-600">CREATE ACCOUNT</h5>
 
-                    <div className="grid grid-cols-12 md:justify-center gap-y-2 md:gap-y-4 mt-4 md:max-w-90% lg:max-w-96 gap-x-3 relative h-max"  >
+                    <form onSubmit={submitUSerForm} className="grid grid-cols-12 md:justify-center gap-y-2 md:gap-y-4 mt-4 md:max-w-90% lg:max-w-96 gap-x-3 relative h-max"  >
                         <fieldset className="flex flex-col col-span-12 lg:col-span-6">
                             <label htmlFor="first_name" className="text-base text-gray-400">First Name</label>
-                            <input type="text" id="first_name" className="border text-sm py-2 px-2" placeholder="Ex: John Doe" />
+                            <input name="first_name" onChange={userInputHandler} type="text" id="first_name" className="border text-sm py-2 px-2" placeholder="Ex: John Doe" />
                         </fieldset>
                         <fieldset className="flex flex-col col-span-12 lg:col-span-6">
                             <label htmlFor="last_name" className="text-base text-gray-400">Last Name</label>
-                            <input type="text" id="name" className="border text-sm py-2 px-2" placeholder="Ex: John Doe" />
+                            <input name="last_name" onChange={userInputHandler} type="text" id="name" className="border text-sm py-2 px-2" placeholder="Ex: John Doe" />
                         </fieldset>
                         <fieldset className="flex flex-col col-span-12 lg:col-span-6">
                             <label htmlFor="email" className="text-base text-gray-400">Email</label>
-                            <input type="email" id="email" className="border text-sm py-2 px-2" placeholder="Ex: John Doe" />
+                            <input name="email" onChange={userInputHandler} type="email" id="email" className="border text-sm py-2 px-2" placeholder="Ex: John Doe" />
                         </fieldset>
                         <fieldset className="flex flex-col col-span-12 lg:col-span-6">
                             <label htmlFor="number" className="text-base text-gray-400">Number</label>
-                            <input type="tel" id="number" className="border text-sm py-2 px-2" placeholder="Ex: 1234567890" />
+                            <input name="phone" onChange={userInputHandler} type="tel" id="number" className="border text-sm py-2 px-2" placeholder="Ex: 1234567890" />
                         </fieldset>
 
                         <fieldset className="flex flex-col col-span-12 lg:col-span-6">
                             <label htmlFor="password" className="text-base text-gray-400">Password</label>
-                            <input type="password" className="border text-sm py-2 px-2" placeholder="Ex: Abcd1@" />
+                            <input name="password" onChange={userInputHandler} type="password" className="border text-sm py-2 px-2" placeholder="Ex: Abcd1@" />
                         </fieldset>
 
                         <fieldset className="flex flex-col col-span-12 lg:col-span-6">
-                            <label htmlFor="confirm_password" className="text-base text-gray-400">Confirm Password</label>
-                            <input type="password" id="confirm_password" className="border text-sm py-2 px-2" placeholder="Ex: johnn@gmail.com" />
+                            <label htmlFor="confirmPassword" className="text-base text-gray-400">Confirm Password</label>
+                            <input name="confirmPassword" onChange={userInputHandler} type="password" id="confirmPassword" className="border text-sm py-2 px-2" placeholder="Ex: johnn@gmail.com" />
                         </fieldset>
 
                         <fieldset className="grid grid-cols-12 col-span-12">
@@ -68,7 +99,7 @@ const Signup = ({ loginToggle, setLoginToggle }) => {
                         </fieldset>
 
                         <fieldset className="grid grid-cols-12 mt-4 col-span-12">
-                            <button className="bg-theme-blue-600 text-gray-100 py-1.5 col-span-12">Sign Up</button>
+                            <button type="submit" className="bg-theme-blue-600 text-gray-100 py-1.5 col-span-12">Sign Up</button>
                             <span className="col-span-12 flex justify-end mt-2">
                                 <NavLink to="/login" className="text-xs text-gray-400 text-theme-blue-600">have an account ? Login</NavLink>
                             </span>
@@ -92,7 +123,7 @@ const Signup = ({ loginToggle, setLoginToggle }) => {
 
 
                         
-                    </div>
+                    </form>
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320" className="absolute z-0 bottom-0 left- w-full block md:hidden">
                             <path className="fill-theme-blue-600"  fillOpacity="1" d="M0,64L120,106.7C240,149,480,235,720,261.3C960,288,1200,256,1320,240L1440,224L1440,320L1320,320C1200,320,960,320,720,320C480,320,240,320,120,320L0,320Z">
                             </path>

@@ -52,7 +52,7 @@ function App() {
       <Route path='/add/vegetable' element={<AddProductForm/>}/>
       <Route path='/search' element={<SearchResults_page/>}/>
       <Route path='/products' element={<Products setToggleCart={setToggleCart} setLoginToggle={setLoginToggle}/>}/>
-
+      
       <Route path='/vegetable/:id' element={<Product_details/>}/>
       <Route path='/vegetable/edit/:id' element={<EditVegetable/>}/>
       </Routes>

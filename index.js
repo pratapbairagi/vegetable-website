@@ -9,17 +9,18 @@ const http = require("http")
 const cookieParser = require("cookie-parser")
 const multer = require("multer")
 const fileupload = require("express-fileupload")
-const path = require("path")
+const path = require("path");
+const userRoute = require("./router/user");
 
 const app = express(http);
 // const upload = multer({dest : "uploads/"})
 
 app.use(cors(
     {
-    // credentials : true,
+    credentials : true,
     origin : [ "http://localhost:5173", "https://veg-etable.vercel.app"],
     methods: "GET, POST, PUT, DELETE",
-    // allowedHeaders: "Content-Type, Authorization"
+    allowedHeaders: "Content-Type, Authorization"
   }
   ));
 
@@ -34,6 +35,7 @@ app.use(fileupload())
 
 
 app.use("/api", vegetableRouter )
+app.use("/api", userRoute)
 
 app.use(express.static(path.join(__dirname, "./client/build")))
 app.get("*", (req, res)=>{
