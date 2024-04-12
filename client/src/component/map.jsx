@@ -175,7 +175,7 @@ export const Routing = ({routeControl}) => {
         }
         const control = L.Routing.control({
             router : L.Routing.osrmv1({
-                serviceUrl : "http://router.project-osrm.org/route/v1"
+                serviceUrl : "https://router.project-osrm.org/route/v1"
             }),
             routeWhileDragging : true,
             waypoints : []
