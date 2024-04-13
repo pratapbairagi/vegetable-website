@@ -157,16 +157,11 @@ const StoresMap = () => {
     }
 
     return (
-        <div className=" z-0 min-h-80vh">
-            <input type="text" defaultValue="" onChange={searchLocationFun} placeholder="Search here..." className="w-60 h-8 px-2 mx-auto my-1 block" />
-
-            <ul className="w-60 flex flex-col h-12 mx-auto">
-                {suggestion.map((items, index) => {
-                    return <li key={items.place_id} className="w-full h-12 border block cursor-pointer" onClick={() => handleSuggestionSelect(items)}>{items.display_name}</li>
-                })}
-            </ul>
+        <div className=" relative z-0 min-h-80vh">
+           
             <div className="w-full flex px-2 py-2 gap-x-4 border">
-                <div className=" text-center text-gray-600">Distance : {Math.ceil(distance)}</div>
+                {console.log((Math.ceil(distance).toString()).length)}
+                <div className=" text-center text-gray-600">Distance : {(Math.ceil(distance).toString()).length >= 4 ? ((Math.ceil(distance)) / 1000).toFixed(2) + " km" : Math.ceil(distance) + " meter/s"}</div>
                 <button onClick={() => getLiveRoute_handler()} className="button text-sm text-gray-100 hover:bg-blue-500 px-3 py-1 bg-theme-blue-600 rounded">Get Live Route</button>
             </div>
             {position &&
@@ -200,6 +195,14 @@ const StoresMap = () => {
                 </MapContainer>)
             }
 
+<div className="w-full bg-white jusitify-start flex gap-x-3 gap-y-2 flex-col px-4 py-2 mx-auto">
+<input type="text" defaultValue="" onChange={searchLocationFun} placeholder="Search here..." className="w-full lg:max-w-72 h-8 px-2 py-0.5 mx-auto my-1 block outline-0 border rounded" />
+<ul className="w-full flex flex-col mx-auto bg-white h-max max-h-20vh overflow-y-auto scroll-overflow-hidden text-center gap-y-1">
+    {suggestion.map((items, index) => {
+        return <li key={items.place_id} className="w-full h-12 border text-gray-600 block cursor-pointer bg-white pt-0.5" onClick={() => handleSuggestionSelect(items)}>{items.display_name}</li>
+    })}
+</ul>
+</div>
         </div>
     )
 }
