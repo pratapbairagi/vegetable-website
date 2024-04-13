@@ -57,12 +57,13 @@ exports.userLogin = async (req, res, next) => {
 
         console.log("user login => ", req.body)
 
-        const isUserExistWithEmail = await User.findOne({ email: email }).select("-password");
+        const isUserExistWithEmail = await User.findOne({ email: email });
 
         if (!isUserExistWithEmail) {
             console.log("This email id is not registred !")
             return next()
         }
+        else{
 
         const isPasswordMatched = await isUserExistWithEmail.comparePassword(password)
 
@@ -78,11 +79,15 @@ exports.userLogin = async (req, res, next) => {
             maxAge : ( 30 * 24 * 60 * 60 * 1000 )
         }
 
-        res.status(200).cookie("jwt", token, cookieOption).json({
+        res.cookie("jwt", token, cookieOption);
+
+
+        res.status(200).json({
             success: true,
             message: "",
             user: isUserExistWithEmail
         })
+    }
 
     } catch (error) {
         console.log("catch part error while login => ", error)
