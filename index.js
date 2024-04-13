@@ -7,7 +7,7 @@ const vegetableRouter = require("./router/router");
 const port = 5005;
 const http = require("http")
 const cookieParser = require("cookie-parser")
-const multer = require("multer")
+// const multer = require("multer")
 const fileupload = require("express-fileupload")
 const path = require("path");
 const userRoute = require("./router/user");
@@ -19,7 +19,7 @@ const app = express(http);
 app.use(cors(
     {
     credentials : true,
-    origin : [ "http://localhost:5173", "https://veg-etable.vercel.app", "http://localhost:5005"],
+    origin : ["https://veg-etable.vercel.app"],
     methods: "GET, POST, PUT, DELETE",
     allowedHeaders: "Content-Type, Authorization"
   }

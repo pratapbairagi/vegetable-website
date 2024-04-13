@@ -51,7 +51,7 @@ export const user_login = (user) => async (dispatch) => {
             headers : {
                 "Content-Type": "application/json"
             },
-            // "access-control-allow-origin": `https://veg-etable.vercel.app`,
+            "access-control-allow-origin": `https://veg-etable.vercel.app`,
             // "access-control-allow-origin": `http://localhost:5005`,
             withCredentials: true
         }
