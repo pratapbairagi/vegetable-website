@@ -11,6 +11,7 @@ const multer = require("multer")
 const fileupload = require("express-fileupload")
 const path = require("path");
 const userRoute = require("./router/user");
+const bodyparser = require("body-parser")
 
 const app = express(http);
 // const upload = multer({dest : "uploads/"})
@@ -25,8 +26,12 @@ app.use(cors(
   ));
 
   app.use(cookieParser())
+  // app.use(bodyParser.urlencoded({extended : true}))
+  // app.use(bodyParser.json({extended : true}))
 app.use(express.urlencoded({ extended: true, limit : "25mb" }));
 app.use(express.json({ extended: true, limit : "25mb" }));
+// app.use(bodyparser.json());
+// app.use(bodyparser.urlencoded({extended: true}))
 // app.use(cookieParser.urlencoded({extended : true}))
 
 // app.use(upload.any())

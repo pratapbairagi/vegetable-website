@@ -3,8 +3,9 @@ import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE
 import setTimeoutForClearSuccess from "./clearSucces";
 // import SetTimeoutForClearSuccess from "./clearSucces";
 
+const rootUrl = "https://veg-etable.vercel.app/api"
 export const add_product = (product) => async (dispatch) => {
-    const url = "https://veg-etable.vercel.app/api/vegetable";
+    const url = `${rootUrl}/vegetable`;
     // const url = "http://localhost:5005/api/vegetable";
     try {
         dispatch({
@@ -34,7 +35,7 @@ export const add_product = (product) => async (dispatch) => {
 
 export const get_products = ({title="", category="", price={lte:0,gte:1000}, tags=[], features=[],productsPerPage=10, pageNo=1}) => async (dispatch) => {
     // let url = `http://localhost:5005/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
-    const url = `https://veg-etable.vercel.app/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
+    const url = `${rootUrl}/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
     try{
         dispatch({
             type : GET_PRODUCTS_REQUEST
@@ -79,7 +80,7 @@ export const get_filter_and_sort_products = ({title="", category=[], price=[{gte
 
     console.log(category)
     // let url = `http://localhost:5005/api/store/vegetables?title=${title}&category=${category.join(",")}&price[lte]=${prices.lte}&price[gte]=${prices.gte}&tags=${tags.join(",")}&features=${features.join(",")}&nameSort=${nameSort}&dateSort=${dateSort}&ratingSort=${ratingSort}&priceSort=${priceSort}&sold=${sold}&productsPerPage=${productsPerPage}&pageNo=${pageNo}`;
-    let url = `https://veg-etable.vercel.app/api/store/vegetables?title=${title}&category=${category.join(",")}&price[lte]=${prices.lte}&price[gte]=${prices.gte}&tags=${tags.join(",")}&features=${features.join(",")}&nameSort=${nameSort}&dateSort=${dateSort}&ratingSort=${ratingSort}&priceSort=${priceSort}&sold=${sold}&productsPerPage=${productsPerPage}&pageNo=${pageNo}`
+    let url = `${rootUrl}/store/vegetables?title=${title}&category=${category.join(",")}&price[lte]=${prices.lte}&price[gte]=${prices.gte}&tags=${tags.join(",")}&features=${features.join(",")}&nameSort=${nameSort}&dateSort=${dateSort}&ratingSort=${ratingSort}&priceSort=${priceSort}&sold=${sold}&productsPerPage=${productsPerPage}&pageNo=${pageNo}`
     try {
         dispatch({
             type : GET_FILTER_AND_SORT_PRODUCTS_REQUEST
@@ -113,7 +114,7 @@ export const get_filter_and_sort_products = ({title="", category=[], price=[{gte
 export const get_product = (id) => async (dispatch) => {
 
     // const url = `http://localhost:5005/api/vegetable/${id}`;
-    const url = `https://veg-etable.vercel.app/api/vegetable/${id}`;
+    const url = `4${rootUrl}/vegetable/${id}`;
 
     try {
         dispatch({
@@ -172,7 +173,7 @@ export const get_product = (id) => async (dispatch) => {
 
 export const filteredProducts = ({ active_category, filteredProducts }) => async (dispatch) => {
     // const url = `http://localhost:5005/api/selected_category/${active_category}`
-    const url = `https://veg-etable.vercel.app/api/selected_category/${active_category}`
+    const url = `${rootUrl}/selected_category/${active_category}`
     try {
         dispatch({
             type : CATEGORIE_SELECTED_REQUEST
@@ -215,7 +216,7 @@ export const filteredProducts = ({ active_category, filteredProducts }) => async
 export const editProduct = ({id, createProduct}) => async (dispatch) => {
     console.log(createProduct)
     // const url = `http://localhost:5005/api/vegetable/edit/${id}`
-    const url = `https://veg-etable.vercel.app/api/vegetable/edit/${id}`
+    const url = `${rootUrl}/vegetable/edit/${id}`
 
     try {
         dispatch({

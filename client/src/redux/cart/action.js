@@ -65,6 +65,9 @@ export const remove_from_cart = (id) => async (dispatch, getState) => {
             type : REMOVE_FROM_CART_SUCCESS,
             payload : id
         })
+
+        localStorage.setItem("cart", JSON.stringify(getState().cart.cart))
+
     } catch (error) {
         dispatch({
             type : REMOVE_FROM_CART_FAILED,

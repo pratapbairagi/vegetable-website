@@ -3,7 +3,7 @@ const  mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken")
 
-const userSchema = new mongoose.Schema({
+const userSchema = mongoose.Schema({
     first_name :{
         type : String,
         required : [true, "please enter ypur full name !"]
@@ -67,16 +67,16 @@ const userSchema = new mongoose.Schema({
 
 // hash password
 userSchema.pre("save", async function(next){
-    const user = await this;
-    if(user.isModified("password")){
-        user.password = bcrypt.hash(user.password, 10)
+    // const user = this;
+    if(!this.isModified("password")){
+       return next()
     }
 
-    return next()
+    this.password = await bcrypt.hash(this.password, 10)
 })
 
-userSchema.methods.comparePassword = async function(oldPassword){
-    const isPasswordMatch = await bcrypt.compare(oldPassword, this.password)
+userSchema.methods.comparePassword = async function(password){
+    const isPasswordMatch = await bcrypt.compare(password, this.password)
     return isPasswordMatch
 }
 
@@ -86,6 +86,6 @@ userSchema.methods.generateToken = async function(){
     return token
 }
 
-const User = new mongoose.model("User", userSchema)
+const User = mongoose.model("User", userSchema)
 
 module.exports = User

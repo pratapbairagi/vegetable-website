@@ -3,11 +3,16 @@ import { NavLink, useLocation, useNavigate, useParams } from "react-router-dom";
 import { get_products } from "../redux/product/action";
 import { useDispatch, useSelector } from "react-redux";
 import Search from "./search";
+import { logout } from "../redux/user/action";
 
 
 const Navbar = ({ setToggleCart, setLoginToggle }) => {
     const location = useLocation();
     const {cart} = useSelector(state => state.cart)
+    const {user, auth} = useSelector(state => state.user)
+    const dispatch = useDispatch()
+
+    console.log(user)
 
     const [isOpenMainMenu, setIsOpenMainMenu] = useState(false);
 
@@ -119,10 +124,23 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
 
                                 </div>
                                 <div className="col-span-8 flex items-center text-gray-500">
-                                    <button onClick={()=> {
+                                  { !auth ?  <><NavLink to="/login" onClick={()=> {
                                         setLoginToggle(true)
                                         setIsOpenMainMenu(false)
-                                    }} className="text-theme-blue-600 font-semibold mx-1 ml-2">Login</button> / <NavLink to="/signup" className="text-theme-blue-600 font-semibold mx-1">Sign Up</NavLink>
+                                    }} 
+                                    className="text-theme-blue-600 font-semibold mx-1 ml-2">Login</NavLink>
+                                     / <NavLink to="/signup" className="text-theme-blue-600 font-semibold mx-1">Sign Up</NavLink> </>
+                                     :
+
+                                     <><NavLink onClick={()=> setIsOpenMainMenu(false)} to="/profile" 
+                                    className="text-theme-blue-600 font-semibold mx-1 ml-2 capitalize">{auth && user.first_name} { auth && user.last_name}</NavLink>
+                                    /<button
+
+                                    onClick={()=>{
+                                        dispatch(logout())
+                                        setIsOpenMainMenu(false)}}
+                                    className="text-theme-blue-600 font-semibold mx-1 ml-2">Logout</button> </>
+                                }
                                 </div>
                             </div>
                         </ul>
