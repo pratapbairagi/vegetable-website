@@ -31,8 +31,8 @@ app.use(cors(
 app.use(express.urlencoded({ extended: true, limit : "25mb" }));
 app.use(express.json({ extended: true, limit : "25mb" }));
 app.use(bodyparser.json({extended: true}));
-app.use(bodyparser.urlencoded({extended: true}))
-app.use(cookieParser.urlencoded({extended : true}))
+// app.use(bodyparser.urlencoded({extended: true}))
+// app.use(cookieParser.urlencoded({extended : true}))
 
 // app.use(upload.any())
 app.use(fileupload())
