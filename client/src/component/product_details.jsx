@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { get_product } from "../redux/product/action";
 import { cart_qty } from "../redux/cart/action";
 import Spinner from "./spinner";
+import StoresMap from "./map";
+import { distanceAction, dPosition } from "../redux/map/action";
 
 
 const Product_details = () => {
@@ -13,6 +15,8 @@ const Product_details = () => {
     const dispatch = useDispatch();
     const state = useSelector(state => state.product)
     const {cart} = useSelector(state => state.cart)
+    const {current_position, destination_position, distance} = useSelector(state => state.mapCoords)
+
 
     let x = 0
     useEffect(() => {
@@ -22,6 +26,15 @@ const Product_details = () => {
         }
 
     }, [id])
+
+    useEffect(()=>{
+        if(state.product){
+            dispatch(dPosition(state.product.product.coordinates))
+            dispatch(distanceAction(state.product.product.coordinates, current_position))
+        }
+
+    },[state.product])
+
 
     return (
         <>
@@ -173,12 +186,15 @@ const Product_details = () => {
                 <p className="text-sm md:text-base lg:text-2xl text-gray-400 md:mt-2 lg:mt-3" style={{ lineHeight: "160%" }}>{state.product != null ? state.product.product.description : ""}</p>
             </div>
 
-            <div className="col-span-12 px-3 flex hap-x-2 order-10 mt-5 md:mt-7 lg:mt-9">
+            <div className="col-span-12 px-3 flex gap-x-2 order-10 mt-5 md:mt-7 lg:mt-9">
                 <ul className="flex flex-wrap gap-x-2 gap-y-2">
                     {state.product != null ? state.product.product.tags.map((v, i) => {
                         return <li key={i}><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100">#{v}</button></li>
                     }) : ""}
                 </ul>
+            </div>
+            <div className="col-span-12 flex gap-x-2 order-10 mt-5 md:mt-7 lg:mt-9">
+                <StoresMap destCords="" currentCords="" />
             </div>
 
             <div className="col-span-12 order-11 flex flex-col px-3 md:px-4 lg:px-5 xl:px-6 mt-5 md:mt-6 lg:mt-7 py-6" style={{ background: "#FFF4E7" }}>

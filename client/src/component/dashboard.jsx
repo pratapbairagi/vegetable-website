@@ -119,7 +119,7 @@ const Dashboard = () => {
     })
     let x = 0
     useEffect(()=>{
-        if( !state.success && x == 0 && location.state == null){
+        if( !state.success && x == 1 && location.state == null){
             console.log("previous list 1")
             x++
             dispatch(get_filter_and_sort_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features,
@@ -149,6 +149,9 @@ const Dashboard = () => {
             setTabList([...tabList.map(v=> v.index === location.state.i ? {...v, active : true} : {...v, active : false} )]);
     }
     },[ location.state])
+
+    console.log(state.products)
+    console.log(location.state)
 
     
     return (

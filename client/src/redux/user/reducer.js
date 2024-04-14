@@ -1,4 +1,4 @@
-import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT_FAILED, USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_REGISTER_FAILED, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS } from "./type";
+import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT_FAILED, USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_REGISTER_FAILED, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_FAILED, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "./type";
 
 
 
@@ -15,7 +15,8 @@ export const user = (state={
         case USER_REGISTER_REQUEST,
         USER_LOGIN_REQUEST,
         USER_LOGGED_REQUEST,
-        USER_LOGOUT_REQUEST :
+        USER_LOGOUT_REQUEST,
+        USER_UPDATE_REQUEST :
             return {
                 ...state,
                 loading : true
@@ -29,8 +30,6 @@ export const user = (state={
                 user : action.payload
             }
        case USER_LOGIN_SUCCESS :
-        console.log(action.payload)
-
         return {
             ...state,
             loading : false,
@@ -38,6 +37,14 @@ export const user = (state={
             auth : true,
             user : action.payload
         }
+        case USER_UPDATE_SUCCESS :
+            return {
+                ...state,
+                loading : false,
+                success : false,
+                auth : true,
+                user : action.payload
+            }
        case USER_LOGGED_SUCCESS :
             return {
                 ...state,
@@ -56,7 +63,8 @@ export const user = (state={
             }
         case USER_REGISTER_FAILED,
         USER_LOGIN_FAILED,
-        USER_LOGOUT_FAILED :
+        USER_LOGOUT_FAILED,
+        USER_UPDATE_FAILED :
             return {
                 ...state,
                 loading : false,

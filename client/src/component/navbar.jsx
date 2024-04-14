@@ -176,7 +176,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                             </svg>
                         </button>
 
-                        <NavLink to="/login" onClick={() => {
+                        <NavLink to={`${auth ? "/profile" : "/login"}`} onClick={() => {
                             setIsOpenMainMenu(false)
                             setLoginToggle(true)}
                             } className="w-8 sm:w-10 md:w-12 lg:w-12 xl:w-12 md:bg-theme-blue-600 flex justify-center items-center md:p-1 rounded-md mr-2">

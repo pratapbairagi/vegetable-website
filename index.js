@@ -19,8 +19,9 @@ const app = express(http);
 app.use(cors(
     {
     credentials : true,
-    origin : ["https://veg-etable.vercel.app"],
-    methods: "GET, POST, PUT, DELETE",
+    origin : ["https://veg-etable.vercel.app", "http://localhost:5005", "http://localhost:5173"],
+    // origin : ["https://veg-etable.vercel.app"],
+    methods: "GET, POST, PUT, PATCH, DELETE",
     allowedHeaders: "Content-Type, Authorization"
   }
   ));

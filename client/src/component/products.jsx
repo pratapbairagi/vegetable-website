@@ -2,13 +2,14 @@ import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import Star from "./star";
 import Card5 from "./card5";
 // import Pagination from "./pagination";
-import { memo, useEffect, useRef, useState } from "react";
+import { memo, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { get_filter_and_sort_products } from "../redux/product/action";
 import Pagination from "./pagination";
 import { paginationFun } from "./paginationFun";
 import Search from "./search";
 import Spinner from "./spinner";
+import StoresMap from "./map";
 
 
 
@@ -20,6 +21,10 @@ const Products = ({toggleCart,setToggleCart}) => {
     const dispatch = useDispatch()
     const state = useSelector(state => state.product)
     const {cart} = useSelector(state => state.cart)
+    const {current_position, destination_position, distance} = useSelector(state=> state.mapCoords)
+
+    // const cpostion = useSelector(state => state.mapCoords)
+    // const [prodWithStoreLocation, seProdWithStoreLocation] = useState()
 
     const [searchQueries, setSearchQuaries] = useState({
         title: "",
@@ -200,8 +205,15 @@ const Products = ({toggleCart,setToggleCart}) => {
     }
 
 
+    // const prod = useMemo(()=>{
+    //     if(state.products && state.products.length > 0){
+    //         let pro = state.products.map((v, i)=>{
 
-    console.log(searchQueries)
+    //         })
+    //     }
+    // },[prod, state.products])
+
+    console.log(current_position)
     return (
         <div className="w-full relative z-10 flex flex-col">
             <div className="w-full shadow grid grid-cols-12 h-14 sticky top-0 bg-white z-30">
@@ -219,6 +231,9 @@ const Products = ({toggleCart,setToggleCart}) => {
                             </svg>
                 </button>
                     <img onClick={() => navigate("/profile")} src="./images/profile_image.png" className="w-10 rounded-full aspect-square cursor-pointer" alt="" />
+                <div className="w-max flex flex-col items-start">
+
+                </div>
                 </div>
             </div>
             {/* <div className="w-full h-1 bg-gray-100"></div> */}
@@ -433,8 +448,10 @@ const Products = ({toggleCart,setToggleCart}) => {
                         </div>
                         {state.loading ?
                          <Spinner/>  
-                         : state.products.length > 0 &&
+                        //  : state.products.length > 0 && cPostion != null &&
+                         : state.products.length > 0 && 
                         state.products.map((v, i) => {
+                            // return <Card5 key={i} cPostion={cPostion} product={v} />
                             return <Card5 key={i} product={v} />
                         })
                     }
@@ -447,7 +464,9 @@ const Products = ({toggleCart,setToggleCart}) => {
 
                 </div>
 
+
             </div>
+                {/* <StoresMap setCPosition={setCPosition} /> */}
         </div>
     )
 }

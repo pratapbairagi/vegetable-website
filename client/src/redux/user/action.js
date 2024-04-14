@@ -1,5 +1,5 @@
 import axios from "axios"
-import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT_FAILED, USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_REGISTER_FAILED, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS } from "./type";
+import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT_FAILED, USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_REGISTER_FAILED, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_FAILED, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "./type";
 
 // const rootUrl = "http://localhost:5005/api"
 const rootUrl = "https://veg-etable.vercel.app/api"
@@ -129,6 +129,37 @@ export const logout = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type : USER_LOGOUT_FAILED,
+            payload : error
+        })
+    }
+}
+
+export const user_update = (user) => async (dispatch) => {
+    try {
+        const url = `${rootUrl}/user/update`;
+        dispatch({
+            type : USER_UPDATE_REQUEST
+        })
+
+        const config = {
+            headers : { "Content-Type" : "application/json" },
+            "access-control-allow-origin": `https://veg-etable.vercel.app`,
+            withCredentials : true
+        }
+
+        const {data} = await axios.put(url, user, config);
+
+        console.log("data update => ", data)
+
+        dispatch({
+            type : USER_UPDATE_SUCCESS,
+            payload : data.user
+        })
+
+    } catch (error) {
+        console.log(error)
+        dispatch({
+            type : USER_UPDATE_FAILED,
             payload : error
         })
     }

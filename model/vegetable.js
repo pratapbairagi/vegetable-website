@@ -23,28 +23,28 @@ const veg = new mongoose.Schema({
         required : [true, "Maximum stock should not exceed 40 or 40kg."],
         default : 0
     },
-    // rewiews : [
-    //     {
-    //         comment : {
-    //             type : String
-    //         },
-    //         rating : {
-    //             type : Number,
-    //             default : 0
-    //         },
-    //         user : {
-    //             type : mongoose.Schema.ObjectId,
-    //             ref : "user"
-    //         },
-    //         name : {
-    //             type : String
-    //         },
-    //         time : {
-    //             type : Date,
-    //             default : Date()
-    //         }
-    //     }
-    // ],
+    rewiews : [
+        {
+            comment : {
+                type : String
+            },
+            rating : {
+                type : Number,
+                default : 0
+            },
+            user : {
+                type : mongoose.Schema.ObjectId,
+                ref : "user"
+            },
+            name : {
+                type : String
+            },
+            time : {
+                type : Date,
+                default : Date()
+            }
+        }
+    ],
     rating : {
         type : Number,
         default : 0
@@ -83,16 +83,16 @@ const veg = new mongoose.Schema({
     sold : {
         type : Number,
         default : 0
+    },
+    seller : {
+       type : mongoose.Schema.Types.ObjectId,
+        ref : "User",
+        required : true
+    },
+    coordinates : {
+        type : [Number],
+        default : [0, 0]
     }
-    // seller : {
-    //    name: {
-    //    type : mongoose.Schema.ObjectId,
-    //     ref : "user"
-    //    },
-    //    id : {
-    //     type : String
-    //    }
-    // }
 });
 
 const Vegetable = new mongoose.model("vegetable", veg)

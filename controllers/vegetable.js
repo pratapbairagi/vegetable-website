@@ -1,4 +1,5 @@
 const cloudinary = require("../config/cloudinary");
+const User = require("../model/user");
 const Vegetable = require("../model/vegetable")
 
 
@@ -44,7 +45,22 @@ exports.getVegetables = async (req, res, next) => {
                 category: "$_id",
                 products: { $slice: ["$products", 6] } // Limiting to 10 products per category
               }
-            }
+            },
+        //     // Populate the 'seller' field for each product in the category
+        // {
+        //   $unwind: "$products"
+        // },
+        // {
+        //   $lookup: {
+        //     from: "users",
+        //     localField: "products.seller",
+        //     foreignField: "_id",
+        //     as: "products.seller"
+        //   }
+        // },
+        // {
+        //   $unwind: "$products.seller"
+        // }
           ]
         }
       },
@@ -76,8 +92,6 @@ exports.getVegetables = async (req, res, next) => {
           }
         }
       }
-
-
       // {
       //     $unwind: "$category"
       // },
@@ -117,7 +131,29 @@ exports.getVegetables = async (req, res, next) => {
           feature: "$_id",
           products: { $slice: ["$products", 10] }
         }
-      }
+      },
+      // extraa
+      // {
+      //   $unwind: "$products"
+      // },
+      // {
+      //   $lookup: {
+      //     from: "users",
+      //     localField: "products.seller",
+      //     foreignField: "_id",
+      //     as: "products.seller"
+      //   }
+      // },
+      // {
+      //   $unwind: "$products.seller"
+      // },
+      // Group the products back by feature
+  // {
+  //   $group: {
+  //     _id: "$feature",
+  //     products: { $push: "$products" }
+  //   }
+  // }
     ]);
 
     // console.log("featureBasedProducts => ", featureBasedProducts)
@@ -167,7 +203,7 @@ exports.getVegetables = async (req, res, next) => {
     }
 
     
-    const products = await Vegetable.find(query).limit(10);
+    const products = await Vegetable.find(query).limit(10).populate("seller");
 
     res.status(200).json({
       success: true,
@@ -189,8 +225,8 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
     // console.log("queries => ", features)
     // console.log("queries => ", category)
     // console.log("queries => ", tags)
-    console.log("queries => ", productsPerPage)
-    console.log("queries 2 => ", req.query["features"])
+    // console.log("queries => ", productsPerPage)
+    // console.log("queries 2 => ", req.query["features"])
 
     let query = {}
     let sort = {}
@@ -218,7 +254,7 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
       if(key == "category" || key == "tags" ){
         if( req.query[key] && req.query[key] != "all" ){
           let array = await req.query[key].split(",")
-          console.log("category => ", array)
+          // console.log("category => ", array)
           query[key] = { $in : array }
         }
         else{
@@ -229,7 +265,7 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
         if( req.query[key] && req.query[key] != "all" ){
           let array = await req.query[key].split(",")
 
-          console.log("features => ", array)
+          // console.log("features => ", array)
           
         // query["features.feature"] = { $in : array }
         query.features = { $elemMatch: { feature: { $in: array } } };
@@ -264,8 +300,6 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
 
       products = productsLength <= productsPerPage ? await Vegetable.find(query).sort(sort).limit(productsPerPage)
        : await Vegetable.find(query).sort(sort).skip(productsPerPage * (pageNo - 1)).limit(productsPerPage)
-   
-    
 
     categories.unshift("all")
     feature.unshift("all")
@@ -273,9 +307,11 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
 
 
     console.log("products => ", products)
+    console.log("categories => ", categories)
+    console.log("tags => ", tag)
     console.log("query => ", query)
-    console.log("sort => ", sort)
-    console.log("pageno => ", pageNo)
+    // console.log("sort => ", sort)
+    // console.log("pageno => ", pageNo)
 
     res.status(200).json({
       success : true,
@@ -322,7 +358,7 @@ exports.getVegetable = async (req, res, next) => {
       ]
     }
 
-    const relatedProducts = await Vegetable.find(query).limit(6)
+    const relatedProducts = await Vegetable.find(query).limit(6).populate("seller")
 
     res.status(200).json({
       success: true,
@@ -381,10 +417,10 @@ exports.active_category = async (req, res, next) => {
     let filteredProducts = [];
 
     if (category == "all") {
-      filteredProducts = await Vegetable.find()
+      filteredProducts = await Vegetable.find().populate("seller")
     }
     else {
-      filteredProducts = await Vegetable.find({ category: category })
+      filteredProducts = await Vegetable.find({ category: category }).populate("seller")
     }
 
     res.status(200).json({
@@ -405,6 +441,14 @@ exports.createVeg = async (req, res, next) => {
 
     console.log("images => ",images)
 
+    const isUserExist = await User.findById({_id : req.user._id});
+
+    if( !isUserExist){
+      console.log("session expired or something went wrong, please login again to add product")
+      return next()
+    }
+
+
     for (let x = 0; images.length > x; x++) {
       let result = await cloudinary.uploader.upload(images[x].url, {
         folder: "vegetables"
@@ -416,6 +460,8 @@ exports.createVeg = async (req, res, next) => {
       })
     }
 
+
+
     let product = await Vegetable.create({
       title,
       category,
@@ -424,8 +470,12 @@ exports.createVeg = async (req, res, next) => {
       features,
       stock,
       price,
-      images: image
+      images: image,
+      seller : isUserExist._id,
+      coordinates : isUserExist.storeLocation.coordinates
     });
+
+    console.log("product created => ", product)
 
     // let product = {
     //     title, 
@@ -462,6 +512,18 @@ exports.editProduct = async (req, res, next) => {
       return console.log("product does not exist")
     }
 
+    const isUserExist = await User.findById({_id : req.user._id});
+
+    if(!isUserExist){
+      console.log("something went wrong, user not logged in, login againn !")
+      return next()
+    }
+
+    if(isUserExist._id != isProductExist.seller ){
+      console.log("sorry, only seller has authority has authority to update this product !")
+      return next()
+    }
+
     let image = [];
 
     for (let x = 0; req.body.images.length > x; x++) {
@@ -489,6 +551,7 @@ exports.editProduct = async (req, res, next) => {
       }
     }
 
+
     isProductExist = await Vegetable.findByIdAndUpdate(id, {
       title : req.body.title,
       category : req.body.category,
@@ -497,7 +560,8 @@ exports.editProduct = async (req, res, next) => {
       features : req.body.features,
       description : req.body.description,
       stock : req.body.stock,
-      images : image
+      images : image,
+      coordinates : isUserExist.storeLocation.coordinates
     })
 
     res.status(200).json({
@@ -509,6 +573,42 @@ exports.editProduct = async (req, res, next) => {
   } catch (error) {
     console.log("errorrrr ==> ", error)
 
+  }
+}
+
+exports.delete_product = async (req, res, next) =>{
+  try {
+    const id = req.params.id
+    const isProductExist = await Vegetable.findById({_id : id});
+
+    if( !isProductExist){
+      console.log("product does not exist !")
+      return next()
+    }
+
+    if( isProductExist.seller != id ){
+      console.log("sorry, only seller has the authority to delete this product !")
+      return next()
+    }
+
+    for(let x = 0; x < isProductExist.images.length; x++){
+      await cloudinary.uploader.destroy(isProductExist.images[x].public_id)
+    }
+
+    await Vegetable.findByIdAndDelete({_id : isProductExist._id});
+
+    console.log("deleted")
+    
+    res.status(200).json({
+      success : true,
+      message : "Product deleted successfully !",
+      id : id
+    })
+
+    
+  } catch (error) {
+    console.log("errorrrr in catch part for delete ==> ", error)
+    
   }
 }
 

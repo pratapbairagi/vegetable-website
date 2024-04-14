@@ -1,9 +1,11 @@
 import axios from "axios"
-import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_FAILED, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_SUCCESS, EDIT_PRODUCT_FAILED, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, GET_FILTER_AND_SORT_PRODUCTS_FAILED, GET_FILTER_AND_SORT_PRODUCTS_REQUEST, GET_FILTER_AND_SORT_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS } from "./types"
+import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_FAILED, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_SUCCESS, DELETE_PRODUCT_FAILED, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILED, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, GET_FILTER_AND_SORT_PRODUCTS_FAILED, GET_FILTER_AND_SORT_PRODUCTS_REQUEST, GET_FILTER_AND_SORT_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS } from "./types"
 import setTimeoutForClearSuccess from "./clearSucces";
 // import SetTimeoutForClearSuccess from "./clearSucces";
 
 const rootUrl = "https://veg-etable.vercel.app/api"
+// const rootUrl = "http://localhost:5005/api"
+
 export const add_product = (product) => async (dispatch) => {
     const url = `${rootUrl}/vegetable`;
     // const url = "http://localhost:5005/api/vegetable";
@@ -13,7 +15,8 @@ export const add_product = (product) => async (dispatch) => {
         });
 
         const config = {
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            withCredentials : true
         }
         const { data } = await axios.post(url, product, config)
         
@@ -114,7 +117,7 @@ export const get_filter_and_sort_products = ({title="", category=[], price=[{gte
 export const get_product = (id) => async (dispatch) => {
 
     // const url = `http://localhost:5005/api/vegetable/${id}`;
-    const url = `4${rootUrl}/vegetable/${id}`;
+    const url = `${rootUrl}/vegetable/${id}`;
 
     try {
         dispatch({
@@ -250,6 +253,42 @@ export const editProduct = ({id, createProduct}) => async (dispatch) => {
             type : EDIT_PRODUCT_FAILED,
             payload : error
         })
+    }
+}
+
+export const delete_product = (id) => async (dispatch) => {
+    try {
+        const url = `${rootUrl}/vegetable/${id}`
+        dispatch({
+            type : DELETE_PRODUCT_REQUEST
+        })
+
+        const config = {
+            headers: { "Content-Type": "application/json" },
+            // "access-control-allow-origin": `https://veg-etable.vercel.app`,
+            withCredentials : true
+        }
+
+        const {data} = await axios.delete(url, config);
+
+        dispatch({
+            type : DELETE_PRODUCT_SUCCESS,
+            payload : data
+        })
+
+        let timeOut = setTimeout(()=>{
+            dispatch({
+                type : CLEAR_SUCCESS
+            })
+            return clearTimeout(timeOut)
+        })
+
+    } catch (error) {
+        dispatch({
+            type : DELETE_PRODUCT_FAILED,
+            payload : error
+        })
+        
     }
 }
 

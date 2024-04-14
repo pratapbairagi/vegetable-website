@@ -2,6 +2,7 @@ import { NavLink } from "react-router-dom"
 import Pagination from "./pagination"
 import { useDispatch, useSelector } from "react-redux"
 import { paginationFun } from "./paginationFun"
+import { delete_product } from "../redux/product/action"
 
 
 
@@ -109,7 +110,10 @@ const DashboardProducts = ({products, searchProduct, setSearchProduct, dispatch}
 
                                     <ul className="border absolute top-12 right-4 py-3 hidden flex-col z-10 bg-white" id={`${v._id+i}`}>
                                         <NavLink to={`/vegetable/edit/${v._id}`} onClick={()=> document.getElementById(`${v._id+i}`).classList.replace("flex", "hidden")} className="text-gray-500 font-semibold w-full border-b py-1 px-8 cursor-pointer">Edit</NavLink>
-                                        <li onClick={()=> document.getElementById(`${v._id+i}`).classList.replace("flex", "hidden")} className="text-gray-500 font-semibold w-full py-1 px-8 cursor-pointer">Delete</li>
+                                        <li onClick={()=>{ 
+                                            dispatch(delete_product(v._id))
+                                            document.getElementById(`${v._id+i}`).classList.replace("flex", "hidden")
+                                            }} className="text-gray-500 font-semibold w-full py-1 px-8 cursor-pointer">Delete</li>
                                     </ul>
                                 </td>
                             </tr>

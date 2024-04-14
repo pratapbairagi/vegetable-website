@@ -1,11 +1,50 @@
 import { useDispatch, useSelector } from "react-redux"
 import Star from "./star"
 import { add_to_cart } from "../redux/cart/action"
+import { NavLink } from "react-router-dom"
+import { useEffect, useMemo } from "react"
+import { cPosition, dPosition, distanceAction } from "../redux/map/action"
+// import { cPosition, dPosition, distanceAction } from "../redux/map/action";
 
 
-const Card5 = ({ product }) => {
+
+const Card5 = ({ product, cPostion }) => {
     const { cart } = useSelector(state => state.cart)
+    const {current_position, destination_position, distance} = useSelector(state => state.mapCoords)
     const dispatch = useDispatch()
+
+    // function getDitanceFun(position, destinationMark){
+    //     const earthRadius = 6371e3; // Earth radius in meters
+    //     const posLat = (position[0] * Math.PI) / 180; // φ, λ in radians
+    //     const destLat = (destinationMark[0] * Math.PI) / 180; // φ, λ in radians
+
+    //     const remainLat = ((destinationMark[0] - position[0]) * Math.PI) / 180;
+    //     const remainLong = ((destinationMark[1] - position[1]) * Math.PI) / 180;
+
+    //     const a = Math.sin(remainLat / 2) * Math.sin(remainLat / 2)
+    //         +
+    //         Math.cos(posLat) * Math.cos(destLat) * Math.sin(remainLong / 2) * Math.sin(remainLong / 2);
+
+    //     const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+    //     return earthRadius * c
+    // }
+
+//    let num = useMemo(()=>{
+//         if(cPostion && product){
+//            return getDitanceFun(cPostion, product.coordinates)
+//         }
+//     },[cPostion, product])
+
+useEffect(()=>{
+    if(product){
+        console.log(product.coordinates)
+        console.log(current_position)
+        dispatch(distanceAction(product.coordinates, current_position))
+    }
+},[product])
+
+//     console.log(distance)
     return (
         <div className="card5 flex flex-col col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 bg-white rounded-lg">
             <div className="img_sec h-40 md:h-44 w-full relative flex justify-center items-center">
@@ -13,10 +52,16 @@ const Card5 = ({ product }) => {
                     <Star starClass="w-6 md:w-7 fill-gray-400" />
                 </div>
                 <img src={product.images[0].url} className="h-full object-contain border-b border-dashed" alt="" />
+                
+                <span className="w-max absolute bottom-2 left-2  flex flex-col items-start justify-center gap-y-1">
+                    
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="fill-gray-400 w-6"><path fill="none" d="M0 0h24v24H0z"></path><path d="M9.97487 8.97487C11.3417 7.60804 11.3417 5.39196 9.97487 4.02513C8.60804 2.65829 6.39196 2.65829 5.02513 4.02513C3.65829 5.39196 3.65829 7.60804 5.02513 8.97487L7.5 11.4497L9.97487 8.97487ZM7.5 14.2782L3.61091 10.3891C1.46303 8.2412 1.46303 4.7588 3.61091 2.61091C5.7588 0.463029 9.2412 0.463029 11.3891 2.61091C13.537 4.7588 13.537 8.2412 11.3891 10.3891L7.5 14.2782ZM7.5 8C6.67157 8 6 7.32843 6 6.5C6 5.67157 6.67157 5 7.5 5C8.32843 5 9 5.67157 9 6.5C9 7.32843 8.32843 8 7.5 8ZM16.5 20.4497L18.9749 17.9749C20.3417 16.608 20.3417 14.392 18.9749 13.0251C17.608 11.6583 15.392 11.6583 14.0251 13.0251C12.6583 14.392 12.6583 16.608 14.0251 17.9749L16.5 20.4497ZM20.3891 19.3891L16.5 23.2782L12.6109 19.3891C10.463 17.2412 10.463 13.7588 12.6109 11.6109C14.7588 9.46303 18.2412 9.46303 20.3891 11.6109C22.537 13.7588 22.537 17.2412 20.3891 19.3891ZM16.5 17C15.6716 17 15 16.3284 15 15.5C15 14.6716 15.6716 14 16.5 14C17.3284 14 18 14.6716 18 15.5C18 16.3284 17.3284 17 16.5 17Z"></path></svg>
+                <span className="text-xs font-semibold text-gray-400">{(Math.ceil(distance).toString()).length >= 4 ? ((Math.ceil(distance)) / 1000).toFixed(2) + " km" : Math.ceil(distance) + " mtr/s"}</span>
+                </span>
             </div>
             <div className="detail_sec h-16 md:h-20 flex justify-center items-center gap-x-2 relative px-3 md:px-5 py-2 pt-0 md:pt-1 gap-y-0.5">
                 <div className="w-8/12">
-                    <h6 className="text-base md:text-lg font-bold text-gray-500">{product.title}</h6>
+                    <NavLink to={`/vegetable/${product._id}`} className="text-base md:text-lg font-bold text-gray-500 line-clamp-1">{product.title}</NavLink>
                     <h6 className="text-xs md:text-sm font-bold text-gray-400 px-1">{product.price}/KG </h6>
                 </div>
                 {

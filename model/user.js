@@ -59,7 +59,26 @@ const userSchema = mongoose.Schema({
         }
     },
     location : {
-        type : String
+        type : {
+            type : String,
+            enum : ["Point"],
+            default : "Point"
+        },
+        coordinates : {
+            type : [Number],
+            default : [0, 0]
+        }
+    },
+    storeLocation : {
+        type : {
+            type : String,
+            enum : ["Point"],
+            default : "Point"
+        },
+        coordinates : {
+            type : [Number],
+            default : [0, 0]
+        }
     }
 
 

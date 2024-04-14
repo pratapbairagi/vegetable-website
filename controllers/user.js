@@ -1,4 +1,5 @@
 const User = require("../model/user")
+const Vegetable = require("../model/vegetable")
 
 
 exports.userRegister = async (req, res, next) => {
@@ -31,14 +32,14 @@ exports.userRegister = async (req, res, next) => {
 
         const token = await user.generateToken();
 
-         user = await User.findOne({email : email}).select("-password")
+        user = await User.findOne({ email: email }).select("-password")
 
         const cookieOption = {
             httpOnly: true,
             maxAge: (24 * 60 * 60 * 1000)
 
         };
-        
+
         res.status(201).cookie("jwt", token, cookieOption).json({
             success: true,
             message: "User registered successfully !",
@@ -63,31 +64,31 @@ exports.userLogin = async (req, res, next) => {
             console.log("This email id is not registred !")
             return next()
         }
-        else{
+        else {
 
-        const isPasswordMatched = await isUserExistWithEmail.comparePassword(password)
+            const isPasswordMatched = await isUserExistWithEmail.comparePassword(password)
 
-        if (!isPasswordMatched) {
-            console.log("Password does not matched !")
-            return next()
+            if (!isPasswordMatched) {
+                console.log("Password does not matched !")
+                return next()
+            }
+
+            const token = await isUserExistWithEmail.generateToken()
+
+            const cookieOption = {
+                httpOnly: true,
+                maxAge: (30 * 24 * 60 * 60 * 1000)
+            }
+
+            res.cookie("jwt", token, cookieOption);
+
+
+            res.status(200).json({
+                success: true,
+                message: "",
+                user: isUserExistWithEmail
+            })
         }
-
-        const token = await isUserExistWithEmail.generateToken()
-
-        const cookieOption = {
-            httpOnly : true,
-            maxAge : ( 30 * 24 * 60 * 60 * 1000 )
-        }
-
-        res.cookie("jwt", token, cookieOption);
-
-
-        res.status(200).json({
-            success: true,
-            message: "",
-            user: isUserExistWithEmail
-        })
-    }
 
     } catch (error) {
         console.log("catch part error while login => ", error)
@@ -99,9 +100,9 @@ exports.userLoggedIn = async (req, res, next) => {
         console.log("logged")
         const id = req.user._id;
 
-        const isUserExist = await User.findById({_id : id}).select("-password");
+        const isUserExist = await User.findById({ _id: id }).select("-password");
 
-        if( !isUserExist){
+        if (!isUserExist) {
             console.log("User session expired !")
             return next()
         }
@@ -109,11 +110,11 @@ exports.userLoggedIn = async (req, res, next) => {
         console.log("user => ", isUserExist)
 
         res.status(200).json({
-            success : true,
-            message : "",
-            user : isUserExist
+            success: true,
+            message: "",
+            user: isUserExist
         })
-        
+
     } catch (error) {
         console.log("catch part error while logged user => ", error)
     }
@@ -122,27 +123,73 @@ exports.userLoggedIn = async (req, res, next) => {
 
 exports.user_logout = async (req, res, next) => {
     try {
-        const isUserExist = await User.findById({_id : req.user._id});
+        const isUserExist = await User.findById({ _id: req.user._id });
 
-        if(!isUserExist){
+        if (!isUserExist) {
             console.log("user does not exist !")
             return next()
         }
 
         const cookieOption = {
-            httpOnly : true,
-            expires : new Date(Date.now())
+            httpOnly: true,
+            expires: new Date(Date.now())
         }
 
         // res.clearCookie("connect.id");
         res.status(200).cookie("jwt", null, cookieOption).json({
-            success : true,
-            message : "",
-            user : {}
+            success: true,
+            message: "",
+            user: {}
         })
 
     } catch (error) {
         console.log("catch part error while logout user => ", error)
+
+    }
+}
+
+exports.user_update = async (req, res, next) => {
+
+    console.log("update")
+    try {
+        let newData = req.body;
+
+        let isUserExist = await User.findById({ _id: req.user._id });
+
+        if (!isUserExist) {
+            console.log("session expired or something went wrong !")
+            return next()
+        }
         
+        if (newData.storeLocation.coordinates ) {
+            if(newData.storeLocation.coordinates.length === 2){
+                
+                const productFilter = { seller :  isUserExist._id }
+                const productUpdate = { $set : { coordinates : newData.storeLocation.coordinates } }
+                const option = { multi : true }
+
+               const pro = await Vegetable.updateMany(productFilter, productUpdate, option)
+
+                console.log("product uodated => ", pro)
+
+            }
+        }
+
+        console.log("update 2")
+
+        Object.assign(isUserExist, newData)
+        console.log("update 3", newData)
+
+        const user = await isUserExist.save()
+        console.log("update 4", user)
+
+        res.status(200).json({
+            success: true,
+            message: "update successful !",
+            user: user
+        })
+    } catch (error) {
+        console.log("catch part error while user update => ", error)
+
     }
 }

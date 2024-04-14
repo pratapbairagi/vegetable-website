@@ -61,6 +61,8 @@ const Home = () => {
 
     }, [])
     console.log(state)
+
+    
     
     return (
         <div className='relative' style={{ background: "rgb(248, 248, 248)" }}>
@@ -82,7 +84,6 @@ const Home = () => {
                      <Service_features />
                      <Service_feedbacks />
                      <Contact />
-                    <StoresMap/>
 
                  </>
             
