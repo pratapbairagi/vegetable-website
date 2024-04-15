@@ -48,6 +48,8 @@ function App() {
     }
   }, [auth])
 
+  console.log("app", auth)
+
   return (
     <ErrorBoundary>
       <div className='relative'>

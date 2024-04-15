@@ -76,7 +76,7 @@ console.log(state)
                         
                         <button onClick={() => {
                             document.querySelector("#category").value && document.querySelector("#category").value.length >= 2 ?
-                                setCreateProduct({ ...createProduct, category: [...createProduct.category, document.querySelector("#category").value] })
+                                setCreateProduct({ ...createProduct, category: [...createProduct.category, document.querySelector("#category").value.toLowerCase()] })
                                 :
                                 null
 
@@ -125,7 +125,7 @@ console.log(state)
                                                     featureI == i ?
                                                         {
                                                             ...featureV,
-                                                            feature: e.target.value
+                                                            feature: e.target.value.toLowerCase()
                                                         }
                                                         :
                                                         { ...featureV }
@@ -143,7 +143,7 @@ console.log(state)
                                                     featureI == i ?
                                                         {
                                                             ...featureV,
-                                                            value: e.target.value
+                                                            value: e.target.value.toLowerCase()
                                                         }
                                                         :
                                                         { ...featureV }
@@ -180,7 +180,7 @@ console.log(state)
                         
                         <button onClick={() => {
                             document.querySelector("#tags").value && document.querySelector("#tags").value.length >= 2 ?
-                                setCreateProduct({ ...createProduct, tags: [...createProduct.tags, document.querySelector("#tags").value] })
+                                setCreateProduct({ ...createProduct, tags: [...createProduct.tags, document.querySelector("#tags").value.toLowerCase()] })
                                 :
                                 null
 

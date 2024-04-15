@@ -21,7 +21,7 @@ const Products = ({toggleCart,setToggleCart}) => {
     const dispatch = useDispatch()
     const state = useSelector(state => state.product)
     const {cart} = useSelector(state => state.cart)
-    const {current_position, destination_position, distance} = useSelector(state=> state.mapCoords)
+    const {current_position, destination_position} = useSelector(state=> state.mapCoords)
 
     // const cpostion = useSelector(state => state.mapCoords)
     // const [prodWithStoreLocation, seProdWithStoreLocation] = useState()
@@ -205,13 +205,7 @@ const Products = ({toggleCart,setToggleCart}) => {
     }
 
 
-    // const prod = useMemo(()=>{
-    //     if(state.products && state.products.length > 0){
-    //         let pro = state.products.map((v, i)=>{
-
-    //         })
-    //     }
-    // },[prod, state.products])
+    
 
     console.log(current_position)
     return (

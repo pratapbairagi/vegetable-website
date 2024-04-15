@@ -439,15 +439,12 @@ exports.createVeg = async (req, res, next) => {
     let image = []
     const { title, description, category, images, stock, features, tags, price } = req.body;
 
-    console.log("images => ",images)
-
     const isUserExist = await User.findById({_id : req.user._id});
 
     if( !isUserExist){
       console.log("session expired or something went wrong, please login again to add product")
       return next()
     }
-
 
     for (let x = 0; images.length > x; x++) {
       let result = await cloudinary.uploader.upload(images[x].url, {
@@ -460,12 +457,10 @@ exports.createVeg = async (req, res, next) => {
       })
     }
 
-
-
     let product = await Vegetable.create({
-      title,
-      category,
-      description,
+      title: title.toLowerCase(),
+      category : category.toLowerCase(),
+      description : description.toLowerCase(),
       tags,
       features,
       stock,
@@ -474,8 +469,6 @@ exports.createVeg = async (req, res, next) => {
       seller : isUserExist._id,
       coordinates : isUserExist.storeLocation.coordinates
     });
-
-    console.log("product created => ", product)
 
     // let product = {
     //     title, 

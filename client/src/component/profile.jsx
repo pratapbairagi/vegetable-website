@@ -1,8 +1,11 @@
+import { useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
 
 
 
 const Profile = () => {
+  const { auth, user } = useSelector(state => state.user)
+
     return (
         <div className="w-full md:w-11/12 lg:10/12 xl:w-11/12 grid grid-cols-12 py-2 px-2 mx-auto pb-28">
             <div className="col-span-12 sm:col-span-6 md:col-span-4 p-2 mt-2 aspect-square flex items-center justify-center border">
@@ -13,15 +16,15 @@ const Profile = () => {
             <div className="col-span-12 sm:col-span-6 md:col-span-8 flex flex-col gap-y-3 md:gap-y-4 lg:gap-y-5 py-4 px-3 md:px-4 lg:px-6 xl:px-8 justify-end">
 
                 <div className="w-full flex flex-col justify-start items-center gap-x-3 sm:gap-x-4 lg:gap-x-5 xl:gap-x-6 gap-y-1 md:gap-y-1.5 lg:gap-y-2 xl:gap-y-2.5 order-1 border-b pb-5 sm:border-b-0 sm:border-t sm:pb-0 sm:pt-6 sm:order-7 md:mt-8 lg:mt-10 xl:mt-12">
-                    <strong className="text-gray-500 text-xl md:text-2xl lg:text-3xl font-nunito font-extrabold">John Doe</strong>
-                    <span className="text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-300 w-full bg-gray-100 text-center py-1 rounded">user</span>
+                    <strong className="text-gray-500 text-xl md:text-2xl lg:text-3xl font-nunito font-extrabold capitalize">{auth ? (user.first_name + " " + user.last_name) : "Name Last Nname"}</strong>
+                    <span className="text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-300 w-full bg-gray-100 text-center py-1 rounded">{auth? user.role : "User"}</span>
                 </div>
 
                 <div className="w-full flex justify-start items-center gap-x-3 sm:gap-x-4 lg:gap-x-5 xl:gap-x-6 order-2 mt-4">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-6 md:w-8 lg:w-10 stroke-gray-400">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M16.5 12a4.5 4.5 0 1 1-9 0 4.5 4.5 0 0 1 9 0Zm0 0c0 1.657 1.007 3 2.25 3S21 13.657 21 12a9 9 0 1 0-2.636 6.364M16.5 12V8.25" />
                     </svg>
-                    <span className="text-base md:text-xl lg:text-2xl font-semibold font-nunito text-gray-300">pratapbairagi@gmail.com</span>
+                    <span className="text-base md:text-xl lg:text-2xl font-semibold font-nunito text-gray-300">{auth ? user.email : "no email"}</span>
                 </div>
 
 
@@ -30,7 +33,7 @@ const Profile = () => {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
                     </svg>
 
-                    <span className="text-base md:text-xl lg:text-2xl font-semibold font-nunito text-gray-300">8287889123</span>
+                    <span className="text-base md:text-xl lg:text-2xl font-semibold font-nunito text-gray-300">{auth ? user.phone : "no number"}</span>
                 </div>
 
                 <div className="w-full flex justify-start items-start gap-x-3 sm:gap-x-4 lg:gap-x-5 xl:gap-x-6 order-4">
@@ -39,7 +42,7 @@ const Profile = () => {
                     </svg>
 
                     <div className="text-base md:text-xl lg:text-2xl font-semibold font-nunito text-gray-300 flex flex-col">
-                        <span>26/14A, 3rd floor, Tughlakabad Extension</span>
+                        <span>{"Address line in detail"}</span>
                         <span>South Delhi, Delhi - 110019</span>
                         <span>India</span>
                     </div>

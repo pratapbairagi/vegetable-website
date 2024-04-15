@@ -88,6 +88,7 @@ const Dashboard = () => {
         }
     ])
     const state = useSelector(state => state.product)
+  const { auth, user } = useSelector(state => state.user)
     const dispatch = useDispatch()
     const location = useLocation()
 
@@ -150,9 +151,6 @@ const Dashboard = () => {
     }
     },[ location.state])
 
-    console.log(state.products)
-    console.log(location.state)
-
     
     return (
         <div className=" bg-gray-100 w-full max-w-screen z-30 top-0 left-0 overflow-y-hidden max-h-screen min-h-screen h-max min-h-screen">
@@ -210,11 +208,11 @@ const Dashboard = () => {
                                 <path d="M575.8 255.5c0 18-15 32.1-32 32.1h-32l.7 160.2c0 2.7-.2 5.4-.5 8.1V472c0 22.1-17.9 40-40 40H456c-1.1 0-2.2 0-3.3-.1c-1.4 .1-2.8 .1-4.2 .1H416 392c-22.1 0-40-17.9-40-40V448 384c0-17.7-14.3-32-32-32H256c-17.7 0-32 14.3-32 32v64 24c0 22.1-17.9 40-40 40H160 128.1c-1.5 0-3-.1-4.5-.2c-1.2 .1-2.4 .2-3.6 .2H104c-22.1 0-40-17.9-40-40V360c0-.9 0-1.9 .1-2.8V287.6H32c-18 0-32-14-32-32.1c0-9 3-17 10-24L266.4 8c7-7 15-8 22-8s15 2 21 7L564.8 231.5c8 7 12 15 11 24z"/>
                             </svg>
                             </NavLink>
-                        <div className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-theme-blue-600 py-2 sm:py-3 md:py-4 lg:py-5">Hello, <span className="font-semibold text-gray-500">Pratap Bairagi</span></div>
+                        <div className="text-xs sm:text-sm md:text-base lg:text-lg xl:text-xl font-bold text-theme-blue-600 py-2 sm:py-3 md:py-4 lg:py-5">Hello, {auth &&<span className="font-semibold text-gray-500 capitalize">{user.first_name} {user.last_name}</span> } </div>
                         <div className="flex ml-auto  pr-2 md:pr-4 lg:pr-5 xl:pr-6 gap-x-4 sm:gap-x-5 md:gap-x-6 lg:gap-x-7 xl:gap-x-8">
-                            <button className="text-theme-blue-600 font-semibold p-1  border rounded-full ">
+                            <NavLink to="/profile" className="text-theme-blue-600 font-semibold p-1  border rounded-full ">
                                 <img src="/images/profile_image.png" className="w-8 sm:w-9 md:w-10 lg:w-12 rounded-full" alt="" />
-                            </button>
+                            </NavLink>
                             
 
                         </div>

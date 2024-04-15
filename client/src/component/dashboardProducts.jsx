@@ -49,7 +49,7 @@ const DashboardProducts = ({products, searchProduct, setSearchProduct, dispatch}
                     </button>
                 </fieldset>
 
-                <NavLink to="/add/vegetable" className=" bg-theme-blue-600 px-4 text-gray-100 h-8 sm:h-8 md:h-10 lg:h-10 xl:h-12 flex items-center justify-center">Add New</NavLink>
+                <NavLink to="/add/vegetable" className="md:min-w-32 bg-theme-blue-600 px-4 text-gray-100 h-8 sm:h-8 md:h-10 lg:h-10 xl:h-12 flex flex-nowrap items-center justify-center">Add New</NavLink>
 
 
             </div>
