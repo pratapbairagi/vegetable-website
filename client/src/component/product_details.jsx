@@ -40,8 +40,8 @@ const Product_details = () => {
         <>
         {state.loading ? <Spinner/> : state.product?.product != null &&
         <div className="w-full min-h-full grid grid-cols-12 pb-3 lg:max-w-80% mx-auto pt-3 lg:pt-32">
-            <div className="col-span-12 md:col-span-8 grid-cols-12 grid grid-cols-12 gap-y-2 order-1 lg:max-h-70vh">
-                <div id="imageScroll" className="flex min-w-full scroll-overflow-hidden col-span-12 w-full max-w-full overflow-x-auto">
+            <div className="col-span-12 lg:mr-3 md:col-span-8 grid-cols-12 grid grid-cols-12 gap-y-2 order-1 lg:max-h-70vh">
+                <div id="imageScroll" className="flex min-w-full scroll-overflow-hidden col-span-12 w-full max-w-full overflow-x-auto h-full">
                 {state.product != null && state.product.product.images.map((v, i)=>{
                     return <img key={i} src={v.url} className="col-span-12 w-full min-w-full object-contain lg:max-h-80vh bg-gray-100" alt="" />
                 })}
@@ -50,8 +50,8 @@ const Product_details = () => {
 
                 <ul className="col-span-12  flex md:hidden max-h-full overflow-x-auto scroll-overflow-hidden px-2 gap-x-2">
                     {state.product != null ? state.product.product.images.map((v, i) => {
-                        return <li key={i} onClick={()=> document.getElementById("imageScroll").scrollLeft = (document.getElementById("imageScroll").clientWidth) * i } className="bg-gray-100 border-gray-300 cursor-pointer">
-                            <img src={v.url} className="w-20 min-w-20" alt="" />
+                        return <li key={i} onClick={()=> document.getElementById("imageScroll").scrollLeft = (document.getElementById("imageScroll").clientWidth) * i } className="bg-gray-100 border-gray-300 cursor-pointer h-14 w-14 aspect-ratio-square">
+                            <img src={v.url} className="w-full h-full object-contain" alt="" />
                         </li>
                     })
                         : ""
@@ -76,7 +76,7 @@ const Product_details = () => {
             </div>
 
 
-            <div className="col-span-12 md:col-span-4 px-2 mt-7 flex items-center md:items-start justify-start content-start  order-2 flex-wrap md:order-2">
+            <div className="col-span-12 md:col-span-4 px-2 mt-7 lg:mt-0 flex items-center md:items-start justify-start content-start  order-2 flex-wrap md:order-2">
 
                 <div className="w-full flex flex-wrap items-center justify-start">
                     <h5 className="text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-400 mt-1">{state.product != null ? state.product.product.title : ""}</h5>
@@ -103,11 +103,11 @@ const Product_details = () => {
                     </div>
 
                 </div>
-                <h5 className="text-2xl md:text-3xl lg:text-4xl md:mt-0.5 lg:mt-1 font-bold font-nunito text-gray-600 flex hidden md:block">{state.product != null ? state.product.product.features.map((v, i) => { return <span key={i}>{v.feature}</span> }) : ""} <span className="ml-2">{state.product != null ? state.product.product.title : ""}</span></h5>
-                <h4 className="text-3xl md:text-4xl lg:text-5xl md:mt-3.5 lg:mt-5 font-extrabold text-theme-blue-600 font-nunito hidden md:block w-full md:mb-16">{state.product != null ? state.product.product.price : ""}/KG</h4>
+                <h5 className="text-2xl md:text-3xl lg:text-4xl md:mt-0.5 lg:mt-1 font-bold font-nunito text-gray-600 flex hidden md:block">{state.product != null ? state.product.product.features.map((v, i) => { return <span key={i}>{v.feature}</span> }) : ""} <span className="">{state.product != null ? state.product.product.title : ""}</span></h5>
+                <h4 className="text-3xl md:text-4xl lg:text-5xl md:mt-3.5 lg:mt-5 font-extrabold text-theme-blue-600 font-nunito hidden md:block w-full md:mb-10">{state.product != null ? state.product.product.price : ""}/KG</h4>
 
                 <div className="w-full hidden md:flex justify-start flex">
-                    <button disabled={cart.find(v=> v._id == id )?.qty == 0 ? true : false} onClick={()=> dispatch( cart_qty( {product : state.product.product, operator : "-1"} ))} className="bg-theme-blue-600 p-1 md:py-1.5 md:px-4 lg:px-4 rounded-full md:rounded-none">
+                    <button disabled={cart.find(v=> v._id == id )?.qty == 0 ? true : false} onClick={()=> dispatch( cart_qty( {product : state.product.product, operator : "-1"} ))} className="bg-theme-blue-600 p-1 md:py-1.5 md:px-4 lg:px-4 rounded-full md:rounded-none ">
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-6 md:w-7 stroke-gray-100">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
                         </svg>
@@ -122,7 +122,7 @@ const Product_details = () => {
 
                 <div className="col-span-12 hidden md:flex gap-x-2 items-center px-1.5 mt-3 md:mt-5 w-full ">
                     <span className="text-theme-green-600 font-bold text-sm bg-green-200 px-4 py-1 rounded">{state.product != null ? state.product.product.stock > 0 ? "Available" : "Unavailable" : ""}</span>
-                    <span className="text-sm font-bold text-gray-400">{state.product != null ? state.product.product.stock / 1000 : ""}kg</span>
+                    <span className="text-sm font-bold text-gray-400">{state.product != null ? (state.product.product.stock / 1000).toFixed(2) : ""}kg</span>
                 </div>
 
 
@@ -156,7 +156,7 @@ const Product_details = () => {
 
             </div>
             <div className="col-span-12 px-2 mt-1 sm:mt-1.5 flex items-center gap-x-3 order-4">
-                <h5 className="text-2xl font-bold font-nunito text-gray-600 flex md:hidden">{state.product != null ? state.product.product.features.map((v, i) => { return <span key={i}>{v.feature}</span> }): ""} <span className="ml-2">{state.product != null ? state.product.product.title : ""}</span></h5>
+                <h5 className="text-2xl font-bold font-nunito text-gray-600 flex md:hidden">{state.product != null ? state.product.product.features.map((v, i) => { return <span key={i}>{v.feature}</span> }): ""} <span className="">{state.product != null ? state.product.product.title : ""}</span></h5>
             </div>
 
             <div className="col-span-12 flex justify-start px-2 mt-5 sm:mt-6 order-5">
@@ -164,7 +164,7 @@ const Product_details = () => {
             </div>
             <div className="col-span-12 flex md:hidden gap-x-2 items-center px-2 mt-3 order-6">
                 <span className="text-theme-green-600 font-bold text-sm bg-green-200 px-4 py-1 rounded">{state.product != null ? state.product.product.stock > 0 ? "Available" : "Unavailable" : ""}</span>
-                <span className="text-sm font-bold text-gray-400">{state.product != null ? state.product.product.stock / 1000 : ""}kg</span>
+                <span className="text-sm font-bold text-gray-400">{state.product != null ? (state.product.product.stock / 1000).toFixed(2) : ""}kg</span>
             </div>
             <div className="col-span-11 w-full ml-3 flex md:hidden justify-center border-b border-t border-theme-blue-600 mt-5 py-2 order-7 ">
                 <fieldset className=" w-11/12 flex border rounded-full p-1">

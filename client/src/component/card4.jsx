@@ -8,7 +8,7 @@ const Card4 = ({product}) => {
     const {cart} = useSelector(state=> state.cart)
     const dispatch = useDispatch()
     return (
-        <li className="card_related flex flex-col min-w-32 lg:max-w-72 lg:min-w-72 p-1.5 bg-white">
+        <li className="card_related flex flex-col min-w-32 max-w-36 lg:max-w-72 lg:min-w-72 p-1.5 bg-white">
                     <img src={product.images[0].url} className="h-20 md:h-28 lg:h-36 xl:h-44 border-b object-contain" alt="" />
                     <h6 className="text-sm md:text-base lg:text-xl font-semibold font-nunito text-gray-500 mt-1 flex items-center justify-between">
                        <NavLink to={`/vegetable/${product._id}`} className="font-bold text-theme-blue-600 mt-0 md:mt-1 lg:mt-2">{product.title}</NavLink> 

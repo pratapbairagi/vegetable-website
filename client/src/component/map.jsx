@@ -176,12 +176,12 @@ const StoresMap = () => {
     return (
         <div className="w-full relative z-0 min-h-80vh">
 
-            <div className="w-full flex px-2 py-2 gap-x-4 border">
-                <div className=" text-center text-gray-600">Distance : {(Math.ceil(distance).toString()).length >= 4 ? ((Math.ceil(distance)) / 1000).toFixed(2) + " km" : Math.ceil(distance) + " meter/s"}</div>
-                <button onClick={() => getLiveRoute_handler()} className="button text-sm text-gray-100 hover:bg-blue-500 px-3 py-1 bg-theme-blue-600 rounded">Get Live Route</button>
-                <div className="w-max flex gap-x-3">
-                    <input defaultValue={mapZoom} id="zoomInput" type="number" className="w-12 text-sm px-1 rounded outline-0" />
-                    <button onClick={() => zoomHandler("+")} className="text-sm text-gray-100 hover:bg-blue-500 px-3 py-1 bg-theme-blue-600 rounded">Set Zoom</button>
+            <div className="w-full flex items-center px-2 py-2 gap-x-4 border">
+                <div className="text-xs md:text-sm text-center font-semibold text-gray-600">Distance : {(Math.ceil(distance).toString()).length >= 4 ? ((Math.ceil(distance)) / 1000).toFixed(2) + " km" : Math.ceil(distance) + " meter/s"}</div>
+                <button onClick={() => getLiveRoute_handler()} className="button text-2xs md:text-sm text-gray-100 hover:bg-blue-500 px-3 py-1 bg-theme-blue-600 rounded">Get Live Route</button>
+                <div className="w-max flex gap-x-1">
+                    <input defaultValue={mapZoom} id="zoomInput" type="number" className="w-10 text-sm text-gray-500 px-1 rounded outline-0" />
+                    <button onClick={() => zoomHandler("+")} className="text-2xs md:text-sm text-gray-100 hover:bg-blue-500 px-3 py-1 bg-theme-blue-600 rounded">Set Zoom</button>
                 </div>
             </div>
             {current_position &&
