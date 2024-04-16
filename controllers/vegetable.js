@@ -1,11 +1,11 @@
 const cloudinary = require("../config/cloudinary");
+const ErrorHandler = require("../middleware/errorHandler");
+// const ErrorHandler = require("../middleware/errorHandler");
 const User = require("../model/user");
 const Vegetable = require("../model/vegetable")
 
 
 exports.getVegetables = async (req, res, next) => {
-
-  console.log("params => ", req.query)
 
   try {
     let query = {};
@@ -46,21 +46,21 @@ exports.getVegetables = async (req, res, next) => {
                 products: { $slice: ["$products", 6] } // Limiting to 10 products per category
               }
             },
-        //     // Populate the 'seller' field for each product in the category
-        // {
-        //   $unwind: "$products"
-        // },
-        // {
-        //   $lookup: {
-        //     from: "users",
-        //     localField: "products.seller",
-        //     foreignField: "_id",
-        //     as: "products.seller"
-        //   }
-        // },
-        // {
-        //   $unwind: "$products.seller"
-        // }
+            //     // Populate the 'seller' field for each product in the category
+            // {
+            //   $unwind: "$products"
+            // },
+            // {
+            //   $lookup: {
+            //     from: "users",
+            //     localField: "products.seller",
+            //     foreignField: "_id",
+            //     as: "products.seller"
+            //   }
+            // },
+            // {
+            //   $unwind: "$products.seller"
+            // }
           ]
         }
       },
@@ -108,7 +108,7 @@ exports.getVegetables = async (req, res, next) => {
       //     }
       // }
     ])
-    let soldVegetables = await Vegetable.find().sort({sold : -1}).limit(6)
+    let soldVegetables = await Vegetable.find().sort({ sold: -1 }).limit(6)
 
     filteredProducts = filteredProducts[0].categories
 
@@ -148,12 +148,12 @@ exports.getVegetables = async (req, res, next) => {
       //   $unwind: "$products.seller"
       // },
       // Group the products back by feature
-  // {
-  //   $group: {
-  //     _id: "$feature",
-  //     products: { $push: "$products" }
-  //   }
-  // }
+      // {
+      //   $group: {
+      //     _id: "$feature",
+      //     products: { $push: "$products" }
+      //   }
+      // }
     ]);
 
     // console.log("featureBasedProducts => ", featureBasedProducts)
@@ -177,32 +177,32 @@ exports.getVegetables = async (req, res, next) => {
 
 
     for (const key in req.query) {
-      if (key == "tags"|| key == "category") {
+      if (key == "tags" || key == "category") {
         if (req.query[key]) {
           query[key] = req.query[key].split(",")
         }
       }
-      else if(key == "features"){
-        if(req.query[key]){
+      else if (key == "features") {
+        if (req.query[key]) {
           query["features.feature"] = req.query[key].split(",")
         }
       }
       // if( key == "price" ){
       // }
-      if (key == "title" ) {
+      if (key == "title") {
         if (req.query[key]) {
-            let searchStrings = req.query[key].toLowerCase();
-            searchStrings = searchStrings.split(" ")
+          let searchStrings = req.query[key].toLowerCase();
+          searchStrings = searchStrings.split(" ")
 
-            // query[key] = { $in : searchStrings}
-            // query["features.feature"] = { $in : searchStrings}
-            // query["category"] = { $in : searchStrings}
-            query["tags"] = { $in : searchStrings}
-          }
+          // query[key] = { $in : searchStrings}
+          // query["features.feature"] = { $in : searchStrings}
+          // query["category"] = { $in : searchStrings}
+          query["tags"] = { $in: searchStrings }
+        }
       }
     }
 
-    
+
     const products = await Vegetable.find(query).limit(10).populate("seller");
 
     res.status(200).json({
@@ -215,34 +215,29 @@ exports.getVegetables = async (req, res, next) => {
       soldVegetables
     })
   } catch (error) {
-    console.log("catch error => ", error)
+    return next(new ErrorHandler(error))
   }
 }
 
 exports.getFilteredAndSortedProducts = async (req, res, next) => {
   try {
-    const {title,category, features, tags, price, ratings, nameSort, dateSort, ratingSort, priceSort, sold, productsPerPage, pageNo=1} = req.query
-    // console.log("queries => ", features)
-    // console.log("queries => ", category)
-    // console.log("queries => ", tags)
-    // console.log("queries => ", productsPerPage)
-    // console.log("queries 2 => ", req.query["features"])
+    const { title, category, features, tags, price, ratings, nameSort, dateSort, ratingSort, priceSort, sold, productsPerPage, pageNo = 1 } = req.query
 
     let query = {}
     let sort = {}
 
     let products;
-    if(nameSort){
+    if (nameSort) {
       sort.title = Number(nameSort)
     }
-    if(dateSort){
+    if (dateSort) {
       sort.createdAt = Number(dateSort)
     }
-    if(priceSort){
+    if (priceSort) {
       sort.price = Number(priceSort)
     }
-    if(ratingSort){
-     sort.rating = Number(ratingSort)
+    if (ratingSort) {
+      sort.rating = Number(ratingSort)
     }
 
     let categories = await Vegetable.distinct("category");
@@ -250,82 +245,72 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
     let feature = await Vegetable.distinct("features.feature")
     let prices = await Vegetable.distinct("price")
 
-    for (const key in req.query ){
-      if(key == "category" || key == "tags" ){
-        if( req.query[key] && req.query[key] != "all" ){
+    for (const key in req.query) {
+      if (key == "category" || key == "tags") {
+        if (req.query[key] && req.query[key] != "all") {
           let array = await req.query[key].split(",")
-          // console.log("category => ", array)
-          query[key] = { $in : array }
+      
+          query[key] = { $in: array }
         }
-        else{
-           query[key] ={ $in : categories}
+        else {
+          query[key] = { $in: categories }
         }
       }
-      else if(key == "features"){
-        if( req.query[key] && req.query[key] != "all" ){
+      else if (key == "features") {
+        if (req.query[key] && req.query[key] != "all") {
           let array = await req.query[key].split(",")
 
-          // console.log("features => ", array)
-          
-        // query["features.feature"] = { $in : array }
-        query.features = { $elemMatch: { feature: { $in: array } } };
+          query.features = { $elemMatch: { feature: { $in: array } } };
         }
-        else{
-          
-          query["features.feature"] = { $in : feature}
+        else {
+
+          query["features.feature"] = { $in: feature }
         }
       }
 
-      if(key == "price" || key == "ratings"){
-        if( req.query[key] ){
+      if (key == "price" || key == "ratings") {
+        if (req.query[key]) {
           const range = req.query[key]
           query[key] = {
-            $gte : range.gte,
-            $lte : range.lte
+            $gte: range.gte,
+            $lte: range.lte
           }
         }
       }
-      if( key == "title"){
-        if( req.query[key] ){
-        let searchString = req.query[key].toLowerCase();
-        searchString = searchString.split(" ")
+      if (key == "title") {
+        if (req.query[key]) {
+          let searchString = req.query[key].toLowerCase();
+          searchString = searchString.split(" ")
 
-        query[key] = {
-          $in : searchString 
+          query[key] = {
+            $in: searchString
+          }
         }
-      }
       }
     }
     let productsLength = await Vegetable.countDocuments(query).sort(sort)
 
-      products = productsLength <= productsPerPage ? await Vegetable.find(query).sort(sort).limit(productsPerPage)
-       : await Vegetable.find(query).sort(sort).skip(productsPerPage * (pageNo - 1)).limit(productsPerPage)
+    products = productsLength <= productsPerPage ? await Vegetable.find(query).sort(sort).limit(productsPerPage)
+      : await Vegetable.find(query).sort(sort).skip(productsPerPage * (pageNo - 1)).limit(productsPerPage)
 
     categories.unshift("all")
     feature.unshift("all")
     tag.unshift("all")
 
 
-    console.log("products => ", products)
-    console.log("categories => ", categories)
-    console.log("tags => ", tag)
-    console.log("query => ", query)
-    // console.log("sort => ", sort)
-    // console.log("pageno => ", pageNo)
-
     res.status(200).json({
-      success : true,
-      message : "",
+      success: true,
+      message: "",
       products,
       categories,
-      tags : tag,
-      features : feature,
-      prices : prices,
+      tags: tag,
+      features: feature,
+      prices: prices,
       productsLength
     })
- 
+
   } catch (error) {
-    console.log("error=> ", error)
+    return next(new ErrorHandler(error))
   }
 }
 
@@ -368,49 +353,32 @@ exports.getVegetable = async (req, res, next) => {
     })
 
   } catch (error) {
-    console.log(error)
+    return next(new ErrorHandler(error))
   }
 }
 
-exports.addToCart = async ( req, res, next ) => {
+exports.addToCart = async (req, res, next) => {
   try {
-    const {id} = req.params;
+    const { id } = req.params;
 
     const product = await Vegetable.findById(id)
 
-    if( !product){
-      
+    if (!product) {
+      return next(new ErrorHandler("Can not add to cart, this product is missing from website !", 404))
     }
 
     res.status(200).json({
-      success : true,
-      message : "",
+      success: true,
+      message: "",
       product
     })
-    
+
   } catch (error) {
-    console.log(error)
+    return next(new ErrorHandler(error, 500))
   }
 }
 
-// exports.categories = async (req, res, next) => {
-//     try {
-//         let categories = await Vegetable.distinct("category");
-
-//         categories.unshift("")
-
-//         res.status(200).json({
-//             success : true,
-//             message : "",
-//             categories
-//         })
-//     } catch (error) {
-//         console.log("catch error => ", error)
-//     }
-// }
-
 exports.active_category = async (req, res, next) => {
-  console.log("active category")
   try {
     const { category } = req.params;
 
@@ -430,7 +398,7 @@ exports.active_category = async (req, res, next) => {
     })
 
   } catch (error) {
-    console.log(error)
+    return next(new ErrorHandler(error))
   }
 }
 
@@ -439,11 +407,10 @@ exports.createVeg = async (req, res, next) => {
     let image = []
     const { title, description, category, images, stock, features, tags, price } = req.body;
 
-    const isUserExist = await User.findById({_id : req.user._id});
+    const isUserExist = await User.findById({ _id: req.user._id });
 
-    if( !isUserExist){
-      console.log("session expired or something went wrong, please login again to add product")
-      return next()
+    if (!isUserExist) {
+      return next(new ErrorHandler("Session expired or something went wrong. Please login again !", 401))
     }
 
     for (let x = 0; images.length > x; x++) {
@@ -459,27 +426,16 @@ exports.createVeg = async (req, res, next) => {
 
     let product = await Vegetable.create({
       title: title.toLowerCase(),
-      category : category.toLowerCase(),
-      description : description.toLowerCase(),
+      category: category.toLowerCase(),
+      description: description.toLowerCase(),
       tags,
       features,
       stock,
       price,
       images: image,
-      seller : isUserExist._id,
-      coordinates : isUserExist.storeLocation.coordinates
+      seller: isUserExist._id,
+      coordinates: isUserExist.storeLocation.coordinates
     });
-
-    // let product = {
-    //     title, 
-    //     category, 
-    //     description, 
-    //     stock, 
-    //     features, 
-    //     tags,
-    //     price
-    // }
-    // console.log("working => ", product)
 
     res.status(201).json({
       success: true,
@@ -489,7 +445,7 @@ exports.createVeg = async (req, res, next) => {
 
 
   } catch (error) {
-    console.log("errorrrr ==> ", error)
+    return next(new ErrorHandler(error))
   }
 }
 
@@ -497,38 +453,40 @@ exports.editProduct = async (req, res, next) => {
   try {
     const { id } = req.params
 
+
     let isProductExist;
 
     isProductExist = await Vegetable.findById(id)
 
     if (!isProductExist) {
-      return console.log("product does not exist")
+    return next(new ErrorHandler("Sorry, pruduct is missing from the website !", 404 ))
     }
 
-    const isUserExist = await User.findById({_id : req.user._id});
+    const isUserExist = await User.findById({ _id: req.user._id });
 
-    if(!isUserExist){
-      console.log("something went wrong, user not logged in, login againn !")
-      return next()
+    if (!isUserExist) {
+      return next( new ErrorHandler("Session expired !", 401))
     }
 
-    if(isUserExist._id != isProductExist.seller ){
-      console.log("sorry, only seller has authority has authority to update this product !")
-      return next()
+    if (isUserExist._id != isProductExist.seller) {
+      console.log("match seller id ", isUserExist._id)
+      console.log("match product creater id ", isProductExist.seller)
+    return next(new ErrorHandler("Sorry, only seller has the authority to update this product !", 403 ))
+
     }
 
     let image = [];
 
     for (let x = 0; req.body.images.length > x; x++) {
       if (req.body.images[x].public_id && req.body.images[x].url.includes("cloudinary.com")) {
-        
+
         image.push(req.body.images[x])
-       
-        let oldImages = await isProductExist.images.filter((v)=>{
-         return v.public_id != req.body.images[x].public_id 
+
+        let oldImages = await isProductExist.images.filter((v) => {
+          return v.public_id != req.body.images[x].public_id
         });
 
-        await oldImages.forEach(x=> cloudinary.uploader.destroy(x.public_id))
+        await oldImages.forEach(x => cloudinary.uploader.destroy(x.public_id))
 
       }
       else if (!req.body.images[x].public_id && req.body.images[x].url.includes("data:image")) {
@@ -546,62 +504,59 @@ exports.editProduct = async (req, res, next) => {
 
 
     isProductExist = await Vegetable.findByIdAndUpdate(id, {
-      title : req.body.title,
-      category : req.body.category,
-      price : req.body.price,
-      tags : req.body.tags,
-      features : req.body.features,
-      description : req.body.description,
-      stock : req.body.stock,
-      images : image,
-      coordinates : isUserExist.storeLocation.coordinates
+      title: req.body.title,
+      category: req.body.category,
+      price: req.body.price,
+      tags: req.body.tags,
+      features: req.body.features,
+      description: req.body.description,
+      stock: req.body.stock,
+      images: image,
+      coordinates: isUserExist.storeLocation.coordinates
     })
 
     res.status(200).json({
-      success : true,
-      message : "Vegetable updated successfull.",
-      product : isProductExist
+      success: true,
+      message: "Vegetable updated successfull.",
+      product: isProductExist
     })
 
   } catch (error) {
-    console.log("errorrrr ==> ", error)
-
+    return next(new ErrorHandler(error))
   }
 }
 
-exports.delete_product = async (req, res, next) =>{
+exports.delete_product = async (req, res, next) => {
   try {
     const id = req.params.id
-    const isProductExist = await Vegetable.findById({_id : id});
+    const isProductExist = await Vegetable.findById({ _id: id });
 
-    if( !isProductExist){
-      console.log("product does not exist !")
-      return next()
+    if (!isProductExist) {
+    return next(new ErrorHandler("Sorry, product is missing from the website !", 403 ))
     }
 
-    if( isProductExist.seller != id ){
-      console.log("sorry, only seller has the authority to delete this product !")
-      return next()
+    if (isProductExist.seller != id) {    
+    return next(new ErrorHandler("Sorry, only seller has the authority to delete this product !", 403 ))
+
     }
 
-    for(let x = 0; x < isProductExist.images.length; x++){
+    for (let x = 0; x < isProductExist.images.length; x++) {
       await cloudinary.uploader.destroy(isProductExist.images[x].public_id)
     }
 
-    await Vegetable.findByIdAndDelete({_id : isProductExist._id});
+    await Vegetable.findByIdAndDelete({ _id: isProductExist._id });
 
     console.log("deleted")
-    
+
     res.status(200).json({
-      success : true,
-      message : "Product deleted successfully !",
-      id : id
+      success: true,
+      message: "Product deleted successfully !",
+      id: id
     })
 
-    
+
   } catch (error) {
-    console.log("errorrrr in catch part for delete ==> ", error)
-    
+    return next(new ErrorHandler(error))
   }
 }
 

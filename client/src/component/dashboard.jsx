@@ -5,8 +5,6 @@ import DashboardProducts from "./dashboardProducts";
 import { useDispatch, useSelector } from "react-redux";
 import { get_filter_and_sort_products } from "../redux/product/action";
 import { NavLink, useLocation } from "react-router-dom";
-import Toaster from "./toaster";
-
 
 const Dashboard = () => {
     const [tabList, setTabList] = useState([
@@ -88,7 +86,7 @@ const Dashboard = () => {
         }
     ])
     const state = useSelector(state => state.product)
-  const { auth, user } = useSelector(state => state.user)
+  const { auth, user, error } = useSelector(state => state.user)
     const dispatch = useDispatch()
     const location = useLocation()
 
@@ -151,10 +149,11 @@ const Dashboard = () => {
     }
     },[ location.state])
 
+    console.log(state)
+
     
     return (
         <div className=" bg-gray-100 w-full max-w-screen z-30 top-0 left-0 overflow-y-hidden max-h-screen min-h-screen h-max min-h-screen">
-           {state.success && <Toaster message={state.message} success={state.success} /> }
             <div className="w-full grid grid-cols-12 px-1 py-1 gap-x-2">
                 <div className="w-full scroll-overflow-hidden overflow-x-auto md:overflow-x-hidden md:col-span-4 lg:col-span-4 xl:col-span-3 h-max md:h-full bg-white fixed  md:sticky bottom-0 left-0 md:bottom-initial md:top-0 order-2 md:order-1 ">
                     <h4 className="w-full hidden md:flex text-3xl font-extrabold font-nunito bg-theme-blue-600 text-gray-100 md:px-14 lg:px-14 xl:px-16 md:py-4 lg:py-5 xl:py-5"> <NavLink to="/"> Website </NavLink></h4>

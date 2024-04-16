@@ -32,6 +32,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { user_logged } from './redux/user/action.js'
 import ProtectedRoute from './protectedRoute/protectedRoute.jsx'
 import NonProtctedRoute from './protectedRoute/nonProtectedRoute.jsx'
+import Toaster from './component/toaster.jsx'
+import { clear_success } from './redux/product/action.js'
 // import Products from './component/products.jsx'
 // import EditVegetable from "./component/editVegetable.jsx"
 
@@ -48,14 +50,13 @@ function App() {
     }
   }, [auth])
 
-  console.log("app", auth)
-
   return (
     <ErrorBoundary>
       <div className='relative'>
         <BrowserRouter>
           <Navbar setToggleCart={setToggleCart} setLoginToggle={setLoginToggle} />
           <Cart toggleCart={toggleCart} setToggleCart={setToggleCart} />
+          <Toaster/>
 
           <Routes>
             <Route path='/' element={<Home />} />

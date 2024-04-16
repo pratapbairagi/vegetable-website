@@ -31,14 +31,13 @@ export const user_register = (user) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type : USER_REGISTER_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 } 
 
 export const user_login = (user) => async (dispatch) => {
 
-    console.log(user)
     try {
         const url = `${rootUrl}/user/login`
         // const url = "https://veg-etable.vercel.app/api/user/login";
@@ -51,8 +50,6 @@ export const user_login = (user) => async (dispatch) => {
             headers : {
                 "Content-Type": "application/json"
             },
-            "access-control-allow-origin": `https://veg-etable.vercel.app`,
-            // "access-control-allow-origin": `http://localhost:5005`,
             withCredentials: true
         }
 
@@ -67,7 +64,7 @@ export const user_login = (user) => async (dispatch) => {
         console.log(error)
         dispatch({
             type : USER_LOGIN_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 }
@@ -84,7 +81,6 @@ export const user_logged = () => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            // "access-control-allow-origin": "http://localhost:5005",
             withCredentials: true
         }
 
@@ -97,7 +93,7 @@ export const user_logged = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type : USER_LOGGED_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 }
@@ -119,8 +115,6 @@ export const logout = () => async (dispatch) => {
 
         const {data} = await axios.get(url, config)
 
-        console.log("data logout => ", data)
-
         dispatch({
             type : USER_LOGOUT_SUCCESS,
             payload : data
@@ -129,7 +123,7 @@ export const logout = () => async (dispatch) => {
     } catch (error) {
         dispatch({
             type : USER_LOGOUT_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 }
@@ -160,7 +154,7 @@ export const user_update = (user) => async (dispatch) => {
         console.log(error)
         dispatch({
             type : USER_UPDATE_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 }

@@ -1,4 +1,4 @@
-import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_SUCCESS, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILED, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, GET_FILTER_AND_SORT_PRODUCTS_FAILED, GET_FILTER_AND_SORT_PRODUCTS_REQUEST, GET_FILTER_AND_SORT_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS } from "./types";
+import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_ERROR, CLEAR_SUCCESS, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILED, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, GET_FILTER_AND_SORT_PRODUCTS_FAILED, GET_FILTER_AND_SORT_PRODUCTS_REQUEST, GET_FILTER_AND_SORT_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS } from "./types";
 
 
 export const product = (state = {
@@ -14,7 +14,7 @@ export const product = (state = {
     filteredProducts: [],
     productsLength: 0,
     success: false,
-    error: null,
+    error: false,
     message: ""
 }, action) => {
     switch (action.type) {
@@ -95,22 +95,53 @@ export const product = (state = {
                 filteredProducts: action.payload
                 // categories : action.payload.categories
             }
-        case ADD_PRODUCT_FAILED,
-            GET_PRODUCTS_FAILED,
-            GET_PRODUCT_FAILED,
-            EDIT_PRODUCT_FAILED,
-            GET_FILTER_AND_SORT_PRODUCTS_FAILED:
+        case ADD_PRODUCT_FAILED :
             return {
                 ...state,
                 loading: false,
-                error: action.payload
+                error : true,
+                message : action.payload
+            }
+            case GET_PRODUCTS_FAILED :
+            return {
+                ...state,
+                loading: false,
+                error : true
+            }
+            case GET_PRODUCT_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error : true
+            }
+            case EDIT_PRODUCT_FAILED :
+            return {
+                ...state,
+                loading: false,
+                error : true,
+                message : action.payload
+            }
+            case GET_FILTER_AND_SORT_PRODUCTS_FAILED:
+            return {
+                ...state,
+                loading: false,
+                error : true
             }
         case CLEAR_SUCCESS:
             return {
                 ...state,
                 success: false,
+                error : false,
                 message: ""
             }
+            case CLEAR_ERROR :
+                return {
+                    ...state,
+                    loading : false,
+                    success : false,
+                    error : false,
+                    message : ""
+                }
         default: return state
     }
 }

@@ -1,6 +1,7 @@
 const bcrypt = require("bcrypt")
 const jsonwebtoken = require("jsonwebtoken");
 const User = require("../model/user");
+const ErrorHandler = require("./errorHandler");
 
 const userAuth = async (req, res, next) => {
     try {
@@ -9,13 +10,13 @@ const userAuth = async (req, res, next) => {
         const key = "sdfifgiweAe[q-we=qe 79tuurfb75d6d&@BYFfb&IyuBFyibd6bw5465o78^P(N(:I5bk*r97r6br&"
 
         if(!jwt || jwt == null || jwt == undefined ){
-            console.log("cookie not found or session expired")
+            return next( new ErrorHandler("Session expired !", 401))
         }
         else{
         const {id} = jsonwebtoken.verify(jwt, key);
 
         if( !id || id == null || id == undefined){
-            return next()
+            return next( new ErrorHandler("Session expired !", 401))
         }
 
         const user = await User.findById({_id : id})

@@ -1,5 +1,7 @@
+const ErrorHandler = require("../middleware/errorHandler")
 const User = require("../model/user")
 const Vegetable = require("../model/vegetable")
+// const ErrorHandler = require("../utils/errorHandlerUtil")
 
 
 exports.userRegister = async (req, res, next) => {
@@ -7,19 +9,17 @@ exports.userRegister = async (req, res, next) => {
         const { first_name, last_name, phone, email, password, confirmPassword } = req.body
 
         if (!first_name || !last_name || !phone || !email || !password || !confirmPassword) {
-            return console.log("error in reqired fields => ")
+            return next(new ErrorHandler("All fields are required ! !", 400))
         }
 
         if (password !== confirmPassword) {
-            return console.log("password annd confir, password does not match => ")
+            return next(new ErrorHandler("Password and Confirm Password is not matching !", 400))
         }
-
 
         const isUserExistWithEmail = await User.findOne({ email: email })
 
         if (isUserExistWithEmail) {
-            console.log("user already exist with this email => ", isUserExistWithEmail)
-            return next()
+            return next(new ErrorHandler("User already exist with this email !", 409))
         }
 
         let user = await User.create({
@@ -37,7 +37,6 @@ exports.userRegister = async (req, res, next) => {
         const cookieOption = {
             httpOnly: true,
             maxAge: (24 * 60 * 60 * 1000)
-
         };
 
         res.status(201).cookie("jwt", token, cookieOption).json({
@@ -46,9 +45,8 @@ exports.userRegister = async (req, res, next) => {
             user
         })
 
-
     } catch (error) {
-        console.log("error in registering user", error)
+        return next(new ErrorHandler( error, 500))
     }
 }
 
@@ -56,21 +54,17 @@ exports.userLogin = async (req, res, next) => {
     try {
         const { email, phone, password } = req.body;
 
-        console.log("user login => ", req.body)
-
         const isUserExistWithEmail = await User.findOne({ email: email });
 
         if (!isUserExistWithEmail) {
-            console.log("This email id is not registred !")
-            return next()
+            return next(new ErrorHandler("Email id is not registred !", 404))
         }
         else {
 
             const isPasswordMatched = await isUserExistWithEmail.comparePassword(password)
 
             if (!isPasswordMatched) {
-                console.log("Password does not matched !")
-                return next()
+            return next(new ErrorHandler("Invalid user credentials !", 409))
             }
 
             const token = await isUserExistWithEmail.generateToken()
@@ -82,6 +76,7 @@ exports.userLogin = async (req, res, next) => {
 
             res.cookie("jwt", token, cookieOption);
 
+            console.log("cookie =>", req.cookies)
 
             res.status(200).json({
                 success: true,
@@ -91,23 +86,19 @@ exports.userLogin = async (req, res, next) => {
         }
 
     } catch (error) {
-        console.log("catch part error while login => ", error)
+        return next(new ErrorHandler("Something went wrong !", 500))
     }
 }
 
 exports.userLoggedIn = async (req, res, next) => {
     try {
-        console.log("logged")
         const id = req.user._id;
 
         const isUserExist = await User.findById({ _id: id }).select("-password");
 
         if (!isUserExist) {
-            console.log("User session expired !")
-            return next()
+            return next(new ErrorHandler("Session expired !", 401))
         }
-
-        console.log("user => ", isUserExist)
 
         res.status(200).json({
             success: true,
@@ -116,7 +107,7 @@ exports.userLoggedIn = async (req, res, next) => {
         })
 
     } catch (error) {
-        console.log("catch part error while logged user => ", error)
+        return next(new ErrorHandler(error, 500))
     }
 }
 
@@ -127,7 +118,7 @@ exports.user_logout = async (req, res, next) => {
 
         if (!isUserExist) {
             console.log("user does not exist !")
-            return next()
+            return next(new ErrorHandler("Session expired !", 401))
         }
 
         const cookieOption = {
@@ -143,22 +134,19 @@ exports.user_logout = async (req, res, next) => {
         })
 
     } catch (error) {
-        console.log("catch part error while logout user => ", error)
-
+        return next(new ErrorHandler(error, 500))
     }
 }
 
 exports.user_update = async (req, res, next) => {
 
-    console.log("update")
     try {
         let newData = req.body;
 
         let isUserExist = await User.findById({ _id: req.user._id });
 
         if (!isUserExist) {
-            console.log("session expired or something went wrong !")
-            return next()
+            return next(new ErrorHandler("Session expired !", 401))
         }
         
         if (newData.storeLocation.coordinates ) {
@@ -170,18 +158,13 @@ exports.user_update = async (req, res, next) => {
 
                const pro = await Vegetable.updateMany(productFilter, productUpdate, option)
 
-                console.log("product uodated => ", pro)
-
             }
         }
 
-        console.log("update 2")
 
         Object.assign(isUserExist, newData)
-        console.log("update 3", newData)
 
         const user = await isUserExist.save()
-        console.log("update 4", user)
 
         res.status(200).json({
             success: true,
@@ -189,7 +172,6 @@ exports.user_update = async (req, res, next) => {
             user: user
         })
     } catch (error) {
-        console.log("catch part error while user update => ", error)
-
+        return next(new ErrorHandler(error, 500))
     }
 }

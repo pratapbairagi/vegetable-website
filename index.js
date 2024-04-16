@@ -11,7 +11,8 @@ const cookieParser = require("cookie-parser")
 const fileupload = require("express-fileupload")
 const path = require("path");
 const userRoute = require("./router/user");
-const bodyparser = require("body-parser")
+const bodyparser = require("body-parser");
+const { global_errorHandler } = require("./utils/global_errorHandler");
 
 const app = express(http);
 // const upload = multer({dest : "uploads/"})
@@ -19,8 +20,9 @@ const app = express(http);
 app.use(cors(
     {
     credentials : true,
-    origin : ["https://veg-etable.vercel.app", "http://localhost:5005", "http://localhost:5173"],
+    // origin : ["https://veg-etable.vercel.app", "http://localhost:5005", "http://localhost:5173"],
     // origin : ["https://veg-etable.vercel.app"],
+    origin : ["http://localhost:5173"],
     methods: "GET, POST, PUT, PATCH, DELETE",
     allowedHeaders: "Content-Type, Authorization"
   }
@@ -47,6 +49,8 @@ app.use(express.static(path.join(__dirname, "./client/build")))
 app.get("*", (req, res)=>{
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
 })
+
+app.use(global_errorHandler)
 
 dbConnection();
 

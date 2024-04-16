@@ -1,10 +1,12 @@
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { NavLink } from "react-router-dom"
+import { logout } from "../redux/user/action"
 
 
 
 const Profile = () => {
   const { auth, user } = useSelector(state => state.user)
+  const dispatch = useDispatch()
 
     return (
         <div className="w-full md:w-11/12 lg:10/12 xl:w-11/12 grid grid-cols-12 py-2 px-2 mx-auto pb-28">
@@ -84,6 +86,13 @@ const Profile = () => {
                     <path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM216 336h24V272H216c-13.3 0-24-10.7-24-24s10.7-24 24-24h48c13.3 0 24 10.7 24 24v88h8c13.3 0 24 10.7 24 24s-10.7 24-24 24H216c-13.3 0-24-10.7-24-24s10.7-24 24-24zm40-208a32 32 0 1 1 0 64 32 32 0 1 1 0-64z"/>
                 </svg>
                     <span className="font-bold text-base md:text-xl lg:text-2xl text-theme-blue-600 mt-0.5">About Us</span>
+                </li>
+
+                <li onClick={()=> dispatch(logout())} className="flex items-center gap-x-6 md:gap-x-8 lg:gap-x-9 cursor-pointer">
+                <svg  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  strokeWidth="2"  strokeLinecap="round"  strokeLinejoin="round" className="w-5 h-5 md:h-6 md:w-6 lg:h-7 lg:w-7 stroke-theme-blue-600">  
+                <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4" />  <polyline points="10 17 15 12 10 7" />  <line x1="15" y1="12" x2="3" y2="12" />
+                </svg>
+                    <span className="font-bold text-base md:text-xl lg:text-2xl text-theme-blue-600 mt-0.5">Logout</span>
                 </li>
             </ul>
 

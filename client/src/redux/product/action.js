@@ -1,7 +1,5 @@
 import axios from "axios"
-import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_FAILED, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_SUCCESS, DELETE_PRODUCT_FAILED, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILED, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, GET_FILTER_AND_SORT_PRODUCTS_FAILED, GET_FILTER_AND_SORT_PRODUCTS_REQUEST, GET_FILTER_AND_SORT_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS } from "./types"
-import setTimeoutForClearSuccess from "./clearSucces";
-// import SetTimeoutForClearSuccess from "./clearSucces";
+import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_FAILED, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_ERROR, CLEAR_SUCCESS, DELETE_PRODUCT_FAILED, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILED, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, GET_FILTER_AND_SORT_PRODUCTS_FAILED, GET_FILTER_AND_SORT_PRODUCTS_REQUEST, GET_FILTER_AND_SORT_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS } from "./types"
 
 const rootUrl = "https://veg-etable.vercel.app/api"
 // const rootUrl = "http://localhost:5005/api"
@@ -26,12 +24,10 @@ export const add_product = (product) => async (dispatch) => {
             payload : data
         })
 
-        setTimeoutForClearSuccess
-
     } catch (error) {
         dispatch({
             type : ADD_PRODUCT_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 }
@@ -53,20 +49,12 @@ export const get_products = ({title="", category="", price={lte:0,gte:1000}, tag
         dispatch({
             type : GET_PRODUCTS_SUCCESS,
             payload : data
-        })
-
-        let timeOut = setTimeout(()=>{
-            dispatch({
-                type : CLEAR_SUCCESS
-            })
-            return clearTimeout(timeOut)
-        },5000);
-    
+        }) 
 
     }catch (error) {
         dispatch({
             type : GET_PRODUCTS_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 }
@@ -100,16 +88,10 @@ export const get_filter_and_sort_products = ({title="", category=[], price=[{gte
                 payload : data
             })
 
-            let timeOut = setTimeout(()=>{
-                dispatch({
-                    type : CLEAR_SUCCESS
-                })
-                return clearTimeout(timeOut)
-            },1000);
     } catch (error) {
         dispatch({
             type : GET_FILTER_AND_SORT_PRODUCTS_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 }
@@ -135,17 +117,10 @@ export const get_product = (id) => async (dispatch) => {
             payload : data
         })
 
-        let timeOut = setTimeout(()=>{
-            dispatch({
-                type : CLEAR_SUCCESS
-            })
-            return clearTimeout(timeOut)
-        },5000);
-
     } catch (error) {
         dispatch({
             type : GET_PRODUCT_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 }
@@ -200,18 +175,11 @@ export const filteredProducts = ({ active_category, filteredProducts }) => async
             type : CATEGORIE_SELECTED_SUCCESS,
             payload : filteredProducts
         })
-
-        let timeOut = setTimeout(()=>{
-            dispatch({
-                type : CLEAR_SUCCESS
-            })
-            return clearTimeout(timeOut)
-        },5000);
         
     } catch (error) {
         dispatch({
             type : CATEGORIE_SELECTED_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 }
@@ -229,7 +197,8 @@ export const editProduct = ({id, createProduct}) => async (dispatch) => {
         const config = {
             headers : {
                 "Content-type" : "application/json"
-            }
+            },
+            withCredentials : true
         }
 
         const {data} = await axios.put(
@@ -241,17 +210,10 @@ export const editProduct = ({id, createProduct}) => async (dispatch) => {
             payload : data
         });
 
-        let timeOut = setTimeout(()=>{
-            dispatch({
-                type : CLEAR_SUCCESS
-            })
-            return clearTimeout(timeOut)
-        },5000);
-
     } catch (error) {
         dispatch({
             type : EDIT_PRODUCT_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
     }
 }
@@ -265,7 +227,6 @@ export const delete_product = (id) => async (dispatch) => {
 
         const config = {
             headers: { "Content-Type": "application/json" },
-            // "access-control-allow-origin": `https://veg-etable.vercel.app`,
             withCredentials : true
         }
 
@@ -276,17 +237,10 @@ export const delete_product = (id) => async (dispatch) => {
             payload : data
         })
 
-        let timeOut = setTimeout(()=>{
-            dispatch({
-                type : CLEAR_SUCCESS
-            })
-            return clearTimeout(timeOut)
-        })
-
     } catch (error) {
         dispatch({
             type : DELETE_PRODUCT_FAILED,
-            payload : error
+            payload : error.response.data.message
         })
         
     }
@@ -296,5 +250,11 @@ export const delete_product = (id) => async (dispatch) => {
 export const clear_success = () => (dispatch) => {
     dispatch({
         type : CLEAR_SUCCESS
+    })
+}
+
+export const clear_error = () => (dispatch) => {
+    dispatch({
+        type : CLEAR_ERROR
     })
 }
