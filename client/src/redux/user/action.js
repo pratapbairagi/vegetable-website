@@ -2,10 +2,10 @@ import axios from "axios"
 import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT_FAILED, USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_REGISTER_FAILED, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_FAILED, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "./type";
 
 // const rootUrl = "http://localhost:5005/api"
-const rootUrl = "https://veg-etable.vercel.app/api"
+const rootUrl = "https://veg-etable.vercel.app"
 export const user_register = (user) => async (dispatch) => {
     try {
-        const url = `${rootUrl}/user/register`;
+        const url = `/api/${rootUrl}/user/register`;
         // const url = "https://veg-etable.vercel.app/api/user/register";
 
         dispatch({
@@ -39,7 +39,7 @@ export const user_register = (user) => async (dispatch) => {
 export const user_login = (user) => async (dispatch) => {
 
     try {
-        const url = `${rootUrl}/user/login`
+        const url = `/api/${rootUrl}/user/login`
         // const url = "https://veg-etable.vercel.app/api/user/login";
 
         dispatch({
@@ -70,7 +70,7 @@ export const user_login = (user) => async (dispatch) => {
 }
 
 export const user_logged = () => async (dispatch) => {
-    const url = `${rootUrl}/user/logcheck`
+    const url = `/api/${rootUrl}/user/logcheck`
     // const url = "https://veg-etable.vercel.app/api/user/logcheck";
     try {
         dispatch({
@@ -100,7 +100,7 @@ export const user_logged = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
     try {
-        const url = `${rootUrl}/user/logout`
+        const url = `/api/${rootUrl}/user/logout`
         // const url = "https://veg-etable.vercel.app/api/user/logout";
         dispatch({
             type : USER_LOGOUT_REQUEST
@@ -130,14 +130,14 @@ export const logout = () => async (dispatch) => {
 
 export const user_update = (user) => async (dispatch) => {
     try {
-        const url = `${rootUrl}/user/update`;
+        const url = `/api/${rootUrl}/user/update`;
         dispatch({
             type : USER_UPDATE_REQUEST
         })
 
         const config = {
             headers : { "Content-Type" : "application/json" },
-            "access-control-allow-origin": `https://veg-etable.vercel.app`,
+            // "access-control-allow-origin": `https://veg-etable.vercel.app`,
             withCredentials : true
         }
 
