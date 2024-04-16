@@ -117,7 +117,6 @@ exports.user_logout = async (req, res, next) => {
         const isUserExist = await User.findById({ _id: req.user._id });
 
         if (!isUserExist) {
-            console.log("user does not exist !")
             return next(new ErrorHandler("Session expired !", 401))
         }
 
@@ -126,7 +125,8 @@ exports.user_logout = async (req, res, next) => {
             expires: new Date(Date.now())
         }
 
-        // res.clearCookie("connect.id");
+        res.clearCookie("connect.id");
+
         res.status(200).cookie("jwt", null, cookieOption).json({
             success: true,
             message: "",
