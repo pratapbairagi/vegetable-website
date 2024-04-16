@@ -31,6 +31,8 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
         })
         setIsOpenMainMenu(false)
     }
+
+    console.log("user ", user)
     
 
     return (
@@ -133,7 +135,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                                      :
 
                                      <><NavLink onClick={()=> setIsOpenMainMenu(false)} to="/profile" 
-                                    className="text-theme-blue-600 font-semibold mx-1 ml-2 capitalize">{auth && user.first_name} { auth && user.last_name}</NavLink>
+                                    className="text-theme-blue-600 font-semibold mx-1 ml-2 capitalize">{auth && user?.first_name} { auth && user?.last_name}</NavLink>
                                     /<button
 
                                     onClick={()=>{
