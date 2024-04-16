@@ -106,14 +106,14 @@ export const logout = () => async (dispatch) => {
             type : USER_LOGOUT_REQUEST
         });
 
-        const config = {
-            headers : {
-                "Content-Type" : "application/json"
-            },
-            withCredentials : true
-        }
+        // const config = {
+        //     headers : {
+        //         "Content-Type" : "application/json"
+        //     },
+        //     withCredentials : true
+        // }
 
-        const {data} = await axios.get(url, config)
+        const {data} = await axios.get(url)
 
         dispatch({
             type : USER_LOGOUT_SUCCESS,
