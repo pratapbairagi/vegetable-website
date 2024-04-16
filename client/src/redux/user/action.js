@@ -5,7 +5,7 @@ import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGI
 const rootUrl = "https://veg-etable.vercel.app"
 export const user_register = (user) => async (dispatch) => {
     try {
-        const url = `/api/${rootUrl}/user/register`;
+        const url = `${rootUrl}/api/user/register`;
         // const url = "https://veg-etable.vercel.app/api/user/register";
 
         dispatch({
@@ -39,7 +39,7 @@ export const user_register = (user) => async (dispatch) => {
 export const user_login = (user) => async (dispatch) => {
 
     try {
-        const url = `/api/${rootUrl}/user/login`
+        const url = `${rootUrl}/api/user/login`
         // const url = "https://veg-etable.vercel.app/api/user/login";
 
         dispatch({
@@ -70,7 +70,7 @@ export const user_login = (user) => async (dispatch) => {
 }
 
 export const user_logged = () => async (dispatch) => {
-    const url = `/api/${rootUrl}/user/logcheck`
+    const url = `${rootUrl}/api/user/logcheck`
     // const url = "https://veg-etable.vercel.app/api/user/logcheck";
     try {
         dispatch({
@@ -100,7 +100,7 @@ export const user_logged = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
     try {
-        const url = `/api/${rootUrl}/user/logout`
+        const url = `${rootUrl}/api/user/logout`
         // const url = "https://veg-etable.vercel.app/api/user/logout";
         dispatch({
             type : USER_LOGOUT_REQUEST
@@ -130,7 +130,7 @@ export const logout = () => async (dispatch) => {
 
 export const user_update = (user) => async (dispatch) => {
     try {
-        const url = `/api/${rootUrl}/user/update`;
+        const url = `${rootUrl}/api/user/update`;
         dispatch({
             type : USER_UPDATE_REQUEST
         })
