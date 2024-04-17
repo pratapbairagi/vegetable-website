@@ -1,7 +1,7 @@
 import axios from "axios"
 import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT_FAILED, USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_REGISTER_FAILED, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_FAILED, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "./type";
 
-// const rootUrl = "http://localhost:5005/api"
+// const rootUrl = "http://localhost:5005"
 const rootUrl = "https://veg-etable.vercel.app"
 export const user_register = (user) => async (dispatch) => {
     try {
@@ -16,6 +16,7 @@ export const user_register = (user) => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
+            "access-cotrol-allow-origin" : rootUrl,
             withCredentials : true
         };
 
@@ -50,6 +51,7 @@ export const user_login = (user) => async (dispatch) => {
             headers : {
                 "Content-Type": "application/json"
             },
+            "access-cotrol-allow-origin" : rootUrl,
             withCredentials: true
         }
 
@@ -81,6 +83,7 @@ export const user_logged = () => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
+            "access-cotrol-allow-origin" : rootUrl,
             withCredentials: true
         }
 
@@ -106,14 +109,15 @@ export const logout = () => async (dispatch) => {
             type : USER_LOGOUT_REQUEST
         });
 
-        // const config = {
-        //     headers : {
-        //         "Content-Type" : "application/json"
-        //     },
-        //     withCredentials : true
-        // }
+        const config = {
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            "access-cotrol-allow-origin" : rootUrl,
+            withCredentials : true
+        }
 
-        const {data} = await axios.get(url)
+        const {data} = await axios.get(url, config)
 
         dispatch({
             type : USER_LOGOUT_SUCCESS,
@@ -137,7 +141,7 @@ export const user_update = (user) => async (dispatch) => {
 
         const config = {
             headers : { "Content-Type" : "application/json" },
-            // "access-control-allow-origin": `https://veg-etable.vercel.app`,
+            "access-cotrol-allow-origin" : rootUrl,
             withCredentials : true
         }
 

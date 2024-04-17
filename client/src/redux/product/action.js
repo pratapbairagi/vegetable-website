@@ -14,6 +14,7 @@ export const add_product = (product) => async (dispatch) => {
 
         const config = {
             headers: { "Content-Type": "application/json" },
+            "access-cotrol-allow-origin" : rootUrl,
             withCredentials : true
         }
         const { data } = await axios.post(url, product, config)
@@ -41,7 +42,9 @@ export const get_products = ({title="", category="", price={lte:0,gte:1000}, tag
         });
 
         const config = {
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            "access-cotrol-allow-origin" : rootUrl,
+            withCredentials : true
         }
 
         const {data} = await axios.get(url, config )
@@ -80,7 +83,9 @@ export const get_filter_and_sort_products = ({title="", category=[], price=[{gte
         });
 
             const config = {
-                headers : { "Content-Type" : "application/json" }
+                headers : { "Content-Type" : "application/json" },
+            "access-cotrol-allow-origin" : rootUrl,
+                withCredentials : true
             };
 
             const {data} = await axios.get(url, config);
@@ -109,7 +114,9 @@ export const get_product = (id) => async (dispatch) => {
         });
 
         const config = {
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            "access-cotrol-allow-origin" : rootUrl,
+            withCredentials : true
         }
 
         const {data} = await axios.get(url, config)
@@ -200,6 +207,7 @@ export const editProduct = ({id, createProduct}) => async (dispatch) => {
             headers : {
                 "Content-type" : "application/json"
             },
+            "access-cotrol-allow-origin" : rootUrl,
             withCredentials : true
         }
 
@@ -229,6 +237,7 @@ export const delete_product = (id) => async (dispatch) => {
 
         const config = {
             headers: { "Content-Type": "application/json" },
+            "access-cotrol-allow-origin" : rootUrl,
             withCredentials : true
         }
 

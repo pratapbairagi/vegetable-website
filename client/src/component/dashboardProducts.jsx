@@ -88,7 +88,7 @@ const DashboardProducts = ({products, searchProduct, setSearchProduct, dispatch}
                         {products.map((v, i) => {
                             return <tr key={i} className="flex gap-x-4 sm:gap-x-6 md:gap-x-8 lg:gap-x-10 xl:gap-x-14">
                                 <td style={{textWrap:"wrap", wordBreak:"break-all"}} className="px-2 w-28 py-4 whitespace-wrap text-2xs sm:text-xs md:text-sm text-gray-600">{v._id}</td>
-                                <td className="px-2 w-28 py-4 whitespace-nowrap text-2xs sm:text-xs md:text-sm text-gray-600 capitalize">{v.title}</td>
+                                <td className="px-2 w-28 py-4 whitespace-nowrap text-2xs sm:text-xs md:text-sm text-gray-600 capitalize">{v.title}</td> {console.log("user id => ", user._id, "seller id =>", v.seller)}
                                 <td className={`px-2 w-40 py-4 whitespace-wrap text-2xs sm:text-xs md:text-sm ${user._id == v.seller ? "text-green-600" : "text-red-600"}`}>{user._id == v.seller ? "Your Product" : "Other Seller"} : H No. 233/A, South Delhi, Delhi - 110019</td>
                                 <td className="px-2 w-24 py-4 whitespace-wrap text-2xs sm:text-xs md:text-sm text-gray-600">{v.stock/1000}KG</td>
                                 <td className="px-2 w-24 py-4 whitespace-wrap text-2xs sm:text-xs md:text-sm text-gray-600">{v.price}</td>

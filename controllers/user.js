@@ -76,8 +76,6 @@ exports.userLogin = async (req, res, next) => {
 
             res.cookie("jwt", token, cookieOption);
 
-            console.log("cookie =>", req.cookies)
-
             res.status(200).json({
                 success: true,
                 message: "",
@@ -114,21 +112,21 @@ exports.userLoggedIn = async (req, res, next) => {
 
 exports.user_logout = async (req, res, next) => {
     try {
-        const isUserExist = await User.findById({ _id: req.user._id });
+        // const isUserExist = await User.findById({ _id: req.user._id });
 
-        if (!isUserExist) {
-            return next(new ErrorHandler("Session expired !", 401))
-        }
+        // if (!isUserExist) {
+        //     return next(new ErrorHandler("Session expired !", 401))
+        // }
 
         const cookieOption = {
             httpOnly: true,
             expires: new Date(Date.now())
-        }
+        };
 
         // res.clearCookie("connect.id");
-        res.clearCookie("jwt")
+        // res.clearCookie("jwt")
 
-        res.status(200).json({
+        res.status(200).cookie("jwt", null, cookieOption).json({
             success: true,
             message: "",
             user: {}
