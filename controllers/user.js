@@ -125,7 +125,7 @@ exports.user_logout = async (req, res, next) => {
         };
 
         // res.clearCookie("connect.id");
-        res.clearCookie("jwt", {path : "/", secure : true, domain : "veg-etable.vercel.app"})
+        res.clearCookie("jwt", {path : "/", httpOnly: true, secure : true, domain : "veg-etable.vercel.app"})
 
         res.status(200).json({
             success: true,
