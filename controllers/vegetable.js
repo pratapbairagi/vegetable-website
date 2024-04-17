@@ -457,6 +457,7 @@ exports.editProduct = async (req, res, next) => {
   try {
     const { id } = req.params
 
+    console.log("price => ", req.body)
 
     let isProductExist;
 

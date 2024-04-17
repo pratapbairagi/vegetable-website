@@ -124,9 +124,9 @@ exports.user_logout = async (req, res, next) => {
         };
 
         // res.clearCookie("connect.id");
-        // res.clearCookie("jwt")
+        res.clearCookie("jwt", {path : "/"})
 
-        res.status(200).cookie("jwt", null, cookieOption).json({
+        res.status(200).json({
             success: true,
             message: "",
             user: {}

@@ -42,9 +42,9 @@ export const get_products = ({title="", category="", price={lte:0,gte:1000}, tag
         });
 
         const config = {
-            headers: { "Content-Type": "application/json" },
-            "access-control-allow-origin" : rootUrl,
-            withCredentials : true
+            headers: { "Content-Type": "application/json" }
+            // "access-control-allow-origin" : rootUrl,
+            // withCredentials : true
         }
 
         const {data} = await axios.get(url, config )
@@ -83,9 +83,9 @@ export const get_filter_and_sort_products = ({title="", category=[], price=[{gte
         });
 
             const config = {
-                headers : { "Content-Type" : "application/json" },
-            "access-control-allow-origin" : rootUrl,
-                withCredentials : true
+                headers : { "Content-Type" : "application/json" }
+            // "access-control-allow-origin" : rootUrl,
+                // withCredentials : true
             };
 
             const {data} = await axios.get(url, config);

@@ -109,15 +109,15 @@ export const logout = () => async (dispatch) => {
             type : USER_LOGOUT_REQUEST
         });
 
-        // const config = {
-        //     headers : {
-        //         "Content-Type" : "application/json"
-        //     },
+        const config = {
+            headers : {
+                "Content-Type" : "application/json"
+            },
+            "access-control-allow-origin" : rootUrl,
+            withCredentials : true
+        }
 
-        //     withCredentials : true
-        // }
-
-        const {data} = await axios.get(url)
+        const {data} = await axios.get(url, config)
 
         dispatch({
             type : USER_LOGOUT_SUCCESS,
