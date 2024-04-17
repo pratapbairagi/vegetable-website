@@ -112,9 +112,10 @@ export const logout = () => async (dispatch) => {
         const config = {
             headers : {
                 "Content-Type" : "application/json"
-            },
-            "access-cobtrol-allow-origin" : rootUrl,
-            withCredentials : true
+            }
+            // "access-cobtrol-allow-origin" : rootUrl,
+
+            // withCredentials : true
         }
 
         const {data} = await axios.get(url, config)
