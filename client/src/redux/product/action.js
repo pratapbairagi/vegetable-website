@@ -2,7 +2,7 @@ import axios from "axios"
 import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_FAILED, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_ERROR, CLEAR_SUCCESS, DELETE_PRODUCT_FAILED, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILED, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, GET_FILTER_AND_SORT_PRODUCTS_FAILED, GET_FILTER_AND_SORT_PRODUCTS_REQUEST, GET_FILTER_AND_SORT_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS } from "./types"
 
 const rootUrl = "https://veg-etable.vercel.app"
-// const rootUrl = "http://localhost:5005/api"
+// const rootUrl = "http://localhost:5005"
 
 export const add_product = (product) => async (dispatch) => {
     const url = `${rootUrl}/api/vegetable`;
@@ -14,7 +14,7 @@ export const add_product = (product) => async (dispatch) => {
 
         const config = {
             headers: { "Content-Type": "application/json" },
-            "access-cotrol-allow-origin" : rootUrl,
+            "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
         const { data } = await axios.post(url, product, config)
@@ -43,7 +43,7 @@ export const get_products = ({title="", category="", price={lte:0,gte:1000}, tag
 
         const config = {
             headers: { "Content-Type": "application/json" },
-            "access-cotrol-allow-origin" : rootUrl,
+            "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
 
@@ -84,7 +84,7 @@ export const get_filter_and_sort_products = ({title="", category=[], price=[{gte
 
             const config = {
                 headers : { "Content-Type" : "application/json" },
-            "access-cotrol-allow-origin" : rootUrl,
+            "access-control-allow-origin" : rootUrl,
                 withCredentials : true
             };
 
@@ -114,9 +114,9 @@ export const get_product = (id) => async (dispatch) => {
         });
 
         const config = {
-            headers: { "Content-Type": "application/json" },
-            "access-cotrol-allow-origin" : rootUrl,
-            withCredentials : true
+            headers: { "Content-Type": "application/json" }
+            // "access-control-allow-origin" : rootUrl,
+            // withCredentials : true
         }
 
         const {data} = await axios.get(url, config)
@@ -207,7 +207,7 @@ export const editProduct = ({id, createProduct}) => async (dispatch) => {
             headers : {
                 "Content-type" : "application/json"
             },
-            "access-cotrol-allow-origin" : rootUrl,
+            "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
 
@@ -237,7 +237,7 @@ export const delete_product = (id) => async (dispatch) => {
 
         const config = {
             headers: { "Content-Type": "application/json" },
-            "access-cotrol-allow-origin" : rootUrl,
+            "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
 

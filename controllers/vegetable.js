@@ -315,9 +315,11 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
 }
 
 exports.getVegetable = async (req, res, next) => {
+  console.log("working")
   try {
     const { id } = req.params;
     const product = await Vegetable.findById(id)
+    console.log("working 2 ", product)
 
     let relatedOptions
     relatedOptions = [product.category, product.tags, product.features]
@@ -426,7 +428,7 @@ exports.createVeg = async (req, res, next) => {
 
     let product = await Vegetable.create({
       title: title.toLowerCase(),
-      category: category.toLowerCase(),
+      category: category,
       description: description.toLowerCase(),
       tags,
       features,
@@ -434,6 +436,8 @@ exports.createVeg = async (req, res, next) => {
       price,
       images: image,
       seller: isUserExist._id,
+
+      // seller: {...isUserExist.seller , _id : isUserExist._id},
       coordinates: isUserExist.storeLocation.coordinates
     });
 
@@ -502,6 +506,9 @@ exports.editProduct = async (req, res, next) => {
       }
     }
 
+    console.log("match ad b4 update => ", isProductExist)
+
+
 
     isProductExist = await Vegetable.findByIdAndUpdate(id, {
       title: req.body.title,
@@ -514,6 +521,9 @@ exports.editProduct = async (req, res, next) => {
       images: image,
       coordinates: isUserExist.storeLocation.coordinates
     })
+
+    console.log("match ad agter update => ", isProductExist)
+
 
     res.status(200).json({
       success: true,

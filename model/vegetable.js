@@ -85,8 +85,9 @@ const veg = new mongoose.Schema({
         default : 0
     },
     seller : {
-       type : mongoose.Schema.Types.ObjectId,
-        ref : "User",
+    //    type : mongoose.Schema.Types.ObjectId,
+    type : String,
+        // ref : "User",
         required : true
     },
     coordinates : {

@@ -29,9 +29,11 @@ const Product_details = () => {
 
     useEffect(()=>{
         if(state.product){
-            dispatch(dPosition(state.product.product.coordinates))
+            if(state.product.product){
+            dispatch(dPosition(state.product.product?.coordinates))
             dispatch(distanceAction(state.product.product.coordinates, current_position))
-        }
+    }
+    }
 
     },[state.product])
 
@@ -50,7 +52,7 @@ const Product_details = () => {
 
                 <ul className="col-span-12  flex md:hidden max-h-full overflow-x-auto scroll-overflow-hidden px-2 gap-x-2">
                     {state.product != null ? state.product.product.images.map((v, i) => {
-                        return <li key={i} onClick={()=> document.getElementById("imageScroll").scrollLeft = (document.getElementById("imageScroll").clientWidth) * i } className="bg-gray-100 border-gray-300 cursor-pointer h-14 w-14 aspect-ratio-square">
+                        return <li key={i} onClick={()=> document.getElementById("imageScroll").scrollLeft = (document.getElementById("imageScroll").clientWidth) * i } className="bg-gray-100 border-gray-300 cursor-pointer h-14 w-20 aspect-ratio-square">
                             <img src={v.url} className="w-full h-full object-contain" alt="" />
                         </li>
                     })
@@ -144,10 +146,10 @@ const Product_details = () => {
                     <span className="text-xs md:text-sm font-bold text-gray-400 font-nunito underline">Want fast delivery ?</span>
                 </div>
 
-                <ul className="col-span-12  hidden md:flex max-h-full overflow-x-auto scroll-overflow-hidden px-2 gap-x-2 md:mt-6">
+                <ul className="col-span-12  hidden md:flex md:flex max-h-full overflow-x-auto scroll-overflow-hidden px-2 gap-x-2 md:mt-6 cursor-pointer">
                     {state.product != null ? state.product.product.images.map((v, i) => {
-                        return <li key={i} className="bg-gray-100 border-2 border-gray-300">
-                            <img src={v.url} className="w-20 min-w-20" alt="" />
+                        return <li onClick={()=> document.getElementById("imageScroll").scrollLeft = (document.getElementById("imageScroll").clientWidth) * i } key={i} className="bg-gray-100 border-2 border-gray-300">
+                            <img src={v.url} className="w-14" alt="" />
                         </li>
                     })
                         : ""

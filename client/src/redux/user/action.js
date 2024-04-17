@@ -16,7 +16,7 @@ export const user_register = (user) => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            "access-cotrol-allow-origin" : rootUrl,
+            "access-cobtrol-allow-origin" : rootUrl,
             withCredentials : true
         };
 
@@ -51,7 +51,7 @@ export const user_login = (user) => async (dispatch) => {
             headers : {
                 "Content-Type": "application/json"
             },
-            "access-cotrol-allow-origin" : rootUrl,
+            "access-cobtrol-allow-origin" : rootUrl,
             withCredentials: true
         }
 
@@ -83,7 +83,7 @@ export const user_logged = () => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            "access-cotrol-allow-origin" : rootUrl,
+            "access-cobtrol-allow-origin" : rootUrl,
             withCredentials: true
         }
 
@@ -113,7 +113,7 @@ export const logout = () => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            "access-cotrol-allow-origin" : rootUrl,
+            "access-cobtrol-allow-origin" : rootUrl,
             withCredentials : true
         }
 
@@ -141,7 +141,7 @@ export const user_update = (user) => async (dispatch) => {
 
         const config = {
             headers : { "Content-Type" : "application/json" },
-            "access-cotrol-allow-origin" : rootUrl,
+            "access-cobtrol-allow-origin" : rootUrl,
             withCredentials : true
         }
 

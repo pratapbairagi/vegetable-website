@@ -138,7 +138,6 @@ exports.user_logout = async (req, res, next) => {
 }
 
 exports.user_update = async (req, res, next) => {
-
     try {
         let newData = req.body;
 
@@ -155,15 +154,14 @@ exports.user_update = async (req, res, next) => {
                 const productUpdate = { $set : { coordinates : newData.storeLocation.coordinates } }
                 const option = { multi : true }
 
-               const pro = await Vegetable.updateMany(productFilter, productUpdate, option)
+                await Vegetable.updateMany(productFilter, productUpdate, option)
 
             }
         }
 
-
         Object.assign(isUserExist, newData)
 
-        const user = await isUserExist.save()
+       let user = await User.findByIdAndUpdate(isUserExist._id, Object.assign(isUserExist, newData))
 
         res.status(200).json({
             success: true,
