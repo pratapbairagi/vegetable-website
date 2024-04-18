@@ -29,7 +29,7 @@ const userAuth = async (req, res, next) => {
 
         // console.log("jwt", jwt)
     } catch (error) {
-        
+        return next( new ErrorHandler(error))
     }
 }
 

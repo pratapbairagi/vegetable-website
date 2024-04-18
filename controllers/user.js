@@ -72,9 +72,9 @@ exports.userLogin = async (req, res, next) => {
             let cookieOptions = {
                 httpOnly: true,
                 maxAge: (24 * 60 * 60 * 1000),
-                secure : true,
-                path : "/",
-                domain : "veg-etable.vercel.app"
+                // secure : true,
+                path : "/"
+                // domain : "veg-etable.vercel.app"
             };
     
             res.cookie("jwt", token, cookieOptions);
@@ -92,8 +92,10 @@ exports.userLogin = async (req, res, next) => {
 }
 
 exports.userLoggedIn = async (req, res, next) => {
+    console.log("logged 1")
     try {
         const id = req.user._id;
+        console.log("logged 2 ", id)
 
         const isUserExist = await User.findById({ _id: id }).select("-password");
 
@@ -114,22 +116,32 @@ exports.userLoggedIn = async (req, res, next) => {
 
 
 exports.user_logout = async (req, res, next) => {
+    console.log("logout")
     try {
-        const isUserExist = await User.findById({ _id: req.user._id });
+    console.log("logout 1")
 
-        if (!isUserExist) {
-            return next(new ErrorHandler("Session expired !", 401))
-        }
+    //     const isUserExist = await User.findById({ _id: req.user._id });
+    //     console.log("logout 2")
+
+    //     if (!isUserExist) {
+    // console.log("logout 3")
+
+    //         return next(new ErrorHandler("Session expired !", 401))
+    //     }
+
+    console.log("logout 4")
 
         let cookieOptions = {
             httpOnly: true,
-            expires: new Date(Date.now()),
-            secure : req.secure || req.headers["x-forwarded-proto"] || "https",
-            path : "/",
-            domain : "veg-etable.vercel.app"
+            // maxAge : 0,
+            // secure : req.secure || req.headers["x-forwarded-proto"] || "https",
+            path : "/"
+            // domain : "veg-etable.vercel.app"
         }
+        res.cookie("jwt", null, cookieOptions)
+        res.clearCookie("jwt")
 
-        res.status(200).cookie("jwt", null, cookieOptions).json({
+        res.status(200).json({
             success: true,
             message: "",
             user : {}
