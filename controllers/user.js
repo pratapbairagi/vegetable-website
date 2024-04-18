@@ -124,7 +124,7 @@ exports.user_logout = async (req, res, next) => {
         let cookieOptions = {
             httpOnly: true,
             expires: new Date(Date.now()),
-            secure : true,
+            secure : req.secure || req.headers["x-forwarded-proto"] || "https",
             path : "/",
             domain : "veg-etable.vercel.app"
         }
