@@ -123,8 +123,6 @@ exports.user_logout = async (req, res, next) => {
             expires: new Date(Date.now())
         }
 
-        res.clearCookie("connect.id");
-
         res.status(200).cookie("jwt", null, cookieOptions).json({
             success: true,
             message: "",

@@ -121,7 +121,7 @@ export const logout = () => async (dispatch) => {
             withCredentials : true
         }
 
-        const {data} = await axios.get(url, config)
+        const {data} = await axios.get(url)
 
         document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
 
