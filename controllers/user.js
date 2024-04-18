@@ -72,8 +72,9 @@ exports.userLogin = async (req, res, next) => {
             let cookieOptions = {
                 httpOnly: true,
                 maxAge: (24 * 60 * 60 * 1000),
-                // secure : true,
-                path : "/"
+                secure : true,
+                path : "/",
+                sameSite : "Lax"
                 // domain : "veg-etable.vercel.app"
             };
     
@@ -134,8 +135,9 @@ exports.user_logout = async (req, res, next) => {
         let cookieOptions = {
             httpOnly: true,
             // maxAge : 0,
-            // secure : req.secure || req.headers["x-forwarded-proto"] || "https",
-            path : "/"
+            secure : true,
+            path : "/",
+            sameSite : "Lax"
             // domain : "veg-etable.vercel.app"
         }
         res.cookie("jwt", null, cookieOptions)
