@@ -107,7 +107,7 @@ export const user_logged = () => async (dispatch) => {
 
 export const logout = () => async (dispatch) => {
     try {
-        const url = `${rootUrl}/api/user/logout`
+        const url = `${rootUrl}/api/user/veg_shop_logout`
         // const url = "https://veg-etable.vercel.app/api/user/logout";
         dispatch({
             type : USER_LOGOUT_REQUEST
