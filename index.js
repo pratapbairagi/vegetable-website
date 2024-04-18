@@ -43,7 +43,7 @@ app.use(fileupload())
 
 
 app.use("/api", vegetableRouter )
-app.use("/api", userRoute)
+app.use("/", userRoute)
 
 app.use(express.static(path.join(__dirname, "./client/build")))
 app.get("*", (req, res)=>{
