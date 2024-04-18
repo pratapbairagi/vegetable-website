@@ -71,7 +71,10 @@ exports.userLogin = async (req, res, next) => {
 
             let cookieOptions = {
                 httpOnly: true,
-                maxAge: (24 * 60 * 60 * 1000)
+                maxAge: (24 * 60 * 60 * 1000),
+                secure : true,
+                path : "/",
+                domain : "veg-etable.vercel.app"
             };
     
             res.cookie("jwt", token, cookieOptions);
@@ -120,7 +123,10 @@ exports.user_logout = async (req, res, next) => {
 
         let cookieOptions = {
             httpOnly: true,
-            expires: new Date(Date.now())
+            expires: new Date(Date.now()),
+            secure : true,
+            path : "/",
+            domain : "veg-etable.vercel.app"
         }
 
         res.status(200).cookie("jwt", null, cookieOptions).json({
