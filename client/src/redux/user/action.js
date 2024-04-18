@@ -53,7 +53,7 @@ export const user_login = (user) => async (dispatch) => {
             headers : {
                 "Content-Type": "application/json"
             },
-            "access-control-allow-origin" : `${rootUrl}/`,
+            "access-control-allow-origin" : `${rootUrl}`,
             withCredentials: true
         }
 
@@ -87,7 +87,7 @@ export const user_logged = () => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            "access-control-allow-origin" : rootUrl,
+            // "access-control-allow-origin" : rootUrl,
             withCredentials: true
         }
 
@@ -117,7 +117,7 @@ export const logout = () => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            "access-control-allow-origin" : rootUrl,
+            // "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
 
@@ -130,9 +130,6 @@ export const logout = () => async (dispatch) => {
         })
         
         document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
-        window.location.reload()
-
-
 
     } catch (error) {
         dispatch({

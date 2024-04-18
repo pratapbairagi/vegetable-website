@@ -81,26 +81,9 @@ exports.userLogin = async (req, res, next) => {
 
             const token = await isUserExistWithEmail.generateToken()
 
-            // let cookieOptions = {
-            //     httpOnly: true,
-            //     maxAge: (24 * 60 * 60 * 1000),
-            //     secure : true,
-            //     path : "/",
-            //     sameSite : "Lax"
-            // };
-    
-            // res.cookie("jwt", token, cookieOptions);
-
-            // res.status(200).json({
-            //     success: true,
-            //     message: "",
-            //     user: isUserExistWithEmail
-            // })
-
             let cookieOptions = {
                 httpOnly: true,
                 maxAge: (24 * 60 * 60 * 1000)
-                // sameSite : "none"
             };
     
             res.cookie("jwt", token, cookieOptions);
@@ -177,7 +160,9 @@ exports.user_logout = async (req, res, next) => {
             expires: new Date(Date.now())
             // sameSite : "none"
         }
-        res.status(200).cookie("jwt", null, cookieOptions).json({
+        res.clearCookie("jwt")
+        
+        res.status(200).json({
             success: true,
             message: "",
             user : {}
