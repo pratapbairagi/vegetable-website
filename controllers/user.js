@@ -75,7 +75,7 @@ exports.userLogin = async (req, res, next) => {
             }
 
             // res.cookie("jwt", token, cookieOption);.
-            res.cookie("jwt", token, { domain: "veg-etable.vercel.app", path: "/", secure: true, httpOnly: true, maxAge: (30 * 24 * 60 * 60 * 1000) });
+            res.cookie("jwt", token, { path: "/", secure: true, httpOnly: true, maxAge: (30 * 24 * 60 * 60 * 1000) });
 
             res.status(200).json({
                 success: true,
@@ -125,7 +125,7 @@ exports.user_logout = async (req, res, next) => {
         };
 
         // res.clearCookie("connect.id");
-        res.clearCookie("jwt", {path : "/", httpOnly: true, secure : true, domain : "veg-etable.vercel.app"})
+        res.clearCookie("jwt", {path : "/", httpOnly: true, secure : true})
 
         res.status(200).json({
             success: true,

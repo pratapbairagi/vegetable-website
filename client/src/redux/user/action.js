@@ -4,6 +4,7 @@ import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGI
 // const rootUrl = "http://localhost:5005"
 const rootUrl = "https://veg-etable.vercel.app"
 export const user_register = (user) => async (dispatch) => {
+    console.log("is register action workig with logout")
     try {
         const url = `${rootUrl}/api/user/register`;
         // const url = "https://veg-etable.vercel.app/api/user/register";
@@ -38,6 +39,7 @@ export const user_register = (user) => async (dispatch) => {
 } 
 
 export const user_login = (user) => async (dispatch) => {
+    console.log("is login action workig with logout")
 
     try {
         const url = `${rootUrl}/api/user/login`
@@ -72,6 +74,8 @@ export const user_login = (user) => async (dispatch) => {
 }
 
 export const user_logged = () => async (dispatch) => {
+    console.log("is logged action workig with logout")
+
     const url = `${rootUrl}/api/user/logcheck`
     // const url = "https://veg-etable.vercel.app/api/user/logcheck";
     try {
@@ -113,7 +117,7 @@ export const logout = () => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            "access-control-allow-origin" : rootUrl,
+            // "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
 
