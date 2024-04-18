@@ -17,18 +17,19 @@ const { global_errorHandler } = require("./utils/global_errorHandler");
 const app = express(http);
 // const upload = multer({dest : "uploads/"})
 
+app.use(cookieParser())
+
 app.use(cors(
     {
     credentials : true,
-    // origin : ["http://localhost:5173", "http://localhost:5005", "https://veg-etable.vercel.app", "https://veg-etable.vercel.app/"],
-    origin : ["https://veg-etable.vercel.app", "https://veg-etable.vercel.app/"],
+    origin : ["http://localhost:5173", "http://localhost:5005", "https://veg-etable.vercel.app", "https://veg-etable.vercel.app/"],
+    // origin : ["https://veg-etable.vercel.app", "https://veg-etable.vercel.app/"],
     // origin : ["http://localhost:5173"],
     methods: "GET, POST, PUT, PATCH, DELETE",
     allowedHeaders: "Content-Type, Authorization"
   }
   ));
 
-  app.use(cookieParser())
   // app.use(bodyParser.urlencoded({extended : true}))
   // app.use(bodyParser.json({extended : true}))
 app.use(express.urlencoded({ extended: true, limit : "25mb" }));
