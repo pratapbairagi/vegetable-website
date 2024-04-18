@@ -17,7 +17,7 @@ export const user_register = (user) => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            "access-cobtrol-allow-origin" : rootUrl,
+            "access-control-allow-origin" : rootUrl,
             withCredentials : true
         };
 
@@ -53,7 +53,7 @@ export const user_login = (user) => async (dispatch) => {
             headers : {
                 "Content-Type": "application/json"
             },
-            "access-cobtrol-allow-origin" : rootUrl,
+            "access-control-allow-origin" : rootUrl,
             withCredentials: true
         }
 
@@ -87,7 +87,7 @@ export const user_logged = () => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            "access-cobtrol-allow-origin" : rootUrl,
+            "access-control-allow-origin" : rootUrl,
             withCredentials: true
         }
 
@@ -124,7 +124,7 @@ export const logout = () => async (dispatch) => {
         const {data} = await axios.get(url, config)
 
         document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
-        
+
         dispatch({
             type : USER_LOGOUT_SUCCESS,
             payload : data
@@ -149,7 +149,7 @@ export const user_update = (user) => async (dispatch) => {
 
         const config = {
             headers : { "Content-Type" : "application/json" },
-            "access-cobtrol-allow-origin" : rootUrl,
+            "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
 
