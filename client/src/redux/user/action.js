@@ -123,10 +123,14 @@ export const logout = () => async (dispatch) => {
 
         const {data} = await axios.get(url, config)
 
+        document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/;";
+        
         dispatch({
             type : USER_LOGOUT_SUCCESS,
             payload : data
         })
+
+
 
     } catch (error) {
         dispatch({
