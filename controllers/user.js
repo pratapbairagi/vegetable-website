@@ -37,13 +37,25 @@ exports.userRegister = async (req, res, next) => {
         const cookieOption = {
             httpOnly: true,
             maxAge: (24 * 60 * 60 * 1000)
+            // sameSite : "none"
         };
-
+        
         res.status(201).cookie("jwt", token, cookieOption).json({
             success: true,
             message: "User registered successfully !",
             user
         })
+
+        // const cookieOption = {
+        //     httpOnly: true,
+        //     maxAge: (24 * 60 * 60 * 1000)
+        // };
+
+        // res.status(201).cookie("jwt", token, cookieOption).json({
+        //     success: true,
+        //     message: "User registered successfully !",
+        //     user
+        // })
 
     } catch (error) {
         return next(new ErrorHandler( error, 500))
@@ -69,22 +81,35 @@ exports.userLogin = async (req, res, next) => {
 
             const token = await isUserExistWithEmail.generateToken()
 
+            // let cookieOptions = {
+            //     httpOnly: true,
+            //     maxAge: (24 * 60 * 60 * 1000),
+            //     secure : true,
+            //     path : "/",
+            //     sameSite : "Lax"
+            // };
+    
+            // res.cookie("jwt", token, cookieOptions);
+
+            // res.status(200).json({
+            //     success: true,
+            //     message: "",
+            //     user: isUserExistWithEmail
+            // })
+
             let cookieOptions = {
                 httpOnly: true,
-                maxAge: (24 * 60 * 60 * 1000),
-                secure : true,
-                path : "/",
-                sameSite : "Lax"
-                // domain : "veg-etable.vercel.app"
+                maxAge: (24 * 60 * 60 * 1000)
+                // sameSite : "none"
             };
     
             res.cookie("jwt", token, cookieOptions);
-
+    
             res.status(200).json({
                 success: true,
-                message: "",
+                message: "User login success !",
                 user: isUserExistWithEmail
-            })
+            });
         }
 
     } catch (error) {
@@ -132,18 +157,27 @@ exports.user_logout = async (req, res, next) => {
 
     console.log("logout 4")
 
+        // let cookieOptions = {
+        //     httpOnly: true,
+        //     secure : true,
+        //     path : "/",
+        //     sameSite : "Lax"
+        // }
+        // res.cookie("jwt", null, cookieOptions)
+        // res.clearCookie("jwt")
+
+        // res.status(200).json({
+        //     success: true,
+        //     message: "",
+        //     user : {}
+        // })
+
         let cookieOptions = {
             httpOnly: true,
-            // maxAge : 0,
-            secure : true,
-            path : "/",
-            sameSite : "Lax"
-            // domain : "veg-etable.vercel.app"
+            expires: new Date(Date.now())
+            // sameSite : "none"
         }
-        res.cookie("jwt", null, cookieOptions)
-        res.clearCookie("jwt")
-
-        res.status(200).json({
+        res.status(200).cookie("jwt", null, cookieOptions).json({
             success: true,
             message: "",
             user : {}

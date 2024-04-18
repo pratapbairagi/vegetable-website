@@ -14,7 +14,6 @@ export const add_product = (product) => async (dispatch) => {
 
         const config = {
             headers: { "Content-Type": "application/json" },
-            "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
         const { data } = await axios.post(url, product, config)
@@ -115,7 +114,6 @@ export const get_product = (id) => async (dispatch) => {
 
         const config = {
             headers: { "Content-Type": "application/json" }
-            // "access-control-allow-origin" : rootUrl,
             // withCredentials : true
         }
 
@@ -207,7 +205,6 @@ export const editProduct = ({id, createProduct}) => async (dispatch) => {
             headers : {
                 "Content-type" : "application/json"
             },
-            "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
 
@@ -237,7 +234,6 @@ export const delete_product = (id) => async (dispatch) => {
 
         const config = {
             headers: { "Content-Type": "application/json" },
-            "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
 

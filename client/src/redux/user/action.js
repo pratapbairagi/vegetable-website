@@ -53,7 +53,7 @@ export const user_login = (user) => async (dispatch) => {
             headers : {
                 "Content-Type": "application/json"
             },
-            // "access-control-allow-origin" : rootUrl,
+            "access-control-allow-origin" : `${rootUrl}/`,
             withCredentials: true
         }
 
@@ -117,7 +117,7 @@ export const logout = () => async (dispatch) => {
             headers : {
                 "Content-Type" : "application/json"
             },
-            // "access-control-allow-origin" : rootUrl,
+            "access-control-allow-origin" : rootUrl,
             withCredentials : true
         }
 
