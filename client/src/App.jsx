@@ -61,7 +61,7 @@ function App() {
       <div className='relative'>
         <BrowserRouter>
           <Navbar setToggleCart={setToggleCart} setLoginToggle={setLoginToggle} />
-          {/* <Cart toggleCart={toggleCart} setToggleCart={setToggleCart} /> */}
+          <Cart toggleCart={toggleCart} setToggleCart={setToggleCart} />
           <Toaster/>
 
           <Routes>
