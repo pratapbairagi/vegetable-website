@@ -8,7 +8,7 @@ import { State, City, Country } from "country-state-city"
 import axios from "axios";
 
 
-const ShippingInfo = ({ toggleCart, setToggleCart }) => {
+const ShippingInfo = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
@@ -107,7 +107,7 @@ const ShippingInfo = ({ toggleCart, setToggleCart }) => {
     return (
         <div className="w-full h-max min-h-90vh flex flex-col px-2 pb-10">
             <div className="w-full py-2 px-2">
-                <BackButton setToggleCart={setToggleCart} backRoute="/" />
+                <BackButton backRoute="/" />
             </div>
             <ProgressOrder />
 

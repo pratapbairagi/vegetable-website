@@ -8,7 +8,7 @@ import { OnchangeFunction } from "./inputFunctions";
 import { order_request } from "../redux/order/action";
 
 
-const PaymentInfo = ({setToggleCart}) => {
+const PaymentInfo = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const dispatch = useDispatch()
@@ -33,7 +33,7 @@ const PaymentInfo = ({setToggleCart}) => {
     return(
         <div className="w-full h-max min-h-90vh flex flex-col px-2 pb-10">
             <div className="w-full py-2 px-2">
-                <BackButton setToggleCart={setToggleCart} backRoute="/shipping-info" />
+                <BackButton backRoute="/shipping-info" />
             </div>
             <ProgressOrder/>
 

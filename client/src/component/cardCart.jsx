@@ -5,7 +5,7 @@ import { useEffect, useMemo } from "react"
 import { useNavigate } from "react-router-dom"
 
 
-const CardCart = ({ checkStock, product, setIsDistanceAbove5km, setToggleCart}) => {
+const CardCart = ({ checkStock, product, setIsDistanceAbove5km}) => {
     const dispatch = useDispatch()
     const {current_position, destination_position, distance} = useSelector(state => state.mapCoords);
     const navigate = useNavigate()
@@ -32,7 +32,6 @@ const CardCart = ({ checkStock, product, setIsDistanceAbove5km, setToggleCart}) 
         {distnc > 5000 && <span className="min-w-70% max-w-70% absolute z-10 h-full bg-red-600 text-sm md:text-base lg:text-lg xl:text-xl text-gray-100 flex justify-center items-center px-1 text-center" style={{left:"20%"}}>Not deliverable above 5 km distance</span> }
 
         <div onClick={()=>{ 
-            setToggleCart(false)
             navigate(`/vegetable/${product._id}`)
             }} className="col-span-2 flex justify-center cursor-pointer">
             <img src={product.images[0].url} className="w-36 bg-gray-100 object-contain" alt="" />

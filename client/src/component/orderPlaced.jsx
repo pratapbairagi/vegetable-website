@@ -3,7 +3,7 @@ import BackButton from "./backButton"
 import ProgressOrder from "./progessOrder"
 
 
-const OrderPlaced = ({ setToggleCart }) => {
+const OrderPlaced = () => {
     const navigate = useNavigate()
     return (
         <div className="w-full h-max min-h-screen flex flex-col  px-2 pb-6">

@@ -6,11 +6,12 @@ import Search from "./search";
 import { logout } from "../redux/user/action";
 
 
-const Navbar = ({ setToggleCart, setLoginToggle }) => {
+const Navbar = ({ setLoginToggle }) => {
     const location = useLocation();
     const {cart} = useSelector(state => state.cart)
     const {user, auth} = useSelector(state => state.user)
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     console.log(user)
 
@@ -169,8 +170,9 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
 
 
                         <button onClick={() =>{ 
+                            navigate("/cart")
                             setIsOpenMainMenu(false)
-                            setToggleCart(true)}
+                            }
                             } className="w-8 relative sm:w-10 md:w-12 lg:w-12 xl:w-12">
                            <span className={`absolute flex justify-center items-center rounded-full w-5 md:w-6 lg:w-7 top-0 right-0 md:right-1.5 lg:right-0.5 aspect-square text-white text-2xs md:text-xs lg:text-sm font-semibold ${cart.length > 0 ? "bg-green-600" : "bg-red-600"}`} style={{ paddingBottom:"0.5px"}}>{ cart.reduce((accum, cv)=> accum + cv.qty, 0)/100}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 sm:size-7 md:size-8 lg:size-9 xl:size-10 text-theme-blue-600">

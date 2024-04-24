@@ -10,7 +10,7 @@ import ShippingInfo from "./shippingInfo"
 
 
 
-const Cart = ({toggleCart, setToggleCart}) => {
+const Cart = ({}) => {
     const {cart} = useSelector(state=> state.cart)
     const {products} = useSelector(state=> state.product)
     const [checkStock, setCheckStock] = useState([])
@@ -51,7 +51,7 @@ const Cart = ({toggleCart, setToggleCart}) => {
 
                     setCheckStock([])
                     navigate("/shipping-info", {state : { cart: cart, orderCart : orderCart}})
-                    setToggleCart(false)
+            (false)
                 }
             }
         } catch (error) {
@@ -64,9 +64,9 @@ const Cart = ({toggleCart, setToggleCart}) => {
     },[cart])
 
     return (
-        <div className={`w-full fixed h-screen bg-white z-30 top-0 px-0 transition-all duration-200`} style={{left:`${toggleCart ? "0" : "-100%"} `}}>
+        <div className={`w-full fixed h-screen bg-white z-30 top-0 px-0 transition-all duration-200`}>
             <h5 className="border-b text-2xl md:text-3xl text-gray-600 font-bold text-center py-4 lg:py-5 lg:py-10 font-nunito relative">
-                <button onClick={()=> setToggleCart(false)} className="absolute right-2 mt-1">
+                <button onClick={()=> navigate("/")} className="absolute right-2 mt-1">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 stroke-gray-500">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />
                     </svg>
@@ -81,7 +81,6 @@ const Cart = ({toggleCart, setToggleCart}) => {
                    checkStock={checkStock}
                    product={v}
                    setIsDistanceAbove5km={setIsDistanceAbove5km}
-                   setToggleCart={setToggleCart}
                    />
                 })}
                 </div>

@@ -13,7 +13,7 @@ import StoresMap from "./map";
 
 
 
-const Products = ({toggleCart,setToggleCart}) => {
+const Products = () => {
     const location = useLocation()
     const ref = useRef()
     const refFilterAndSearchBar = useRef()
@@ -218,8 +218,8 @@ const Products = ({toggleCart,setToggleCart}) => {
                 
                 </div>
                 <div className="col-span-5 px-3 md:px-4 lg:px-5 xl:px-6 flex justify-end items-center gap-x-3 mg:gap-x-4 lg:gap-x-5">
-                <button onClick={() => setToggleCart(true)} className="w-8 relative sm:w-10 md:w-12 lg:w-12 xl:w-12">
-                           <span className={`absolute flex justify-center items-center rounded-full w-5 md:w-6 lg:w-7 top-0 right-0 md:right-1.5 lg:right-0.5 aspect-square text-white text-2xs md:text-xs lg:text-sm font-semibold ${cart.length > 0 ? "bg-green-600" : "bg-red-600"}`} style={{ paddingBottom:"0.5px"}}>{ cart.reduce((accum, cv)=> accum + cv.qty, 0)}</span>
+                <button onClick={() => navigate("/cart")} className="w-8 relative sm:w-10 md:w-12 lg:w-12 xl:w-12">
+                           <span className={`absolute flex justify-center items-center rounded-full w-5 md:w-6 lg:w-7 top-0 right-0 md:right-1.5 lg:right-0.5 aspect-square text-white text-2xs md:text-xs lg:text-sm font-semibold ${cart.length > 0 ? "bg-green-600" : "bg-red-600"}`} style={{ paddingBottom:"0.5px"}}>{ cart.reduce((accum, cv)=> accum + cv.qty/100, 0)}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 sm:size-7 md:size-8 lg:size-9 xl:size-10 text-theme-blue-600">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                             </svg>
