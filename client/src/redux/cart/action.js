@@ -13,8 +13,8 @@ export const add_to_cart = (id) => async (dispatch, getState) => {
 
        const config = {
            headers : {
-               "Content-Type" : "application/json",
-            "access-control-allow-originn" : rootUrl
+               "Content-Type" : "application/json"
+            // "access-control-allow-originn" : rootUrl
            }
        };
 

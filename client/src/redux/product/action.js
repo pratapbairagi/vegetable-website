@@ -42,8 +42,8 @@ export const get_products = ({title="", category="", price={lte:0,gte:1000}, tag
         });
 
         const config = {
-            headers: { "Content-Type": "application/json" },
-            "access-control-allow-origin" : rootUrl
+            headers: { "Content-Type": "application/json" }
+            // "access-control-allow-origin" : rootUrl
             // withCredentials : true
         }
 
@@ -83,8 +83,8 @@ export const get_filter_and_sort_products = ({title="", category=[], price=[{gte
         });
 
             const config = {
-                headers : { "Content-Type" : "application/json" },
-            "access-control-allow-origin" : rootUrl
+                headers : { "Content-Type" : "application/json" }
+            // "access-control-allow-origin" : rootUrl
                 // withCredentials : true
             };
 
@@ -114,8 +114,8 @@ export const get_product = (id) => async (dispatch) => {
         });
 
         const config = {
-            headers: { "Content-Type": "application/json" },
-            "access-control-allow-originn" : rootUrl
+            headers: { "Content-Type": "application/json" }
+            // "access-control-allow-originn" : rootUrl
 
             // withCredentials : true
         }
@@ -168,7 +168,7 @@ export const filteredProducts = ({ active_category, filteredProducts }) => async
         });
 
         const config = {
-            "access-control-allow-originn" : rootUrl,
+            // "access-control-allow-originn" : rootUrl,
             headers: { "Content-Type": "application/json" }
         }
 
