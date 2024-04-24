@@ -13,6 +13,7 @@ const path = require("path");
 const userRoute = require("./router/user");
 const bodyparser = require("body-parser");
 const global_errorHandler = require("./utils/global_errorHandler.js");
+const orderRoute = require("./router/order.js");
 
 const app = express(http);
 // const upload = multer({dest : "uploads/"})
@@ -29,6 +30,8 @@ app.use(cors(
   }
   ));
 
+  app.options('*', cors());
+
 app.use(cookieParser())
 app.use(express.urlencoded({ extended: true, limit : "25mb" }));
 app.use(express.json({ extended: true, limit : "25mb" }));
@@ -42,6 +45,7 @@ app.use(fileupload())
 
 app.use("/api", userRoute)
 app.use("/api", vegetableRouter )
+app.use("/api", orderRoute)
 
 app.use(express.static(path.join(__dirname, "./client/build")))
 app.get("*", (req, res)=>{

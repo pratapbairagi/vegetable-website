@@ -23,29 +23,11 @@ const veg = new mongoose.Schema({
         required : [true, "Maximum stock should not exceed 40 or 40kg."],
         default : 0
     },
-    rewiews : [
-        {
-            comment : {
-                type : String
-            },
-            rating : {
-                type : Number,
-                default : 0
-            },
-            user : {
-                type : mongoose.Schema.ObjectId,
-                ref : "user"
-            },
-            name : {
-                type : String
-            },
-            time : {
-                type : Date,
-                default : Date()
-            }
-        }
-    ],
-    rating : {
+    numberOfReviews : {
+        type : Number,
+        default : 0
+    },
+    averageRating : {
         type : Number,
         default : 0
     },

@@ -1,10 +1,10 @@
 import axios from "axios"
 import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT_FAILED, USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_REGISTER_FAILED, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_FAILED, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "./type";
 
-// const rootUrl = "http://localhost:5005"
-const rootUrl = "https://veg-etable.vercel.app"
+const rootUrl = "http://localhost:5005"
+// const rootUrl = "https://veg-etable.vercel.app"
 export const user_register = (user) => async (dispatch) => {
-    console.log("is register action workig with logout")
+    // console.log("is register action workig with logout")
     try {
         const url = `${rootUrl}/api/user/register`;
         // const url = "https://veg-etable.vercel.app/api/user/register";
@@ -39,7 +39,7 @@ export const user_register = (user) => async (dispatch) => {
 } 
 
 export const user_login = (user) => async (dispatch) => {
-    console.log("is login action workig with logout")
+    // console.log("is login action workig with logout")
 
     try {
         const url = `${rootUrl}/api/user/login`
@@ -74,7 +74,7 @@ export const user_login = (user) => async (dispatch) => {
 }
 
 export const user_logged = () => async (dispatch) => {
-    console.log("is logged action workig with logout")
+    // console.log("is logged action workig with logout")
 
     const url = `${rootUrl}/api/user/logcheck`
     // const url = "https://veg-etable.vercel.app/api/user/logcheck";
@@ -106,6 +106,7 @@ export const user_logged = () => async (dispatch) => {
 }
 
 export const logout = () => async (dispatch) => {
+    console.log("logout")
     try {
         const url = `${rootUrl}/api/user/veg_shop_logout`
         // const url = "https://veg-etable.vercel.app/api/user/logout";

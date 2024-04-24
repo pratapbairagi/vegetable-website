@@ -37,7 +37,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
 
     return (
         <>
-            <header className={`text-white py-3 sm:py-3 md:py-3 lg:py-4 xl:py-4 ${location.pathname === "/dashboard" || location.pathname === "/products" ? "hidden" : "sticky lg:fixed lg:w-full lg:bg-transparent lg:shadow-none"} z-20 top-0 shadow`}>
+            <header className={`text-white py-3 sm:py-3 md:py-3 lg:py-4 xl:py-4 ${location.pathname === "/dashboard" || location.pathname === "/products" || location.pathname === "/shipping-info" || location.pathname === "/payment-info" || location.pathname === "/order-placed" ? "hidden" : "sticky lg:fixed lg:w-full lg:bg-transparent lg:shadow-none"} z-20 top-0 shadow`}>
                 <div className=" mx-auto grid grid-cols-12 gap-y-2 justify-between items-center px-4">
                     <div className=" flex justify-start col-span-3 font-bold md:mb-0 relative z-0">
                         <NavLink to="/" className="text-theme-blue-600 py-0.5 sm:py-0.5 md:py-1 lg:py-1.5 xl:py-2 text-base sm:text-base md:text-xl lg:text-2xl rounded">Website</NavLink>
@@ -172,7 +172,7 @@ const Navbar = ({ setToggleCart, setLoginToggle }) => {
                             setIsOpenMainMenu(false)
                             setToggleCart(true)}
                             } className="w-8 relative sm:w-10 md:w-12 lg:w-12 xl:w-12">
-                           <span className={`absolute flex justify-center items-center rounded-full w-5 md:w-6 lg:w-7 top-0 right-0 md:right-1.5 lg:right-0.5 aspect-square text-white text-2xs md:text-xs lg:text-sm font-semibold ${cart.length > 0 ? "bg-green-600" : "bg-red-600"}`} style={{ paddingBottom:"0.5px"}}>{ cart.reduce((accum, cv)=> accum + cv.qty, 0)}</span>
+                           <span className={`absolute flex justify-center items-center rounded-full w-5 md:w-6 lg:w-7 top-0 right-0 md:right-1.5 lg:right-0.5 aspect-square text-white text-2xs md:text-xs lg:text-sm font-semibold ${cart.length > 0 ? "bg-green-600" : "bg-red-600"}`} style={{ paddingBottom:"0.5px"}}>{ cart.reduce((accum, cv)=> accum + cv.qty, 0)/100}</span>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6 sm:size-7 md:size-8 lg:size-9 xl:size-10 text-theme-blue-600">
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 10.5V6a3.75 3.75 0 1 0-7.5 0v4.5m11.356-1.993 1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 0 1-1.12-1.243l1.264-12A1.125 1.125 0 0 1 5.513 7.5h12.974c.576 0 1.059.435 1.119 1.007ZM8.625 10.5a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Zm7.5 0a.375.375 0 1 1-.75 0 .375.375 0 0 1 .75 0Z" />
                             </svg>

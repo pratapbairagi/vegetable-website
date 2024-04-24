@@ -16,11 +16,16 @@ import React, { useEffect, useState } from "react"
 import { get_products } from "../redux/product/action"
 import Spinner from "../component/spinner"
 import StoresMap from "../component/map"
+import { useLocation } from "react-router-dom"
+// import { getDistanceOfShop } from "../component/getDitanceFun"
 
 
 const Home = () => {
     const dispatch = useDispatch()
     const state = useSelector(state => state.product);
+    const location = useLocation()
+    const {current_position, destination_position} = useSelector(state=> state.mapCoords)
+
     const [searchFilter, setSeachFilter] = useState({
         category: "",
         title: "",
@@ -60,7 +65,12 @@ const Home = () => {
         }
 
     }, [])
-    console.log(state)
+    console.log(current_position)
+    console.log(destination_position)
+
+    // useEffect(() => {
+    //     getDistanceOfShop({location, searchQueries : searchFilter, setSearchQuaries : setSeachFilter})
+    // }, [location.state]);
 
     
     

@@ -34,6 +34,10 @@ import ProtectedRoute from './protectedRoute/protectedRoute.jsx'
 import NonProtctedRoute from './protectedRoute/nonProtectedRoute.jsx'
 import Toaster from './component/toaster.jsx'
 import { clear_success } from './redux/product/action.js'
+import ShippingInfo from './component/shippingInfo.jsx'
+import PaymentInfo from './component/paymentInfo.jsx'
+import OrderPlaced from './component/orderPlaced.jsx'
+import MyOrders from './component/myOrders.jsx'
 // import Products from './component/products.jsx'
 // import EditVegetable from "./component/editVegetable.jsx"
 
@@ -72,6 +76,10 @@ function App() {
               <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/add/vegetable' element={<AddProductForm />} />
               <Route path='/vegetable/edit/:id' element={<EditVegetable />} />
+              <Route path='/shipping-info' element={<ShippingInfo toggleCart={toggleCart} setToggleCart={setToggleCart}/>} />
+              <Route path='/payment-info' element={<PaymentInfo toggleCart={toggleCart} setToggleCart={setToggleCart}/>} />
+              <Route path='/order-placed' element={<OrderPlaced toggleCart={toggleCart} setToggleCart={setToggleCart}/>} />
+              <Route path='/my/orders' element={<MyOrders/>} />
             </Route>
 
             <Route element={<NonProtctedRoute auth={auth} />}>

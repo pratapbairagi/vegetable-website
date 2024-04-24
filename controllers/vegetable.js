@@ -132,49 +132,7 @@ exports.getVegetables = async (req, res, next) => {
           products: { $slice: ["$products", 10] }
         }
       },
-      // extraa
-      // {
-      //   $unwind: "$products"
-      // },
-      // {
-      //   $lookup: {
-      //     from: "users",
-      //     localField: "products.seller",
-      //     foreignField: "_id",
-      //     as: "products.seller"
-      //   }
-      // },
-      // {
-      //   $unwind: "$products.seller"
-      // },
-      // Group the products back by feature
-      // {
-      //   $group: {
-      //     _id: "$feature",
-      //     products: { $push: "$products" }
-      //   }
-      // }
     ]);
-
-    // console.log("featureBasedProducts => ", featureBasedProducts)
-
-
-    // let x = []
-    // let featureProducts = filteredProducts
-
-    // features.forEach((vv)=>{
-
-    //    let xx = featureProducts.filter((v)=>{
-    //        return v.features.some(prodFeature =>{
-    //         return prodFeature.feature == vv.feature
-    //         }) 
-    //     })
-    //     x.push({ feature: vv.feature, products: xx })
-    // })
-
-
-
-
 
     for (const key in req.query) {
       if (key == "tags" || key == "category") {
@@ -187,8 +145,7 @@ exports.getVegetables = async (req, res, next) => {
           query["features.feature"] = req.query[key].split(",")
         }
       }
-      // if( key == "price" ){
-      // }
+    
       if (key == "title") {
         if (req.query[key]) {
           let searchStrings = req.query[key].toLowerCase();
@@ -201,7 +158,6 @@ exports.getVegetables = async (req, res, next) => {
         }
       }
     }
-
 
     const products = await Vegetable.find(query).limit(10).populate("seller");
 
@@ -217,6 +173,27 @@ exports.getVegetables = async (req, res, next) => {
   } catch (error) {
     return next(new ErrorHandler(error))
   }
+}
+
+exports.getVegetablesTo_verifyStock = async (req, res, next) => {
+  try {
+    const id = req.user._id
+    const isUserExist = await User.findById(id);
+
+    if(!isUserExist) return next( new ErrorHandler("Sessionn expired or unauthorized !", 401))
+
+    const vegetables = await Vegetable.find({_id : { $in : req.body }})
+
+    res.status(200).json({
+      success : true,
+      message : "",
+      vegetables : vegetables
+    })
+    
+  } catch (error) {
+    return next( new ErrorHandler(error))
+  }
+
 }
 
 exports.getFilteredAndSortedProducts = async (req, res, next) => {
@@ -455,9 +432,9 @@ exports.createVeg = async (req, res, next) => {
 
 exports.editProduct = async (req, res, next) => {
   try {
-    const { id } = req.params
+    const { id } = req.params;
 
-    console.log("price => ", req.body)
+    console.log("body => ", req.body)
 
     let isProductExist;
 
@@ -482,58 +459,64 @@ exports.editProduct = async (req, res, next) => {
 
     let image = [];
 
-    for (let x = 0; req.body.images.length > x; x++) {
-      if (req.body.images[x].public_id && req.body.images[x].url.includes("cloudinary.com")) {
+    // for (let x = 0; req.body.images.length > x; x++) {
+    //   if (req.body.images[x].public_id && req.body.images[x].url.includes("cloudinary.com")) {
 
-        image.push(req.body.images[x])
+    //     image.push(req.body.images[x])
 
-        let oldImages = await isProductExist.images.filter((v) => {
-          return v.public_id != req.body.images[x].public_id
-        });
+    //     let oldImages = await isProductExist.images.filter((v) => {
+    //       return v.public_id != req.body.images[x].public_id
+    //     });
 
-        await oldImages.forEach(x => cloudinary.uploader.destroy(x.public_id))
+    //     await oldImages.forEach(x => cloudinary.uploader.destroy(x.public_id))
 
-      }
-      else if (!req.body.images[x].public_id && req.body.images[x].url.includes("data:image")) {
-        const result = await cloudinary.uploader.upload(req.body.images[x].url, {
-          folder: "vegetables"
-        })
+    //   }
+    //   else if (!req.body.images[x].public_id && req.body.images[x].url.includes("data:image")) {
+    //     const result = await cloudinary.uploader.upload(req.body.images[x].url, {
+    //       folder: "vegetables"
+    //     })
 
-        image.push({
-          public_id: result.public_id,
-          url: result.secure_url
-        })
+    //     image.push({
+    //       public_id: result.public_id,
+    //       url: result.secure_url
+    //     })
 
-      }
-    }
+    //   }
+    // }
 
-    console.log("match ad b4 update => ", isProductExist)
+    // console.log("match ad b4 update => ", isProductExist)
 
+    // isProductExist = await Vegetable.findByIdAndUpdate(id, {
+    //   title: req.body.title,
+    //   category: req.body.category,
+    //   price: req.body.price,
+    //   tags: req.body.tags,
+    //   features: req.body.features,
+    //   description: req.body.description,
+    //   stock: req.body.stock,
+    //   images: image,
+    //   coordinates: isUserExist.storeLocation.coordinates
+    // })
 
-
-    isProductExist = await Vegetable.findByIdAndUpdate(id, {
-      title: req.body.title,
-      category: req.body.category,
-      price: req.body.price,
-      tags: req.body.tags,
-      features: req.body.features,
-      description: req.body.description,
-      stock: req.body.stock,
-      images: image,
-      coordinates: isUserExist.storeLocation.coordinates
-    })
-
-    console.log("match ad agter update => ", isProductExist)
+    // console.log("match ad agter update => ", isProductExist)
 
 
-    res.status(200).json({
-      success: true,
-      message: "Vegetable updated successfull.",
-      product: isProductExist
-    })
+    // res.status(200).json({
+    //   success: true,
+    //   message: "Vegetable updated successfull.",
+    //   product: isProductExist
+    // })
 
   } catch (error) {
     return next(new ErrorHandler(error))
+  }
+}
+
+exports.addReview = async (req, res, next) => {
+  try {
+      // const 
+  } catch (error) {
+    
   }
 }
 

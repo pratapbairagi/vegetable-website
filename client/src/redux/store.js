@@ -6,6 +6,7 @@ import { product } from "./product/reducer";
 import { cart } from "./cart/reducer";
 import { user } from "./user/reducer";
 import mapCoords from "./map/reducer";
+import { Order_place } from "./order/reducer";
 
 
 
@@ -14,7 +15,8 @@ const reducers = combineReducers({
     product : product,
     cart : cart,
     user : user,
-    mapCoords : mapCoords
+    mapCoords : mapCoords,
+    order : Order_place
 })
 
 

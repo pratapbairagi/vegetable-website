@@ -84,8 +84,8 @@ exports.userLogin = async (req, res, next) => {
             let cookieOptions = {
                 httpOnly: true,
                 maxAge: (24 * 60 * 60 * 1000),
-                path : "/",
-                secure : true
+                path : "/"
+                // secure : true
             };
     
             res.cookie("jwt", token, cookieOptions);
@@ -159,10 +159,10 @@ exports.user_logout = async (req, res, next) => {
 
         let cookieOptions = {
             httpOnly: true,
-            expires: new Date(Date.now())
+            maxAge: 0
             // sameSite : "none"
         }
-        res.clearCookie("jwt", { path : "/", secure : true })
+        res.clearCookie("jwt", { path : "/" })
 
         res.status(200).json({
             success: true,

@@ -1,8 +1,18 @@
+import { useDispatch } from "react-redux"
 import Pagination from "./pagination"
+import { useEffect } from "react";
+import { admin_orders } from "../redux/order/action";
 
 
 
 const DashboardOrders = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(()=>{
+        dispatch(admin_orders())
+    },[])
+
     return (
         <div className="w-max max-w-max h-max min-h-screen max-w-full flex flex-col md:mb-0 ">
             <h6 className=" w-max text-base md:text-xl lg:text-lg xl:text-xl font-bold text-gray-600 mt-2 md:mt-2 lg:mt-3 xl:mt-3">Orders Overview</h6>

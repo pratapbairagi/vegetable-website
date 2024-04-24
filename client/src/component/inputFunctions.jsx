@@ -30,7 +30,7 @@ export const OnchangeFunction = ({e, createProduct, setCreateProduct}) => {
         }
 }
 
-export const OnKeyPressFunction = ({e, createProduct, setCreateProduct}) => {
+export const OnKeyPressFunction = ({e, createProduct="", setCreateProduct=""}) => {
     let {name, value} = e.target
         {
             if (value && value.length >= 2 && e.key === "Enter") {
