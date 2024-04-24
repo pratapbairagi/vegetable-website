@@ -31,42 +31,42 @@ const ShippingInfo = () => {
 
     const inputFieldClasses = "py-1 md:py-1.5 lg:py-2 px-1.5 md:px-2 lg:px-2.5 xl:px-3 outline-0 mt-2"
 
-    useEffect(() => {
+    // useEffect(() => {
 
 
 
-        const fetchCountry = async () => {
-            try {
-                const dataCounntry = Country.getCountryByCode("IN")
+    //     const fetchCountry = async () => {
+    //         try {
+    //             const dataCounntry = Country.getCountryByCode("IN")
 
-                setShippingInfo({
-                    ...shippingInfo,
-                    country: dataCounntry?.name,
-                    countryCode: dataCounntry?.isoCode
-                })
-            } catch (error) {
+    //             setShippingInfo({
+    //                 ...shippingInfo,
+    //                 country: dataCounntry?.name,
+    //                 countryCode: dataCounntry?.isoCode
+    //             })
+    //         } catch (error) {
 
-            }
-        }
-        if(location.state != null){
-        fetchCountry()
-        }
-        else{
-            alert("null value")
-            navigate(-1)
-        }
-    }, [])
+    //         }
+    //     }
+    //     if(location.state != null){
+    //     fetchCountry()
+    //     }
+    //     else{
+    //         alert("null value")
+    //         navigate(-1)
+    //     }
+    // }, [])
 
     console.log(shippingInfo)
 
 
-    const states = useMemo(() => {
-        return State.getStatesOfCountry("IN")
-    }, [])
+    // const states = useMemo(() => {
+    //     return State.getStatesOfCountry("IN")
+    // }, [])
 
-    const cities = useMemo(() => {
-        if (shippingInfo.state) return City.getCitiesOfState(shippingInfo.countryCode, shippingInfo.stateCode)
-    }, [shippingInfo.state])
+    // const cities = useMemo(() => {
+    //     if (shippingInfo.state) return City.getCitiesOfState(shippingInfo.countryCode, shippingInfo.stateCode)
+    // }, [shippingInfo.state])
 
     const shippingInfo_channge_hanndler = (e) => {
         let checkArray = []
@@ -116,14 +116,14 @@ const ShippingInfo = () => {
                 <form action="" className="w-full h-max xl:max-w-60% mx-auto grid grid-cols-12 px-2 py-2 sm:px-3 sm:py-4 md:px-4 md:py-4 lg:px-5 lg:py-5 xl:px-6 xl:py-6 md:gap-x-2 gap-y-3 md:gap-y-4 lg:gap-y-5 xl:gap-y-6 lg:gap-x-7 xl:gap-x-8 mt-5 md:mt-6 lg:mt-7 xl:mt-8 border">
                     <fieldset className="col-span-12 md:col-span-6 flex flex-col bg-gray-100 px-4 py-4">
                         <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#country">Country</label>
-                        <select onChange={(e) => ""} className={inputFieldClasses} name="country" id="country">
+                        {/* <select onChange={(e) => ""} className={inputFieldClasses} name="country" id="country">
                             <option value={shippingInfo?.countryCode}>{shippingInfo?.country}</option>
-                        </select>
-                        {/* <InputField onChangeFun={(e) => OnchangeFunction({ e, createProduct : shippingInfo, setCreateProduct : setShippingInfo })} placeholder="House info with floor..." type="text" id="house" name="house" classes={inputFieldClasses} /> */}
+                        </select> */}
+                        <InputField onChangeFun={(e) => OnchangeFunction({ e, createProduct : shippingInfo, setCreateProduct : setShippingInfo })} placeholder="House info with floor..." type="text" id="house" name="house" classes={inputFieldClasses} />
                     </fieldset>
                     <fieldset className="col-span-12 md:col-span-6 flex flex-col bg-gray-100 px-4 py-4" >
                         <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#state">State</label>
-                        <select onChange={(e) => {
+                        {/* <select onChange={(e) => {
                             let data = e.target.value ? JSON.parse(e.target.value) : null
                             setShippingInfo({
                                 ...shippingInfo,
@@ -137,13 +137,13 @@ const ShippingInfo = () => {
                                 return <option key={i} value={JSON.stringify(v)}>{v.name}</option>
                             })
                             }
-                        </select>
-                        {/* <InputField onChangeFun={(e) => OnchangeFunction({ e, createProduct : shippingInfo, setCreateProduct : setShippingInfo })} placeholder="Street info..." type="text" id="street" name="street" classes={inputFieldClasses} /> */}
+                        </select> */}
+                        <InputField onChangeFun={(e) => OnchangeFunction({ e, createProduct : shippingInfo, setCreateProduct : setShippingInfo })} placeholder="Street info..." type="text" id="street" name="street" classes={inputFieldClasses} />
                     </fieldset>
 
                     <fieldset className="col-span-12 md:col-span-6 flex flex-col bg-gray-100 px-4 py-4">
                         <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#city">City</label>
-                        <select onChange={(e) => {
+                        {/* <select onChange={(e) => {
                             let data = e.target.value ? JSON.parse(e.target.value) : null
                             setShippingInfo({
                                 ...shippingInfo,
@@ -155,7 +155,9 @@ const ShippingInfo = () => {
                                 return <option key={i} value={JSON.stringify(v)}>{v.name}</option>
                             })
                             }
-                        </select>
+                        </select> */}
+                        <InputField onChangeFun={(e) => OnchangeFunction({ e, createProduct : shippingInfo, setCreateProduct : setShippingInfo })} placeholder="City..." type="text" id="city" name="city" classes={inputFieldClasses} />
+
 
                     </fieldset>
 

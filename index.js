@@ -14,6 +14,7 @@ const userRoute = require("./router/user");
 const bodyparser = require("body-parser");
 const global_errorHandler = require("./utils/global_errorHandler.js");
 const orderRoute = require("./router/order.js");
+// const responseSize  = require("response-size");
 
 const app = express(http);
 // const upload = multer({dest : "uploads/"})
@@ -49,8 +50,10 @@ app.use("/api", orderRoute)
 
 app.use(express.static(path.join(__dirname, "./client/build")))
 app.get("*", (req, res)=>{
+
   res.sendFile(path.resolve(__dirname, "client", "build", "index.html"))
 })
+
 
 // 661bf5c3575f88b17fc29700
 
