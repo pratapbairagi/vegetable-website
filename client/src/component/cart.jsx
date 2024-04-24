@@ -22,7 +22,7 @@ const Cart = ({toggleCart, setToggleCart}) => {
         
         try {
             // const rootUrl = "http://localhost:5005"
-            const rootUrl = "https://veg-etable.vercel.app"
+            const rootUrl = "https://veg-etable.vercel.app";
 
             const orderCart = await  cart.map((v)=> v._id)
             
