@@ -1,8 +1,8 @@
 import axios from "axios"
 import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT_FAILED, USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_REGISTER_FAILED, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_FAILED, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "./type";
 
-const rootUrl = "http://localhost:5005"
-// const rootUrl = "https://veg-etable.vercel.app"
+// const rootUrl = "http://localhost:5005"
+const rootUrl = "https://veg-etable.vercel.app"
 export const user_register = (user) => async (dispatch) => {
     // console.log("is register action workig with logout")
     try {
