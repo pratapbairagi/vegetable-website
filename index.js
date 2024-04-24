@@ -36,7 +36,7 @@ app.use(cookieParser())
 app.use(express.urlencoded({ extended: true, limit : "25mb" }));
 app.use(express.json({ extended: true, limit : "25mb" }));
 app.use(bodyparser.json());
-app.use(bodyparser.urlencoded({extended: true}))
+app.use(bodyparser.urlencoded({extended: true, limit : "25mb"}))
 
 // app.use(upload.any())
 app.use(fileupload())
