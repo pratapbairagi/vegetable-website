@@ -41,9 +41,9 @@ const Card1 = ({title, price, images, ratings, description, id}) => {
                     <div className="col-span-6 mt-4 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-7">
                          {
                             cart.find(v=> v._id == id ) ?
-                            <button className={`w-max flex gap-x-2 md:gap-x-2.5 text-2xs sm:text-2xs md:text-xs lg:text-sm xl:text-base font-semibold text-gray-100 bg-theme-green-600 px-2 sm:px-2 md:px-2.5 lg:px-3.5 xl:px-4 py-1 sm:py-1 md:py-1.5 lg:py-2 xl:py-2.5 rounded-sm hover:bg-green-500`}>
+                            <button className={`w-max flex items-center gap-x-2 md:gap-x-2.5 text-2xs sm:text-2xs md:text-xs lg:text-sm xl:text-base font-semibold text-gray-100 bg-theme-green-600 px-2 sm:px-2 md:px-2.5 lg:px-3.5 xl:px-4 py-1 sm:py-1 md:py-1.5 lg:py-2 xl:py-2.5 rounded-sm hover:bg-green-500`}>
                                <span>ADDED</span>
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="fill-white w-3">
+                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="fill-white w-3 lg:w-5">
                                     <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z"/>
                                 </svg>
                             </button>
