@@ -29,7 +29,7 @@ const CardCart = ({ checkStock, product, setIsDistanceAbove5km, setToggleCart}) 
         <>
         <div className={`grid grid-cols-12 border-b ${checkStock?.map(v=> v.qty > product.stock ? "border-red-500 border px-1 py-1 lg:py-2" : "")} relative`}>
 
-        {distnc > 5000 && <span className="min-w-70% max-w-70% absolute z-10 h-full bg-red-600 text-sm md:text-base lg:text-lg xl:text-xl text-gray-100 flex justify-center products-center px-1 text-center" style={{left:"20%"}}>Not deliverable above 5 km distance</span> }
+        {distnc > 5000 && <span className="min-w-70% max-w-70% absolute z-10 h-full bg-red-600 text-sm md:text-base lg:text-lg xl:text-xl text-gray-100 flex justify-center items-center px-1 text-center" style={{left:"20%"}}>Not deliverable above 5 km distance</span> }
 
         <div onClick={()=>{ 
             setToggleCart(false)
@@ -38,26 +38,26 @@ const CardCart = ({ checkStock, product, setIsDistanceAbove5km, setToggleCart}) 
             <img src={product.images[0].url} className="w-36 bg-gray-100 object-contain" alt="" />
         </div>
 
-        <div className="col-span-3 lg:col-span-3 flex products-center">
+        <div className="col-span-3 lg:col-span-3 flex items-center">
             <p className="text-sm lg:text-2xl font-bold font-nunito w-full text-center text-gray-500">{product.title}</p>
         </div>
 
-        <div className="col-span-4 flex flex-row products-center justify-center gap-0">
-            <button onClick={()=> product.qty  >= 100 && dispatch( cart_qty( {product : product, operator : "-100"} ))} className="size-6 lg:size-10 border flex products-center justify-center">
+        <div className="col-span-4 flex flex-row products-center justify-center items-center gap-0">
+            <button onClick={()=> product.qty  >= 100 && dispatch( cart_qty( {product : product, operator : "-100"} ))} className="size-6 lg:size-10 border flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
                 </svg>
 
             </button>
-            <span className="h-10 px-1 lg:px-3 xl:px-4 lg:px-6 flex products-center text-sm lg:text-base text-gray-500 font-bold">{product.qty > 999 ? product.qty/1000+"KG" : product.qty+"G"}</span>
-            <button onClick={()=> dispatch( cart_qty( {product : product, operator : "100"} ))} className="text-xl size-6 lg:size-10 border flex products-center justify-center">
+            <span className="h-10 px-1 lg:px-3 xl:px-4 lg:px-6 flex items-center text-sm lg:text-base text-gray-500 font-bold">{product.qty > 999 ? product.qty/1000+"KG" : product.qty+"G"}</span>
+            <button onClick={()=> dispatch( cart_qty( {product : product, operator : "100"} ))} className="text-xl size-6 lg:size-10 border flex items-center justify-center">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                 </svg>
             </button>
         </div>
 
-        <div className="col-span-2 flex products-center justify-center text-base lg:text-2xl font-bold text-gray-500"> {product.price}/KG </div>
+        <div className="col-span-2 flex items-center justify-center text-base lg:text-2xl font-bold text-gray-500"> {product.price}/KG </div>
 
         <div className="col-span-1 flex justify-center">
             <button onClick={()=>{

@@ -78,9 +78,9 @@ function App() {
               <Route path='/dashboard' element={<Dashboard />} />
               <Route path='/add/vegetable' element={<AddProductForm />} />
               <Route path='/vegetable/edit/:id' element={<EditVegetable />} />
-              {/* <Route path='/shipping-info' element={<ShippingInfo toggleCart={toggleCart} setToggleCart={setToggleCart}/>} /> */}
-              {/* <Route path='/payment-info' element={<PaymentInfo toggleCart={toggleCart} setToggleCart={setToggleCart}/>} /> */}
-              {/* <Route path='/order-placed' element={<OrderPlaced toggleCart={toggleCart} setToggleCart={setToggleCart}/>} /> */}
+              <Route path='/shipping-info' element={<ShippingInfo toggleCart={toggleCart} setToggleCart={setToggleCart}/>} />
+              <Route path='/payment-info' element={<PaymentInfo toggleCart={toggleCart} setToggleCart={setToggleCart}/>} />
+              <Route path='/order-placed' element={<OrderPlaced toggleCart={toggleCart} setToggleCart={setToggleCart}/>} />
               {/* <Route path='/my/orders' element={<MyOrders/>} /> */}
             </Route>
 
