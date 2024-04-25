@@ -23,8 +23,6 @@ export const user_register = (user) => async (dispatch) => {
 
         const {data} = await axios.post(url, user, config);
 
-        console.log(data)
-
         dispatch({
             type : USER_REGISTER_SUCCESS,
             payload : data.user

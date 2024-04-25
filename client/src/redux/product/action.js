@@ -19,7 +19,6 @@ export const add_product = (product) => async (dispatch) => {
         }
         const { data } = await axios.post(url, product, config)
         
-        
         dispatch({
             type : ADD_PRODUCT_SUCCESS,
             payload : data
@@ -48,8 +47,6 @@ export const get_products = ({title="", category="", price={lte:0,gte:1000}, tag
         }
 
         const {data} = await axios.get(url, config )
-
-        console.log(data)
 
         dispatch({
             type : GET_PRODUCTS_SUCCESS,

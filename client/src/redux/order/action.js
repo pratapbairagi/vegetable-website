@@ -5,7 +5,6 @@ import { ADMIN_ORDERS_FAILED, ADMIN_ORDERS_REQUEST, ADMIN_ORDERS_SUCCESS, GET_OR
 const rootUrl = "https://veg-etable.vercel.app";
 
 export const order_request = (order) => async (dispatch) => {
-    alert("order")
     try {
         const url = `${rootUrl}/api/order/place`
         dispatch({
@@ -26,7 +25,6 @@ export const order_request = (order) => async (dispatch) => {
         })
         
     } catch (error) {
-        console.log("orders => ", error)
 
         dispatch({
             type : ORDER_FAILED,
@@ -49,8 +47,6 @@ export const  get_orders = () => async (dispatch) => {
         }
 
         const {data} = await axios.get(url, config);
-
-        console.log("orders => ", data)
 
         dispatch({
             type : GET_ORDERS_SUCCESS,
@@ -81,8 +77,6 @@ export const admin_orders = () => async (dispatch) => {
         };
 
         const { data } = await axios.get(url, config);
-
-        console.log("admin orders => ", data);
 
         dispatch({
             type : ADMIN_ORDERS_SUCCESS,

@@ -12,16 +12,14 @@ const ShippingInfo = () => {
     const navigate = useNavigate()
     const location = useLocation()
 
-    console.log(location.state)
-
     const [shippingInfo, setShippingInfo] = useState({
         house: "",
         street: "",
         landmark: "",
-        countryCode: "",
+        // countryCode: "",
         country: "",
         state: "",
-        stateCode: "",
+        // stateCode: "",
         city: "",
         pincode: 0,
         phone: 0,
@@ -31,31 +29,11 @@ const ShippingInfo = () => {
 
     const inputFieldClasses = "py-1 md:py-1.5 lg:py-2 px-1.5 md:px-2 lg:px-2.5 xl:px-3 outline-0 mt-2"
 
-    // useEffect(() => {
-
-
-
-    //     const fetchCountry = async () => {
-    //         try {
-    //             const dataCounntry = Country.getCountryByCode("IN")
-
-    //             setShippingInfo({
-    //                 ...shippingInfo,
-    //                 country: dataCounntry?.name,
-    //                 countryCode: dataCounntry?.isoCode
-    //             })
-    //         } catch (error) {
-
-    //         }
-    //     }
-    //     if(location.state != null){
-    //     fetchCountry()
-    //     }
-    //     else{
-    //         alert("null value")
-    //         navigate(-1)
-    //     }
-    // }, [])
+    useEffect(() => {
+        if(location.state == null){
+            navigate(-1)
+        }
+    }, [])
 
     console.log(shippingInfo)
 
@@ -96,10 +74,8 @@ const ShippingInfo = () => {
         }
 
         if(checkArray.every(v=> v)){ 
-            console.log("navigate success block")           
             navigate("/payment-info", { state : { shippingInfo : shippingInfo, cart : location.state?.cart, orderCart : location.state?.orderCart  }})  
         }
-        console.log("navigate success fuction")           
 
 
     }
@@ -119,7 +95,7 @@ const ShippingInfo = () => {
                         {/* <select onChange={(e) => ""} className={inputFieldClasses} name="country" id="country">
                             <option value={shippingInfo?.countryCode}>{shippingInfo?.country}</option>
                         </select> */}
-                        <InputField onChangeFun={(e) => OnchangeFunction({ e, createProduct : shippingInfo, setCreateProduct : setShippingInfo })} placeholder="House info with floor..." type="text" id="house" name="house" classes={inputFieldClasses} />
+                        <InputField onChangeFun={(e) => OnchangeFunction({ e, createProduct : shippingInfo, setCreateProduct : setShippingInfo })} placeholder="Country..." type="text" id="country" name="country" classes={inputFieldClasses} />
                     </fieldset>
                     <fieldset className="col-span-12 md:col-span-6 flex flex-col bg-gray-100 px-4 py-4" >
                         <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#state">State</label>
@@ -138,7 +114,7 @@ const ShippingInfo = () => {
                             })
                             }
                         </select> */}
-                        <InputField onChangeFun={(e) => OnchangeFunction({ e, createProduct : shippingInfo, setCreateProduct : setShippingInfo })} placeholder="Street info..." type="text" id="street" name="street" classes={inputFieldClasses} />
+                        <InputField onChangeFun={(e) => OnchangeFunction({ e, createProduct : shippingInfo, setCreateProduct : setShippingInfo })} placeholder="State..." type="text" id="state" name="state" classes={inputFieldClasses} />
                     </fieldset>
 
                     <fieldset className="col-span-12 md:col-span-6 flex flex-col bg-gray-100 px-4 py-4">

@@ -18,7 +18,6 @@ const PaymentInfo = () => {
     
     const inputFieldClasses = "py-1 md:py-1.5 lg:py-2 px-1.5 md:px-2 lg:px-2.5 xl:px-3 outline-0 mt-2"
 
-    console.log(location.state)
     const orderPlace_hanndler = () => {
             const order={...location.state, payment : payment}
             dispatch(order_request(order))
