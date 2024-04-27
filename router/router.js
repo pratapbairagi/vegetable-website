@@ -12,7 +12,7 @@ vegetableRouter.route("/vegetable/edit/:id").put(userAuth, editProduct)
 vegetableRouter.route("/store/vegetables").get(getFilteredAndSortedProducts)
 vegetableRouter.route(`/vegetable/cart/:id`).get(addToCart)
 vegetableRouter.route("/selected_category/:category").get(active_category) 
-vegetableRouter.route("/stock_check").post(userAuth, getVegetablesTo_verifyStock)
+vegetableRouter.route("/stock_check").post( getVegetablesTo_verifyStock)
 
 
 

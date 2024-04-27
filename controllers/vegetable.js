@@ -177,10 +177,10 @@ exports.getVegetables = async (req, res, next) => {
 
 exports.getVegetablesTo_verifyStock = async (req, res, next) => {
   try {
-    const id = req.user._id
-    const isUserExist = await User.findById(id);
+    // const id = req.user._id
+    // const isUserExist = await User.findById(id);
 
-    if(!isUserExist) return next( new ErrorHandler("Sessionn expired or unauthorized !", 401))
+    // if(!isUserExist) return next( new ErrorHandler("Sessionn expired or unauthorized !", 401))
 
     const vegetables = await Vegetable.find({_id : { $in : req.body }})
 

@@ -29,7 +29,6 @@ const CardCart = ({ checkStock, product, setIsDistanceAbove5km}) => {
         <>
         <div className={`grid grid-cols-12 border-b ${checkStock?.map(v=> v.qty > product.stock ? "border-red-500 border px-1 py-1 lg:py-2" : "")} relative`}>
 
-        {distnc > 5000 && <span className="min-w-70% max-w-70% absolute z-10 h-full bg-red-600 text-sm md:text-base lg:text-lg xl:text-xl text-gray-100 flex justify-center items-center px-1 text-center" style={{left:"20%"}}>Not deliverable above 5 km distance</span> }
 
         <div onClick={()=>{ 
             navigate(`/vegetable/${product._id}`)
@@ -68,6 +67,8 @@ const CardCart = ({ checkStock, product, setIsDistanceAbove5km}) => {
 
             </button>
         </div>
+
+        {distnc > 5000 && <span className="col-span-12 h-full text-xs md:text-sm lg:text-base xl:text-lg text-red-600 flex justify-center items-center px-1 py-1 pb-2 text-center" style={{left:"20%"}}>Not deliverable above 5 km distance</span> }
 
     </div>
     </>

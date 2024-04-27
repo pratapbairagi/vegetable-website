@@ -16,6 +16,8 @@ const Cart = ({}) => {
     const [checkStock, setCheckStock] = useState([])
     const navigate = useNavigate();
     const [isDistanceAbove5km, setIsDistanceAbove5km] = useState([])
+  const { auth } = useSelector(state => state.user)
+
 
 
     const proceedOrder_handler = async (x="") => {
@@ -51,9 +53,9 @@ const Cart = ({}) => {
 
                     setCheckStock([])
                     navigate("/shipping-info", {state : { cart: cart, orderCart : orderCart}})
-            (false)
-                }
+            
             }
+        }
         } catch (error) {
             console.log("error =>", error)
         } 
