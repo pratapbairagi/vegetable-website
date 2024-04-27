@@ -1,14 +1,63 @@
-import { NavLink } from "react-router-dom"
+import { NavLink, useLocation } from "react-router-dom"
 import Pagination from "./pagination"
 import { useDispatch, useSelector } from "react-redux"
 import { paginationFun } from "./paginationFun"
-import { delete_product } from "../redux/product/action"
+import { delete_product, get_filter_and_sort_products } from "../redux/product/action"
+import { memo, useEffect, useMemo, useState } from "react"
 
 
 
-const DashboardProducts = ({products, searchProduct, setSearchProduct, dispatch}) =>{
-    const state = useSelector(state => state.product)
+// const DashboardProducts = ({products, searchProduct, setSearchProduct, dispatch}) =>{
+    const DashboardProducts = () =>{
+    const {products , productsLength} = useSelector(state => state.product)
     const {user} = useSelector(state => state.user)
+    const dispatch = useDispatch()
+    const location = useLocation()
+
+
+    
+    const [searchProduct, setSearchProduct] = useState({
+        title: "",
+        category: [],
+        features: [],
+        tags: [],
+        price: [{
+            gte: 0,
+            lte: 1000
+        }],
+        sold: 0,
+        nameSort: "",
+        priceSort: "",
+        ratingSort: "",
+        dateSort: "",
+        productsPerPage: 6,
+        pageNo: 1
+
+    })
+    let x = 0
+    const fetchProducts = useMemo(()=> () => {
+        // if( !products.length && x == 1 && location.state == null){
+            if( !products.length && x == 1 ){
+            console.log("previous list 1")
+            x++
+            dispatch(get_filter_and_sort_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features,
+                sold : searchProduct.sold,
+                 nameSort : searchProduct.nameSort, 
+                 dateSort : searchProduct.dateSort,
+                ratingSort : searchProduct.ratingSort, 
+                priceSort : searchProduct.priceSort, 
+                productsPerPage : searchProduct.productsPerPage, 
+                pageNo : searchProduct.pageNo}))
+        }
+
+       
+    },[products, location.state])
+
+    // useEffect(()=>{
+    //     if(!products.length){
+    //         fetchProducts()
+    //     }
+    // },[products, location.state])
     
 
     
@@ -89,8 +138,8 @@ const DashboardProducts = ({products, searchProduct, setSearchProduct, dispatch}
                             return <tr key={i} className="flex gap-x-4 sm:gap-x-6 md:gap-x-8 lg:gap-x-10 xl:gap-x-14">
                                 <td style={{textWrap:"wrap", wordBreak:"break-all"}} className="px-2 w-28 py-4 whitespace-wrap text-2xs sm:text-xs md:text-sm text-gray-600">{v._id}</td>
                                 <td className="px-2 w-28 py-4 whitespace-nowrap text-2xs sm:text-xs md:text-sm text-gray-600 capitalize">{v.title}</td>
-                                {console.log("seller id ", v.seller)}
-                                {console.log("user id ", user._id)}
+                                {/* {console.log("seller id ", v.seller)}
+                                {console.log("user id ", user._id)} */}
                                 <td className={`px-2 w-40 py-4 whitespace-wrap text-2xs sm:text-xs md:text-sm ${user._id == v.seller ? "text-green-600" : "text-red-600"}`}>{user._id == v.seller ? "Your Product" : "Other Seller"} : H No. 233/A, South Delhi, Delhi - 110019</td>
                                 <td className="px-2 w-24 py-4 whitespace-wrap text-2xs sm:text-xs md:text-sm text-gray-600">{v.stock/1000}KG</td>
                                 <td className="px-2 w-24 py-4 whitespace-wrap text-2xs sm:text-xs md:text-sm text-gray-600">{v.price}</td>
@@ -124,10 +173,10 @@ const DashboardProducts = ({products, searchProduct, setSearchProduct, dispatch}
                     </tbody>
                 </table>
             </div>
-            <Pagination fun={(e)=> paginationFun({e, searchQueries : searchProduct, setSearchQuaries : setSearchProduct, dispatch})} activePage={searchProduct.pageNo} numbersOfButton={(state.productsLength / searchProduct.productsPerPage)} />
+            <Pagination fun={(e)=> paginationFun({e, searchQueries : searchProduct, setSearchQuaries : setSearchProduct, dispatch})} activePage={searchProduct.pageNo} numbersOfButton={(productsLength / searchProduct.productsPerPage)} />
 
         </div>
     )
 }
 
-export default DashboardProducts
+export default memo(DashboardProducts);

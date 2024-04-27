@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const jsonwebtoken = require("jsonwebtoken")
 
-const userSchema = mongoose.Schema({
+const userSchema = new mongoose.Schema({
     first_name: {
         type: String,
         required: [true, "please enter ypur full name !"]
@@ -85,6 +85,12 @@ const userSchema = mongoose.Schema({
             default: [0, 0]
         }
     },
+    reviews : [
+        {
+            type : mongoose.Schema.Types.ObjectId,
+            ref : "Reviews"
+        }
+    ],
     storeLocation: {
         type: {
             type: String,

@@ -2,14 +2,17 @@ import { memo } from "react"
 import { NavLink } from "react-router-dom"
 import { add_to_cart } from "../redux/cart/action"
 import { useDispatch, useSelector } from "react-redux"
+import SellerProductTag from "./sellerProductTag"
 
 
-const Card2 = ({ title, price, image, ratings, description, id }) => {
+const Card2 = ({ title, price, image, ratings, description, id, seller }) => {
     const dispatch = useDispatch();
     const {cart} = useSelector(state => state.cart)
     return (
         <div className="flex flex-col col-span-6 sm:col-span-6 md:col-span-6 lg:col-span-4 xl:col-span-4 min-h-30 h-max p-2 sm:p-2 md:p-3 lg:p-4 xl:p-5 border-r">
             <div className="w-full h-36 sm:h-36 md:h-48 lg:h-60 xl:h-72 flex items-center justify-center relative ">
+            <SellerProductTag seller={seller} containerClass="top-2.5 md:top-8 left-1 md:left-2" productId={id}/>
+                
                 {
                     cart.find(v => v._id == id) ?
                             

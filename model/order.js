@@ -11,10 +11,10 @@ const orderSchema = mongoose.Schema({
             type : String,
             required : [true, "Must be 3 characters atleast."]
         },
-        category : {
-            type : [String],
-            required : [true, "Must be 3 characters atleast."]
-        },
+        // category : {
+        //     type : [String],
+        //     required : [true, "Must be 3 characters atleast."]
+        // },
         description : {
             type : String,
             required : false
@@ -62,21 +62,29 @@ const orderSchema = mongoose.Schema({
             type : Number,
             required : true,
             default : 0
+        },
+        deliveryCharge : {
+            type : Number,
+            default : 0
+        },
+        totalPrice : {
+            type : Number,
+            default : 0
         }
     }
 ],
-    quantity : {
+    totalQuantity : {
         type : Number,
         default : 0
     },
-    deliveryCharge : {
+    totalDeliveryCharge : {
         type : Number,
         default : 0
     },
-    totalAmount : {
-        type : Number,
-        required : true
-    },
+    // totalAmount : {
+    //     type : Number,
+    //     required : true
+    // },
     paymentAmount : {
         type : Number,
         required : true
@@ -85,11 +93,11 @@ const orderSchema = mongoose.Schema({
     //     type : Date,
     //     default : Date.now
     // },
-    shippigAddress : {
+    shippingAddress : {
         type : Object,
         required : true
     },
-    statueDates : {
+    statusDates : {
         orderDate : {
             type : Date,
             default : Date.now
@@ -100,15 +108,18 @@ const orderSchema = mongoose.Schema({
         shippedDate : {
             type : Date
         },
+        outForDeliveryDate : {
+            type : Date
+        },
         deliveredDate : {
             type : Date
         }
     },
     status : {
         type : String,
-        enum : ["pending", "processing", "shppied", "delivered"],
+        enum : ["pending", "processing", "shppied", "out for delivery", "delivered"],
         default : "pending"
-    }
+    },
 });
 
 const Order = mongoose.model("Order", orderSchema);

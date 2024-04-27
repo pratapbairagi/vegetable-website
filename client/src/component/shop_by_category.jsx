@@ -73,7 +73,7 @@ const Shop_by_category = () => {
 
                         {v.products.map((v, i) => {
                             // console.log("filter cat => ", v)
-                            return <Card2 key={i} title={v.title} id={v._id} price={v.price} image={v.images[0].url} description={v.description} ratings={v.ratings} />
+                            return <Card2 key={i} title={v.title} id={v._id} price={v.price} image={v.images[0].url} description={v.description} ratings={v.ratings} seller={v.seller} />
                         })}
 
                         {/* <Pagination/> */}

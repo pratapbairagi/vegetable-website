@@ -434,7 +434,7 @@ exports.editProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    console.log("body => ", req.body)
+    // console.log("body => ", req.body)
 
     let isProductExist;
 
@@ -451,61 +451,59 @@ exports.editProduct = async (req, res, next) => {
     }
 
     if (isUserExist._id != isProductExist.seller) {
-      console.log("match seller id ", isUserExist._id)
-      console.log("match product creater id ", isProductExist.seller)
+      // console.log("match seller id ", isUserExist._id)
+      // console.log("match product creater id ", isProductExist.seller)
     return next(new ErrorHandler("Sorry, only seller has the authority to update this product !", 403 ))
 
     }
 
     let image = [];
 
-    // for (let x = 0; req.body.images.length > x; x++) {
-    //   if (req.body.images[x].public_id && req.body.images[x].url.includes("cloudinary.com")) {
+    for (let x = 0; req.body.images.length > x; x++) {
+      if (req.body.images[x].public_id && req.body.images[x].url.includes("cloudinary.com")) {
 
-    //     image.push(req.body.images[x])
+        image.push(req.body.images[x])
 
-    //     let oldImages = await isProductExist.images.filter((v) => {
-    //       return v.public_id != req.body.images[x].public_id
-    //     });
+        let oldImages = await isProductExist.images.filter((v) => {
+          return v.public_id != req.body.images[x].public_id
+        });
 
-    //     await oldImages.forEach(x => cloudinary.uploader.destroy(x.public_id))
+        await oldImages.forEach(x => cloudinary.uploader.destroy(x.public_id))
 
-    //   }
-    //   else if (!req.body.images[x].public_id && req.body.images[x].url.includes("data:image")) {
-    //     const result = await cloudinary.uploader.upload(req.body.images[x].url, {
-    //       folder: "vegetables"
-    //     })
+      }
+      else if (!req.body.images[x].public_id && req.body.images[x].url.includes("data:image")) {
+        const result = await cloudinary.uploader.upload(req.body.images[x].url, {
+          folder: "vegetables"
+        })
 
-    //     image.push({
-    //       public_id: result.public_id,
-    //       url: result.secure_url
-    //     })
+        image.push({
+          public_id: result.public_id,
+          url: result.secure_url
+        })
 
-    //   }
-    // }
+      }
+    }
 
-    // console.log("match ad b4 update => ", isProductExist)
+    isProductExist = await Vegetable.findByIdAndUpdate(id, {
+      title: req.body.title,
+      category: req.body.category,
+      price: req.body.price,
+      tags: req.body.tags,
+      features: req.body.features,
+      description: req.body.description,
+      stock: req.body.stock,
+      images: image,
+      coordinates: isUserExist.storeLocation.coordinates
+    })
 
-    // isProductExist = await Vegetable.findByIdAndUpdate(id, {
-    //   title: req.body.title,
-    //   category: req.body.category,
-    //   price: req.body.price,
-    //   tags: req.body.tags,
-    //   features: req.body.features,
-    //   description: req.body.description,
-    //   stock: req.body.stock,
-    //   images: image,
-    //   coordinates: isUserExist.storeLocation.coordinates
-    // })
-
-    // console.log("match ad agter update => ", isProductExist)
+    console.log("match ad agter update => ", isProductExist)
 
 
-    // res.status(200).json({
-    //   success: true,
-    //   message: "Vegetable updated successfull.",
-    //   product: isProductExist
-    // })
+    res.status(200).json({
+      success: true,
+      message: "Vegetable updated successfull.",
+      product: isProductExist
+    })
 
   } catch (error) {
     return next(new ErrorHandler(error))

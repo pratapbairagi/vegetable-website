@@ -56,14 +56,14 @@ const MyOrders = () => {
                             </li>
                             <li className="flex gap-x-2 ">
                                 <span className="text-gray-500 min-w-28 text-sm">Weight : </span>
-                                <span className="text-gray-400"> {v.quantity}grams / {v.quantity/1000}KG</span>
+                                <span className="text-gray-400"> {v.totalQuantity}grams / {v.totalQuantity/1000}KG</span>
                             </li>
                             <li className="flex gap-x-2 ">
                                 <span className="text-gray-500 min-w-28 text-sm">Delivery : </span>
-                                <span className="text-gray-400 font-semibold"> {v.deliveryCharge}</span>
+                                <span className="text-gray-400 font-semibold"> {v.products.reduce((curr, accum)=> curr + accum.deliveryCharge , 0)}</span>
                             </li>
                             <li className="flex gap-x-2 ">
-                                <span className="text-gray-500 min-w-28 text-sm">Payment : </span>
+                                <span className="text-gray-500 min-w-28 text-sm">Total : </span>
                                 <span className="text-gray-400 font-semibold"> {v.paymentAmount}</span>
                             </li>
                             

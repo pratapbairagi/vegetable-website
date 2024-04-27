@@ -92,15 +92,15 @@ export const EditVegetable = () => {
     return (
         <>
             {state.loading ? <Spinner /> : state.product && state.product.product &&
-                <div className="w-full h-max  min-h-screen flex flex-col pb-10">
+                <div className="w-full h-max  min-h-screen flex flex-col pb-10 lg:mt-28">
                     <h6 className="text-base sm:text-lg md:text-xl xl:text-2xl font-extrabold font-nunito text-center mt-5 md:mt-6 lg:mt-7 text-theme-blue-600">Edit Vegetable</h6>
 
-                    <div className="w-full h-max xl:max-w-60% mx-auto grid grid-cols-12 px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6 md:gap-x-2 gap-y-3 md:gap-y-4 lg:gap-y-5 xl:gap-y-6 lg:gap-x-7 xl:gap-x-8 mt-5 md:mt-6 lg:mt-7 xl:mt-8">
-                        <fieldset className="col-span-12 md:col-span-5 flex flex-col bg-gray-100 px-4 py-4">
+                    <div className="w-full h-max mx-auto grid grid-cols-12 px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6 md:gap-x-2 gap-y-3 md:gap-y-4 lg:gap-y-5 xl:gap-y-6 lg:gap-x-7 xl:gap-x-8 mt-5 md:mt-6 lg:mt-7 xl:mt-8">
+                        <fieldset className="col-span-12 md:col-span-5 xl:col-span-4 flex flex-col bg-gray-100 px-4 py-4">
                             <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#title">Title</label>
                             <InputField defaultValue={createProduct.title} onChangeFun={(e) => OnchangeFunction({ e, createProduct, setCreateProduct })} type="text" id="title" name="title" classes="py-1 md:py-1.5 lg:py-2 px-1.5 md:px-2 lg:px-2.5 xl:px-3" />
                         </fieldset>
-                        <fieldset className="col-span-12 md:col-span-5 flex flex-col bg-gray-100 px-4 py-4">
+                        <fieldset className="col-span-12 md:col-span-7 xl:col-span-4 flex flex-col bg-gray-100 px-4 py-4">
                             <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#category">Category</label>
                             <span className=" flex items-center bg-white px-1 py-1 lg:px-1.5">
                                 {/* <input onKeyPress={(e) => {
@@ -138,13 +138,13 @@ export const EditVegetable = () => {
                             </span>
                         </fieldset>
 
-                        <fieldset className="col-span-12 md:col-span-7 flex flex-col bg-gray-100 px-4 py-4">
+                        <fieldset className="col-span-12 md:col-span-7 xl:col-span-4 flex flex-col bg-gray-100 px-4 py-4">
                             <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#stock">Stock</label>
                             {/* <input  onChange={addProduct_inputsHandler} type="number" name="stock" id="stock" className=" py-1 md:py-1.5 lg:py-2 px-1.5 md:px-2 lg:px-2.5 xl:px-3" /> */}
                             <InputField defaultValue={createProduct.stock} onChangeFun={(e) => OnchangeFunction({ e, createProduct, setCreateProduct })} placeholder="stock in grams" type="number" id="stock" name="stock" classes="py-1 md:py-1.5 lg:py-2 px-1.5 md:px-2 lg:px-2.5 xl:px-3" />
 
                         </fieldset>
-                        <fieldset className="col-span-12 md:col-span-5 flex flex-col bg-gray-100 px-4 py-4">
+                        <fieldset className="col-span-12 md:col-span-5 xl:col-span-4 flex flex-col bg-gray-100 px-4 py-4">
                             <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#feature">Features</label>
                             {/* <select onChange={(e)=>{ 
                         setCreateProduct({...createProduct, features : [...createProduct.features.map(v=> v.feature == e.target[e.target.selectedIndex].innerHTML ? {...v, active : true } : { ...v })   ] }) 
@@ -213,7 +213,7 @@ export const EditVegetable = () => {
                     </span> */}
 
                         </fieldset>
-                        <fieldset className="col-span-12 md:col-span-5 flex flex-col bg-gray-100 px-4 py-4">
+                        <fieldset className="col-span-12 md:col-span-5 xl:col-span-4 flex flex-col bg-gray-100 px-4 py-4">
                             <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#tags">Tags</label>
                             <span className=" flex items-center bg-white px-1 py-1 lg:px-1.5">
                                 {/* <input onKeyPress={} onChange={addProduct_inputsHandler} type="text" id="tags" name="tags" className="" /> */}
@@ -242,7 +242,7 @@ export const EditVegetable = () => {
                             </span>
                         </fieldset>
 
-                        <fieldset className="col-span-12 md:col-span-7 flex flex-col bg-gray-100 px-4 py-4">
+                        <fieldset className="col-span-12 md:col-span-7 xl:col-span-4 flex flex-col bg-gray-100 px-4 py-4">
                             <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#image">Image</label>
                             <span className="relative w-12 aspect-square">
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" className="w-full fill-theme-blue-600">

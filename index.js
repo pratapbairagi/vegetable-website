@@ -14,6 +14,7 @@ const userRoute = require("./router/user");
 const bodyparser = require("body-parser");
 const global_errorHandler = require("./utils/global_errorHandler.js");
 const orderRoute = require("./router/order.js");
+const reviewRoute = require("./router/review.js");
 // const responseSize  = require("response-size");
 
 const app = express(http);
@@ -47,6 +48,7 @@ app.use(fileupload())
 app.use("/api", userRoute)
 app.use("/api", vegetableRouter )
 app.use("/api", orderRoute)
+app.use("/api", reviewRoute)
 
 app.use(express.static(path.join(__dirname, "./client/build")))
 app.get("*", (req, res)=>{

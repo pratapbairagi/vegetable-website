@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Popup, Marker, useMap, useMapEvents } from "react-leaflet"
 import "leaflet/dist/leaflet.css";
 import L, { Icon } from "leaflet";
@@ -9,33 +9,33 @@ import iconUrl2 from "../assets/icons8-human-48.png";
 import { useDispatch, useSelector } from "react-redux";
 import { user_update } from "../redux/user/action";
 import { cPosition, dPosition, distanceAction } from "../redux/map/action";
-const StoresMap = () => {
+const StoresMapCopy = () => {
 
     const [routeControl, setRouteControl] = useState(null)
     const [suggestion, setSuggestion] = useState([])
     let [mapZoom, setMapZoom] = useState(localStorage.getItem("mapZoom") ? Number(JSON.parse(localStorage.getItem("mapZoom"))) : 13)
-    const { user } = useSelector(state => state.user)
+    const {user} = useSelector(state => state.user)
     const dispatch = useDispatch()
-    const { current_position, destination_position, distance } = useSelector(state => state.mapCoords)
+    const {current_position, destination_position, distance} = useSelector(state=> state.mapCoords)
 
 
 
 
-    // useEffect(() => {
+    useEffect(() => {
 
-    //     if (navigator.geolocation) {
-    //         navigator.geolocation.getCurrentPosition((res))
-    //         function res(pos) {
-    //             successCallback(pos)
-    //         }
-    //     }
-    //     else {
-    //         console.log("geolocation is not supported by this browser !")
-    //     }
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition((res))
+            function res(pos) {
+                successCallback(pos)
+            }
+        }
+        else {
+            console.log("geolocation is not supported by this browser !")
+        }
 
-    // }, [destination_position])
+    }, [destination_position])
 
-    const getLiveRoute_handler = useCallback(() => {
+    const getLiveRoute_handler = () => {
         let watchId = localStorage.getItem("watchId");
         if (navigator.geolocation) {
 
@@ -51,74 +51,43 @@ const StoresMap = () => {
                 localStorage.removeItem("watchId")
             }
         }
-    })
+    }
 
-    useEffect(() => {
-        if (destination_position) {
+    useEffect(()=>{
+        if(destination_position){
             getLiveRoute_handler()
         }
-    }, [destination_position, current_position])
+    },[destination_position, current_position])
 
-    const successCallback = useCallback((watchPositionPos) => {
-        if (watchPositionPos.coords) {
-            console.log("posssssss =>>>> ", watchPositionPos.coords)
-            const { latitude, longitude } = watchPositionPos.coords;
-            dispatch(cPosition([latitude, longitude]))
+    function successCallback(pos) {
+        const { latitude, longitude } = pos.coords;
+        dispatch(cPosition([latitude, longitude]))
 
-            if (routeControl && destination_position && current_position) {
-                console.log("live start")
-                routeControl.setWaypoints([L.latLng([latitude, longitude]), L.latLng(destination_position)]);
-            }
+        if (routeControl && destination_position && current_position) {
+            console.log("live start")
+            routeControl.setWaypoints([L.latLng([latitude, longitude]), L.latLng(destination_position)]);
         }
-    }, []);
-
-    useCallback(() => {
-        if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition((res))
-            function res(pos) {
-                successCallback(pos)
-            }
-        }
-    }, [destination_position])
-
-
+    }
 
     const errorCallback = (err) => {
         console.log("errorrrr =>", err)
     }
 
 
-    // useEffect(() => {
-    //     if (current_position && destination_position) {
-    //         const distanceInMeters = getDitanceFun(current_position, destination_position)
-    //         dispatch(distanceAction(destination_position, current_position))
-    //     }
-    // }, [current_position, destination_position])
-
-    // useEffect(() => {
-    //     if (current_position && destination_position) {
-    //         if (routeControl) {
-    //             routeControl.setWaypoints([L.latLng(current_position), L.latLng(destination_position)])
-    //         }
-    //     }
-    // }, [current_position, destination_position, routeControl])
-
-   const updateRouteAndDistance  = useCallback(()=>{
-    if (current_position && destination_position) {
-        const distanceInMeters = getDitanceFun(current_position, destination_position)
-        dispatch(distanceAction(destination_position, current_position))
-    }
-
-    if (current_position && destination_position) {
-        if (routeControl) {
-            routeControl.setWaypoints([L.latLng(current_position), L.latLng(destination_position)])
+    useEffect(() => {
+        if (current_position && destination_position) {
+            const distanceInMeters = getDitanceFun(current_position, destination_position)
+            dispatch(distanceAction(destination_position, current_position))
         }
-    }
-    },[current_position, destination_position, routeControl])
+    }, [current_position, destination_position])
 
-    useEffect(()=>{
-        updateRouteAndDistance()
-    },[updateRouteAndDistance])
+    useEffect(() => {
+        if (current_position && destination_position) {
+            if (routeControl) {
+                routeControl.setWaypoints([L.latLng(current_position), L.latLng(destination_position)])
+            }
+        }
+    }, [current_position, destination_position, routeControl])
 
     // custome icon
 
@@ -136,26 +105,22 @@ const StoresMap = () => {
         })
     }
 
-    const getDitanceFun = useMemo(() => {
-        return (current_position, destination_position) => {
-            if (current_position && destination_position) {
-                const earthRadius = 6371e3; // Earth radius in meters
-                const posLat = (current_position[0] * Math.PI) / 180; // φ, λ in radians
-                const destLat = (destination_position[0] * Math.PI) / 180; // φ, λ in radians
+    const getDitanceFun = (current_position, destination_position) => {
+        const earthRadius = 6371e3; // Earth radius in meters
+        const posLat = (current_position[0] * Math.PI) / 180; // φ, λ in radians
+        const destLat = (destination_position[0] * Math.PI) / 180; // φ, λ in radians
 
-                const remainLat = ((destination_position[0] - current_position[0]) * Math.PI) / 180;
-                const remainLong = ((destination_position[1] - current_position[1]) * Math.PI) / 180;
+        const remainLat = ((destination_position[0] - current_position[0]) * Math.PI) / 180;
+        const remainLong = ((destination_position[1] - current_position[1]) * Math.PI) / 180;
 
-                const a = Math.sin(remainLat / 2) * Math.sin(remainLat / 2)
-                    +
-                    Math.cos(posLat) * Math.cos(destLat) * Math.sin(remainLong / 2) * Math.sin(remainLong / 2);
+        const a = Math.sin(remainLat / 2) * Math.sin(remainLat / 2)
+            +
+            Math.cos(posLat) * Math.cos(destLat) * Math.sin(remainLong / 2) * Math.sin(remainLong / 2);
 
-                const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 
-                return earthRadius * c
-            }
-        }
-    }, [])
+        return earthRadius * c
+    }
 
     const handleMapClick = (e) => {
         const { lat, lng } = e.latlng
@@ -195,20 +160,18 @@ const StoresMap = () => {
     }
 
     const submitDestinationMarl_As_storeLocation = () => {
-        if (destination_position) {
+        if(destination_position){
             alert("update")
-            dispatch(user_update({
-                storeLocation: {
-                    type: "Point",
-                    coordinates: [destination_position[0], destination_position[1]]
-                }
-            }))
+            dispatch(user_update({storeLocation : {
+                type : "Point",
+                coordinates : [destination_position[0], destination_position[1]]
+            }}))
         }
     }
 
     console.log(destination_position)
     console.log(user?.storeLocation)
-
+    
 
     return (
         <div className="w-full relative z-0 min-h-80vh">
@@ -261,13 +224,13 @@ const StoresMap = () => {
                 </ul>
             </div>
             <div className="w-full flex px-2 py-2">
-                <button disabled={destination_position ? false : true} onClick={() => submitDestinationMarl_As_storeLocation()} className={`button text-sm text-gray-100 hover:bg-blue-500 px-3 py-1 ${destination_position ? "bg-theme-blue-600" : "bg-blue-300"} rounded`}>Set Store Location</button>
+                <button disabled={destination_position ? false : true } onClick={()=> submitDestinationMarl_As_storeLocation()} className={`button text-sm text-gray-100 hover:bg-blue-500 px-3 py-1 ${destination_position ? "bg-theme-blue-600" : "bg-blue-300"} rounded`}>Set Store Location</button>
             </div>
         </div>
     )
 }
 
-export default StoresMap;
+export default StoresMapCopy;
 
 // export const CustomClickHandler = ({onClick}) => {
 //     const map = useMap();

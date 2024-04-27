@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import Tabs from "./tabs"
 import DashboardOrders from "./dashboardOrders";
 import DashboardProducts from "./dashboardProducts";
@@ -85,9 +85,9 @@ const Dashboard = () => {
             index : 6
         }
     ])
-    const state = useSelector(state => state.product)
+    // const {products} = useSelector(state => state.product)
   const { auth, user, error } = useSelector(state => state.user)
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     const location = useLocation()
 
    
@@ -98,58 +98,65 @@ const Dashboard = () => {
 
   
 
-    const [searchProduct, setSearchProduct] = useState({
-        title: "",
-        category: [],
-        features: [],
-        tags: [],
-        price: [{
-            gte: 0,
-            lte: 1000
-        }],
-        sold: 0,
-        nameSort: "",
-        priceSort: "",
-        ratingSort: "",
-        dateSort: "",
-        productsPerPage: 6,
-        pageNo: 1
+    // const [searchProduct, setSearchProduct] = useState({
+    //     title: "",
+    //     category: [],
+    //     features: [],
+    //     tags: [],
+    //     price: [{
+    //         gte: 0,
+    //         lte: 1000
+    //     }],
+    //     sold: 0,
+    //     nameSort: "",
+    //     priceSort: "",
+    //     ratingSort: "",
+    //     dateSort: "",
+    //     productsPerPage: 6,
+    //     pageNo: 1
 
-    })
-    let x = 0
-    useEffect(()=>{
-        if( !state.success && x == 1 && location.state == null){
-            console.log("previous list 1")
-            x++
-            dispatch(get_filter_and_sort_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features,
-                sold : searchProduct.sold,
-                 nameSort : searchProduct.nameSort, 
-                 dateSort : searchProduct.dateSort,
-                ratingSort : searchProduct.ratingSort, 
-                priceSort : searchProduct.priceSort, 
-                productsPerPage : searchProduct.productsPerPage, 
-                pageNo : searchProduct.pageNo}))
-        }
+    // })
+    // let x = 0
+    // const fetchProducts = useMemo(()=>{
+    //     // if( !products.length && x == 1 && location.state == null){
+    //         if( !products.length && x == 1 ){
+    //         console.log("previous list 1")
+    //         x++
+    //         dispatch(get_filter_and_sort_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features,
+    //             sold : searchProduct.sold,
+    //              nameSort : searchProduct.nameSort, 
+    //              dateSort : searchProduct.dateSort,
+    //             ratingSort : searchProduct.ratingSort, 
+    //             priceSort : searchProduct.priceSort, 
+    //             productsPerPage : searchProduct.productsPerPage, 
+    //             pageNo : searchProduct.pageNo}))
+    //     }
 
        
-    },[state.products])
+    // },[dispatch])
 
-    useState(()=>{
+    // useEffect(()=>{
+    //     if(!products.length){
+    //         fetchProducts()
+    //     }
+    // },[products, location.state])
+
+    useEffect(()=>{
         if( location.state != null){
-            dispatch(get_filter_and_sort_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features,
-                sold : searchProduct.sold,
-                nameSort : searchProduct.nameSort, 
-                dateSort : searchProduct.dateSort,
-               ratingSort : searchProduct.ratingSort, 
-               priceSort : searchProduct.priceSort, 
-               productsPerPage : searchProduct.productsPerPage, 
-               pageNo : searchProduct.pageNo}))
+            // dispatch(get_filter_and_sort_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features,
+            //     sold : searchProduct.sold,
+            //     nameSort : searchProduct.nameSort, 
+            //     dateSort : searchProduct.dateSort,
+            //    ratingSort : searchProduct.ratingSort, 
+            //    priceSort : searchProduct.priceSort, 
+            //    productsPerPage : searchProduct.productsPerPage, 
+            //    pageNo : searchProduct.pageNo}))
 
             setTabList([...tabList.map(v=> v.index === location.state.i ? {...v, active : true} : {...v, active : false} )]);
     }
     },[ location.state])
 
-    console.log(state)
+    // console.log(products)
 
     
     return (
@@ -223,7 +230,8 @@ const Dashboard = () => {
                              </div> */}
 
                              {v.label == "Orders" && <DashboardOrders/>}
-                             {v.label == "Vegetables" && <DashboardProducts searchProduct={searchProduct} setSearchProduct={setSearchProduct} dispatch={dispatch} products={state.products}/>}
+                             {/* {v.label == "Vegetables" && <DashboardProducts searchProduct={searchProduct} setSearchProduct={setSearchProduct} dispatch={dispatch} products={products}/>} */}
+                             {v.label == "Vegetables" && <DashboardProducts/>}
                         
                         {/* <div className="col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 aspect-video bg-white"></div>
                         <div className="col-span-6 md:col-span-4 lg:col-span-3 xl:col-span-2 aspect-video bg-white"></div>
@@ -240,4 +248,4 @@ const Dashboard = () => {
     )
 }
 
-export default Dashboard
+export default memo(Dashboard);
