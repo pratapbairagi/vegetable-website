@@ -4,8 +4,10 @@ import { ADD_TO_CART_FAILED, ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, QTY_TO_CA
 
 
 export const add_to_cart = (id) => async (dispatch, getState) => {
-    const url = `http://localhost:5005/api/vegetable/cart/${id}`
-    // const url = `https://veg-etable.vercel.app/api/vegetable/cart/${id}`
+    // const url = `http://localhost:5005/api/vegetable/cart/${id}`
+    const url = `https://veg-etable.vercel.app/api/vegetable/cart/${id}`
+
+    console.log("cart")
    try {
        dispatch({
            type : ADD_TO_CART_REQUEST
@@ -29,6 +31,7 @@ export const add_to_cart = (id) => async (dispatch, getState) => {
 
 
    } catch (error) {
+
        dispatch({
            type : ADD_TO_CART_FAILED,
            payload : error
