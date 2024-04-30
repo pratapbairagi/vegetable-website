@@ -3,57 +3,8 @@ import Card3 from "./card3"
 import { NavLink } from "react-router-dom"
 
 
-const Todays_special = () => {
-    const card3 = [
-        {
-            title: "Brinjal",
-            price: 40,
-            image: "./images/brinjal.png",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, esse?",
-            ratings: 4,
-            id: 1,
-            feature: "off"
-        },
-        {
-            title: "Chillis",
-            price: 30,
-            image: "./images/chillis.png",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, esse?",
-            ratings: 4,
-            id: 2,
-            feature: "off"
-        },
-        {
-            title: "Tomato",
-            price: 50,
-            image: "./images/tomato.png",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, esse?",
-            ratings: 4,
-            id: 3,
-            feature: "fresh"
-        },
-        {
-            title: "Coriandar",
-            price: 60,
-            image: "./images/coriandar.png",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, esse?",
-            ratings: 4,
-            id: 4,
-            feature: "off"
-        },
-        {
-            title: "Lemon",
-            price: 60,
-            image: "./images/lomon.png",
-            description: "Lorem ipsum dolor, sit amet consectetur adipisicing elit. In, esse?",
-            ratings: 5,
-            id: 4,
-            feature: "fresh"
-        }
-    ]
+const Todays_special = ({products}) => {
 
-    const dispatch = useDispatch()
-    const products = useSelector(state => state.product)
     return (
         <>
             <div className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 lg:pb-6 xl:pb-8 mt-2 bg-white">

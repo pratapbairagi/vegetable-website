@@ -14,7 +14,7 @@ const StoresMap = () => {
     const [routeControl, setRouteControl] = useState(null)
     const [suggestion, setSuggestion] = useState([])
     let [mapZoom, setMapZoom] = useState(localStorage.getItem("mapZoom") ? Number(JSON.parse(localStorage.getItem("mapZoom"))) : 13)
-    const { user } = useSelector(state => state.user)
+    const { user, auth } = useSelector(state => state.user)
     const dispatch = useDispatch()
     const { current_position, destination_position, distance } = useSelector(state => state.mapCoords)
 
@@ -261,7 +261,7 @@ const StoresMap = () => {
                 </ul>
             </div>
             <div className="w-full flex px-2 py-2">
-                <button disabled={destination_position ? false : true} onClick={() => submitDestinationMarl_As_storeLocation()} className={`button text-sm text-gray-100 hover:bg-blue-500 px-3 py-1 ${destination_position ? "bg-theme-blue-600" : "bg-blue-300"} rounded`}>Set Store Location</button>
+               {auth && <button disabled={destination_position ? false : true} onClick={() => submitDestinationMarl_As_storeLocation()} className={`button text-sm text-gray-100 hover:bg-blue-500 px-3 py-1 ${destination_position ? "bg-theme-blue-600" : "bg-blue-300"} rounded`}>Set Store Location</button> }
             </div>
         </div>
     )

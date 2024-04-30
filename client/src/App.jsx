@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
@@ -43,14 +43,19 @@ import MyOrders from './component/myOrders.jsx'
 
 
 function App() {
-  const [toggleCart, setToggleCart] = useState(false)
-  const [loginToggle, setLoginToggle] = useState(false)
+
   const dispatch = useDispatch()
   const { auth } = useSelector(state => state.user)
 
+  const memoizedAuth = useCallback(()=>{
+    if(!auth){
+    dispatch(user_logged())
+    }
+  },[])
+
   useEffect(() => {
     if (!auth) {
-      dispatch(user_logged())
+      memoizedAuth()
     }
   }, [auth])
 
@@ -60,8 +65,7 @@ function App() {
     <ErrorBoundary>
       <div className='relative'>
         <BrowserRouter>
-          <Navbar setToggleCart={setToggleCart} setLoginToggle={setLoginToggle} />
-          {/* <Cart toggleCart={toggleCart} setToggleCart={setToggleCart} /> */}
+          <Navbar />
           <Toaster/>
 
           <Routes>
@@ -69,7 +73,7 @@ function App() {
             <Route path='/cart' element={<Cart/>}/>
 
             <Route path='/search' element={<SearchResults_page />} />
-            <Route path='/products' element={<Products setToggleCart={setToggleCart} setLoginToggle={setLoginToggle} />} />
+            <Route path='/products' element={<Products />} />
 
             <Route path='/vegetable/:id' element={<Product_details />} />
 

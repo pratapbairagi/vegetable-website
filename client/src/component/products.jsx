@@ -42,7 +42,9 @@ const Products = () => {
         dateSort: "",
         productsPerPage: 12,
         pageNo: 1
-    })
+    });
+
+    // console.log("location ", location.state)
 
     let x = 0
     useEffect(() => {
@@ -51,7 +53,7 @@ const Products = () => {
                 if (searchQueries.category.length == 0 || searchQueries.features.length == 0 || searchQueries.sold != 0) {
                     if (x == 0) {
                         x++
-                        if (location.state.productsType == "category" || location.state.productsType == "sold") {
+                        if (location.state.productsType == "category" || location.state.productsType == "sold" || location.state.productsType == "tags") {
                             setSearchQuaries({
                                 ...searchQueries,
                                 [location.state.productsType]: [location.state.other],
@@ -59,13 +61,7 @@ const Products = () => {
                             })
                             getInitialProductsFun({ type: location.state.productsType, value: [location.state.other] })
                         }
-                        // if (location.state.productsType == "features") {
-
-                        //     setSearchQuaries({
-                        //         ...searchQueries,
-                        //         features: [location.state.other]
-                        //     })
-                        // }
+                     
                         else if (location.state.productsType == "sold") {
 
                             setSearchQuaries({
@@ -87,12 +83,8 @@ const Products = () => {
 
                         }
                     }
-                        // getInitialProductsFun({ type: location.state.productsType, value: [location.state.other] })
                 }
             }
-            // if(searchQueries.title){
-            //     dispatch(get_filter_and_sort_products({ title: searchQueries.title, category: searchQueries.category, price: searchQueries.price, tags: searchQueries.tags, features: searchQueries.features, nameSort: searchQueries.nameSort, dateSort: searchQueries.dateSort, priceSort: searchQueries.priceSort, sold: searchQueries.sold, ratingSort: searchQueries.ratingSort, productsPerPage: searchQueries.productsPerPage, pageNo: searchQueries.pageNo }))
-            // }
         }
     }, [location.state]);
 

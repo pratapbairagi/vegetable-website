@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { get_products } from "../redux/product/action";
@@ -31,7 +31,7 @@ const SearchResults_page = () => {
     })
 
 let x = 0
-    useState(()=>{
+    useEffect(()=>{
         if(location.state != null){
             if(location.state.value && x == 0){
                 x++

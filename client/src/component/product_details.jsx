@@ -1,7 +1,7 @@
-import { useParams } from "react-router-dom"
+import { useNavigate, useParams } from "react-router-dom"
 import Card4 from "./card4";
 import Review_card from "./review_card";
-import { useEffect, useMemo, useState } from "react";
+import { memo, useEffect, useMemo, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { editProduct, get_product } from "../redux/product/action";
 import { cart_qty } from "../redux/cart/action";
@@ -16,6 +16,7 @@ import StarRatingComponent from "react-star-rating-component";
 const Product_details = () => {
     const { id } = useParams();
     const dispatch = useDispatch();
+    const navigate = useNavigate()
     const { product, loading } = useSelector(state => state.product)
     const { cart } = useSelector(state => state.cart)
     const { order } = useSelector(state => state.order)
@@ -52,11 +53,9 @@ const Product_details = () => {
         if (order && product) {
             if (Array.isArray(order.products)) {
                 if (product.product && (product.product._id == order.products[0]._id )) {
-                    console.log("open review  input")
                     document.getElementById("add_review_container").classList.contains("hidden") &&
                         document.getElementById("add_review_container").classList.replace("hidden", "block")
-                    // :
-                    // document.getElementById("add_review_container").classList.replace("block", "hidden")
+                    
                 }
             }
         }
@@ -65,7 +64,6 @@ const Product_details = () => {
 
 
     console.log(order)
-    console.log(review)
 
     const rating_handler = (e) => {
         setReviewData({
@@ -100,13 +98,15 @@ const Product_details = () => {
 
     }
 
+    // <NavLink to={`/products`} state={{ productsType: "category", other: products.filteredProducts.filter(f => f.active ? f : "")[0]?.category }} className="text-sm md:text-base lg:text-lg text-theme-blue-600 font-semibold h-7 ">See More</NavLink>
+    
 
     // memoized elements or components
     const memoizedReviews = useMemo(() => reviews?.map((rev, revIndex) => <Review_card key={revIndex} review={rev} />), [reviews])
 
     const memoizedRelatedProducts = useMemo(() => product != null ? product.relatedProducts?.map((v, i) => <Card4 key={i} product={v} />) : "", [product])
 
-    const memoizedTags = useMemo(() => product != null ? product.product.tags.map((v, i) => <li key={i}><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100">#{v}</button></li>) : "")
+    const memoizedTags = useMemo(() => product != null ? product.product.tags.map((v, i) => <li onClick={()=> navigate("/products", { state : { productsType: "tags", other: v } })}  key={i}><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100">#{v}</button></li>) : "")
 
     const memoizedproductFeatures = useMemo(() => product != null ? product.product.features.map((v, i) => <span key={i}>{v.feature}</span>) : "")
 
@@ -263,7 +263,6 @@ const Product_details = () => {
                     </div>
                     <div className="col-span-12 flex gap-x-2 order-10 mt-5 md:mt-7 lg:mt-9">
                         <StoresMap />
-                        {console.log("map render repeat")}
                     </div>
 
                     <div className="col-span-12 order-11 flex flex-col px-3 md:px-4 lg:px-5 xl:px-6 mt-5 md:mt-6 lg:mt-7 py-6" style={{ background: "#FFF4E7" }}>
@@ -384,4 +383,4 @@ const Product_details = () => {
     )
 }
 
-export default Product_details
+export default memo(Product_details);

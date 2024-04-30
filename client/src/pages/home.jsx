@@ -12,7 +12,7 @@ import Service_features from "../component/service_features"
 import Service_feedbacks from "../component/service_feedbacks"
 import Shop_by_category from "../component/shop_by_category"
 import Todays_special from "../component/todays_special"
-import React, { useEffect, useState } from "react"
+import React, { memo, useEffect, useState } from "react"
 import { get_products } from "../redux/product/action"
 import Spinner from "../component/spinner"
 import StoresMap from "../component/map"
@@ -74,6 +74,7 @@ const Home = () => {
 
     
     
+    
     return (
         <div className='relative' style={{ background: "rgb(248, 248, 248)" }}>
              {/* <Spinner /> */}
@@ -87,7 +88,7 @@ const Home = () => {
                      : state.products?.length > 0 &&
                      <>
                       <Most_selling_section products={state.most_sold} />
-                     <Shop_by_category />
+                     <Shop_by_category products={state} />
                      <Todays_special products={state} />
                      </>
                      }
@@ -101,4 +102,4 @@ const Home = () => {
     )
 }
 
-export default Home
+export default memo(Home);

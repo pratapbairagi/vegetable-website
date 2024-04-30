@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { get_filter_and_sort_products, get_products } from "../redux/product/action";
+import { get_filter_and_sort_products } from "../redux/product/action";
 import { memo, useRef, useState } from "react";
 
 
