@@ -6,7 +6,6 @@ const Vegetable = require("../model/vegetable")
 
 
 exports.getVegetables = async (req, res, next) => {
-
   try {
     let query = {};
     let categories = []
@@ -45,22 +44,7 @@ exports.getVegetables = async (req, res, next) => {
                 category: "$_id",
                 products: { $slice: ["$products", 6] } // Limiting to 10 products per category
               }
-            },
-            //     // Populate the 'seller' field for each product in the category
-            // {
-            //   $unwind: "$products"
-            // },
-            // {
-            //   $lookup: {
-            //     from: "users",
-            //     localField: "products.seller",
-            //     foreignField: "_id",
-            //     as: "products.seller"
-            //   }
-            // },
-            // {
-            //   $unwind: "$products.seller"
-            // }
+            }
           ]
         }
       },
@@ -92,21 +76,6 @@ exports.getVegetables = async (req, res, next) => {
           }
         }
       }
-      // {
-      //     $unwind: "$category"
-      // },
-      // {
-      //     $group: {
-      //         _id: "$category",
-      //         products: { $push: "$$ROOT" }
-      //     }
-      // },
-      // {
-      //     $project: {
-      //         category : "$_id",
-      //         products : { $slice : ["$products", 6] }
-      //     }
-      // }
     ])
     let soldVegetables = await Vegetable.find().sort({ sold: -1 }).limit(6)
 
@@ -197,6 +166,7 @@ exports.getVegetablesTo_verifyStock = async (req, res, next) => {
 }
 
 exports.getFilteredAndSortedProducts = async (req, res, next) => {
+
   try {
     const { title, category, features, tags, price, ratings, nameSort, dateSort, ratingSort, priceSort, sold, productsPerPage, pageNo = 1 } = req.query
 
@@ -226,23 +196,53 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
       if (key == "category" || key == "tags") {
         if (req.query[key] && req.query[key] != "all") {
           let array = await req.query[key].split(",")
-      
+
           query[key] = { $in: array }
         }
         else {
           query[key] = { $in: categories }
         }
+
+        // if(!tags || !category ){
+        //   let searchString = title.toLowerCase();
+        //   searchString = searchString.split(",");
+
+        //   query[key] = {
+        //     $in : searchString
+        //   }
+        // }
       }
       else if (key == "features") {
-        if (req.query[key] && req.query[key] != "all") {
-          let array = await req.query[key].split(",")
+        let searchString = title.toLowerCase();
+        searchString = searchString.split(",");
 
-          query.features = { $elemMatch: { feature: { $in: array } } };
+        if (req.query[key] && req.query[key] != "all") {
+          let array = await req.query[key].split(",");
+
+          array = array.concat(searchString)
+          
+          query.features = { $elemMatch : { feature: { $in: array } } };
         }
         else {
 
-          query["features.feature"] = { $in: feature }
+          // query["features.feature"] = { $in: feature }
+          query.features = {
+            $elemMatch : { feature : { $in : feature } }
+          }
+          
+
         }
+
+        // if( !features ){
+        //   let searchString = title.toLowerCase();
+        //   searchString = searchString.split(",");
+
+        //   console.log("string ", searchString)
+        //   query.features = {
+        //    $elemMatch : { feature : { $in : searchString  } } 
+        //   }
+          
+        // }
       }
 
       if (key == "price" || key == "ratings") {
@@ -262,18 +262,24 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
           query[key] = {
             $in: searchString
           }
+
         }
       }
     }
+
     let productsLength = await Vegetable.countDocuments(query).sort(sort)
 
-    products = productsLength <= productsPerPage ? await Vegetable.find(query).sort(sort).limit(productsPerPage)
-      : await Vegetable.find(query).sort(sort).skip(productsPerPage * (pageNo - 1)).limit(productsPerPage)
+    if(products = productsLength <= productsPerPage){
+
+      products = await Vegetable.find(query).sort(sort).limit(productsPerPage)
+    }
+    else{
+      products = await Vegetable.find(query).sort(sort).skip(productsPerPage * (pageNo - 1)).limit(productsPerPage)
+    }
 
     categories.unshift("all")
     feature.unshift("all")
     tag.unshift("all")
-
 
     res.status(200).json({
       success: true,

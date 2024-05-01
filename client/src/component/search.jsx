@@ -13,10 +13,15 @@ const Search = ({fieldCss="", inputCss="", buttonCss="", svgCss="", searchQuerie
 
     const searchFun = ( ) => {
 
+        
         if (location.pathname != "/search" && location.pathname != "/products") {
+        console.log("search product 1");
+
             navigate("/search", { state: { value: searchString } })
         }
         else{
+        console.log("search product 2");
+
 
             setSearchQuaries({
                 ...searchQueries,

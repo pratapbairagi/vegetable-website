@@ -61,7 +61,8 @@ export const get_products = ({title="", category="", price={lte:0,gte:1000}, tag
     }
 }
 
-export const get_filter_and_sort_products = ({title="", category=[], price=[{gte : 0, lte : 1000}], tags=[], features=[], sold = 0, nameSort = "", dateSort = "", ratingSort = "", priceSort = "", productsPerPage, pageNo=1 }) => async (dispatch) => {
+export const get_filter_and_sort_products = ({title="", category=[], price=[{gte : 0, lte : 1000}], tags=[], features=[], sold = 0, nameSort = "", dateSort = "", ratingSort = "", priceSort = "", productsPerPage=6, pageNo=1 }) => async (dispatch) => {
+    console.log("filllll")
     let prices = {gte : 0, lte : 1000}
     if(price.length > 0){
         prices = {
@@ -80,12 +81,14 @@ export const get_filter_and_sort_products = ({title="", category=[], price=[{gte
         });
 
             const config = {
-                headers : { "Content-Type" : "application/json" }
-            // "access-control-allow-origin" : rootUrl
+                headers : { "Content-Type" : "application/json" },
+            "access-control-allow-origin" : rootUrl
                 // withCredentials : true
             };
 
             const {data} = await axios.get(url, config);
+
+            console.log("products => ", data)
 
             dispatch({
                 type : GET_FILTER_AND_SORT_PRODUCTS_SUCCESS,
