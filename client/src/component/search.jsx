@@ -2,14 +2,16 @@ import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import { get_filter_and_sort_products } from "../redux/product/action";
 import { memo, useRef, useState } from "react";
+import useSearchQueries from "./customHook/useSearchQueries";
 
 
 
-const Search = ({fieldCss="", inputCss="", buttonCss="", svgCss="", searchQueries={}, setSearchQuaries=()=>""}) => {
+const Search = ({fieldCss="", inputCss="", buttonCss="", svgCss=""}) => {
     const location = useLocation();
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const [searchString, setSearchString] = useState("")
+    const [searchString, setSearchString] = useState("");
+    const [searchQueries, setSearchQueries] = useSearchQueries()
 
     const searchFun = ( ) => {
 
@@ -23,7 +25,7 @@ const Search = ({fieldCss="", inputCss="", buttonCss="", svgCss="", searchQuerie
         console.log("search product 2");
 
 
-            setSearchQuaries({
+            setSearchQueries({
                 ...searchQueries,
                 title : searchString
             })

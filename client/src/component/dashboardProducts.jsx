@@ -4,50 +4,51 @@ import { useDispatch, useSelector } from "react-redux"
 import { paginationFun } from "./paginationFun"
 import { delete_product, get_filter_and_sort_products } from "../redux/product/action"
 import { memo, useEffect, useMemo, useState } from "react"
+import useSearchQueries from "./customHook/useSearchQueries"
 
 
 
-// const DashboardProducts = ({products, searchProduct, setSearchProduct, dispatch}) =>{
+// const DashboardProducts = ({products, searchQueries, setSearchQueries, dispatch}) =>{
     const DashboardProducts = () =>{
     const {products , productsLength} = useSelector(state => state.product)
     const {user} = useSelector(state => state.user)
     const dispatch = useDispatch()
     const location = useLocation()
-
-
     
-    const [searchProduct, setSearchProduct] = useState({
-        title: "",
-        category: [],
-        features: [],
-        tags: [],
-        price: [{
-            gte: 0,
-            lte: 1000
-        }],
-        sold: 0,
-        nameSort: "",
-        priceSort: "",
-        ratingSort: "",
-        dateSort: "",
-        productsPerPage: 6,
-        pageNo: 1
+    // const [searchQueries, setSearchQueries] = useState({
+    //     title: "",
+    //     category: [],
+    //     features: [],
+    //     tags: [],
+    //     price: [{
+    //         gte: 0,
+    //         lte: 1000
+    //     }],
+    //     sold: 0,
+    //     nameSort: "",
+    //     priceSort: "",
+    //     ratingSort: "",
+    //     dateSort: "",
+    //     productsPerPage: 6,
+    //     pageNo: 1
 
-    })
+    // });
+
+    const [searchQueries, setSearchQueries] = useSearchQueries()
     let x = 0
     const fetchProducts = useMemo(()=> () => {
         // if( !products.length && x == 1 && location.state == null){
             if( !products.length && x == 1 ){
             console.log("previous list 1")
             x++
-            dispatch(get_filter_and_sort_products({title : searchProduct.title, category : searchProduct.category, price : searchProduct.price, tags : searchProduct.tags, features : searchProduct.features,
-                sold : searchProduct.sold,
-                 nameSort : searchProduct.nameSort, 
-                 dateSort : searchProduct.dateSort,
-                ratingSort : searchProduct.ratingSort, 
-                priceSort : searchProduct.priceSort, 
-                productsPerPage : searchProduct.productsPerPage, 
-                pageNo : searchProduct.pageNo}))
+            dispatch(get_filter_and_sort_products({title : searchQueries.title, category : searchQueries.category, price : searchQueries.price, tags : searchQueries.tags, features : searchQueries.features,
+                sold : searchQueries.sold,
+                 nameSort : searchQueries.nameSort, 
+                 dateSort : searchQueries.dateSort,
+                ratingSort : searchQueries.ratingSort, 
+                priceSort : searchQueries.priceSort, 
+                productsPerPage : searchQueries.productsPerPage, 
+                pageNo : searchQueries.pageNo}))
         }
 
        
@@ -173,7 +174,7 @@ import { memo, useEffect, useMemo, useState } from "react"
                     </tbody>
                 </table>
             </div>
-            <Pagination fun={(e)=> paginationFun({e, searchQueries : searchProduct, setSearchQuaries : setSearchProduct, dispatch})} activePage={searchProduct.pageNo} numbersOfButton={(productsLength / searchProduct.productsPerPage)} />
+            <Pagination fun={(e)=> paginationFun({e, searchQueries : searchQueries, setSearchQuaries : setSearchQueries, dispatch})} activePage={searchQueries.pageNo} numbersOfButton={(productsLength / searchQueries.productsPerPage)} />
 
         </div>
     )

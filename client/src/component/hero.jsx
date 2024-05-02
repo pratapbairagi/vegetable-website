@@ -10,7 +10,7 @@ const Hero = () => {
                     <h6 className="text-2xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-4xl font-extrabold font-nunito text-theme-green-600">Baazar for</h6>
                     <h1 className="text-3xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl font-extrabold mt-1 sm:mt-1 md:mt-1.5 lg:mt-2 xl:mt-3 font-nunito">Fresh Vegetables</h1>
 
-                    <p className="text-sm sm:text-sm md:text-base lg:text-xl xl:text-2xl mt-4 sm:mt-4.5 md:mt-5.5 lg:mt-6 xl:mt-6.5 leading-normal text-gray-600 font--nunito">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus sequi temporibus aliquid maiores eius, ipsam, ducimus, itaque alias voluptas excepturi et cum eveniet quibusdam architecto.</p>
+                    <p className="text-base sm:text-base md:text-base lg:text-xl xl:text-2xl mt-4 sm:mt-4.5 md:mt-5.5 lg:mt-6 xl:mt-6.5 leading-normal text-gray-600 font--nunito">Lorem ipsum dolor sit amet consectetur adipisicing elit. Repellendus sequi temporibus aliquid maiores eius, ipsam, ducimus, itaque alias voluptas excepturi et cum eveniet quibusdam architecto.</p>
 
                     <button className="text-sm sm:text-base md:text-lg lg:text-xl xl:text-2xl font-bold px-2.5 sm-px-3 md:px-3.5 lg:px-4 xl:px-5 py-1 sm:py-1 md:py-1.5 lg:py-2 xl:py-2 bg-theme-blue-600 w-max mt-10 sm:mt-10 md:mt-10 lg:mt-10 xl:mt-12 rounded text-gray-100 font-nunito cursor-pointer z-10">Find More</button>
                 </div>

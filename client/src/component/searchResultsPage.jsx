@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useLocation, useNavigate } from "react-router-dom";
 import { get_products } from "../redux/product/action";
 import Pagination from "./pagination";
 import { paginationFun } from "./paginationFun";
+import useSearchQueries from "./customHook/useSearchQueries";
 
 
 
@@ -12,23 +13,25 @@ const SearchResults_page = () => {
     const state = useSelector(state=> state.product)
     const dispatch = useDispatch();
 
-    const [searchQueries, setSearchQuaries] = useState({
-        title: "",
-        category: [],
-        features: [],
-        tags: [],
-        price: [{
-            gte: 0,
-            lte: 1000
-        }],
-        sold: 0,
-        nameSort: "",
-        priceSort: "",
-        ratingSort: "",
-        dateSort: "",
-        productsPerPage: 10,
-        pageNo: 1
-    })
+    // const [searchQueries, setSearchQueries] = useState({
+    //     title: "",
+    //     category: [],
+    //     features: [],
+    //     tags: [],
+    //     price: [{
+    //         gte: 0,
+    //         lte: 1000
+    //     }],
+    //     sold: 0,
+    //     nameSort: "",
+    //     priceSort: "",
+    //     ratingSort: "",
+    //     dateSort: "",
+    //     productsPerPage: 10,
+    //     pageNo: 1
+    // });
+
+    const [searchQueries, setSearchQueries] = useSearchQueries()
 
 let x = 0
     useEffect(()=>{
@@ -51,7 +54,6 @@ let x = 0
             <ul className="w-full flex lg:grid lg:grid-cols-12 flex-col lg:flex-row flex-wrap justify-start lg:justify-center lg:items-center gap-y-1 gap-x-1 min-h-80vh" style={{justifyItems:"center", placeItems:"start", alignItems:"center", justifyContent:"center", placeContent:"start"}}>
                {state.products && state.products.map((v,i)=>{ 
               return <li key={i} className="flex w-full lg:col-span-6 bg-white h-full lg:min-h-40 p-1">
-                    {/* <span> */}
                         <img src={v.images[0].url} className="w-2/6 md:h-44 lg:h-52" alt={v.images[0].public_id} />
                         
                         <span className="flex flex-col w-3/6 justify-center gap-y-1  lg:gap-y-2">
@@ -62,16 +64,15 @@ let x = 0
                         </span>
 
                         <span className="w-2/6 flex items-center font-bold text-blue-500 text-lg md:text-xl lg:text-2xl justify-center">{v.price}/KG</span>
-                    {/* </span> */}
                  </li>
                 })
                 
                 }
             </ul>
-            <Pagination fun={(e)=> paginationFun({e, searchQueries, setSearchQuaries, dispatch})} activePage={searchQueries.pageNo} numbersOfButton={(state.productsLength / searchQueries.productsPerPage)} />
+            <Pagination fun={(e)=> paginationFun({e, searchQueries, setSearchQueries, dispatch})} activePage={searchQueries.pageNo} numbersOfButton={(state.productsLength / searchQueries.productsPerPage)} />
 
         </div>
     )
 };
 
-export default SearchResults_page
+export default memo(SearchResults_page);

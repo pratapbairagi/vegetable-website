@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { NavLink, useNavigate } from "react-router-dom";
 import { add_to_cart } from "../redux/cart/action";
 import SellerProductTag from "./sellerProductTag";
+import StarRatingComponent from "react-star-rating-component";
+
 
 
 const Card1 = ({ title, price, images, ratings, description, id, seller }) => {
@@ -23,8 +25,8 @@ const Card1 = ({ title, price, images, ratings, description, id, seller }) => {
                     <img src={images[0].url} className=" w-full h-full object-contain" alt="" />
                 </div>
                 <div className="w-full h-max grid grid-cols-12 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-5">
-                    <ul className="col-span-12 flex gap-x-0.5 mt-1.5">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 sm:size-6 md:size-7 lg:size-8 xl:size-9 stroke-theme-green-600 fill-theme-green-600">
+                    <ul className="col-span-12 flex gap-x-0.5 mt-1">
+                        {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 sm:size-6 md:size-7 lg:size-8 xl:size-9 stroke-theme-green-600 fill-theme-green-600">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 sm:size-6 md:size-7 lg:size-8 xl:size-9 stroke-theme-green-600 fill-theme-green-600">
@@ -38,10 +40,10 @@ const Card1 = ({ title, price, images, ratings, description, id, seller }) => {
                         </svg>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="size-5 sm:size-6 md:size-7 lg:size-8 xl:size-9 stroke-theme-green-600">
                             <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                        </svg>
+                        </svg> */}
+                        <StarRatingComponent name="rate1" starCount={5} value={4}  editable={false} />
                     </ul>
-                    {console.log()}
-                    <NavLink to={`/vegetable/${id}`} className="col-span-12 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-theme-blue-600 mt-4 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-7 cursor-pointer">{title}</NavLink>
+                    <NavLink to={`/vegetable/${id}`} className="col-span-12 text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-theme-blue-600 mt-2 sm:mt-2.5 md:mt-3 lg:mt-3.5 xl:mt-4 cursor-pointer">{title}</NavLink>
                     <p className="col-span-12 text-sm sm:text-sm md:text-base lg:text-xl xl:text-2xl text-gray-400 font-nunito mt-1 sm:mt-1 md:mt-2 lg:mt-3 xl:mt-4 line-clamp-3 min-h-16 lg:min-h-20">{description}</p>
                     <div className="col-span-6 mt-4 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-7">
                         {

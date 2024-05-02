@@ -10,6 +10,7 @@ import { paginationFun } from "./paginationFun";
 import Search from "./search";
 import Spinner from "./spinner";
 import StoresMap from "./map";
+import useSearchQueries from "./customHook/useSearchQueries";
 
 
 
@@ -26,23 +27,25 @@ const Products = () => {
     // const cpostion = useSelector(state => state.mapCoords)
     // const [prodWithStoreLocation, seProdWithStoreLocation] = useState()
 
-    const [searchQueries, setSearchQuaries] = useState({
-        title: "",
-        category: [],
-        features: [],
-        tags: [],
-        price: [{
-            gte: 0,
-            lte: 1000
-        }],
-        sold: 0,
-        nameSort: "",
-        priceSort: "",
-        ratingSort: "",
-        dateSort: "",
-        productsPerPage: 12,
-        pageNo: 1
-    });
+    // const [searchQueries, setSearchQueries] = useState({
+    //     title: "",
+    //     category: [],
+    //     features: [],
+    //     tags: [],
+    //     price: [{
+    //         gte: 0,
+    //         lte: 1000
+    //     }],
+    //     sold: 0,
+    //     nameSort: "",
+    //     priceSort: "",
+    //     ratingSort: "",
+    //     dateSort: "",
+    //     productsPerPage: 12,
+    //     pageNo: 1
+    // });
+
+    const [searchQueries, setSearchQueries] = useSearchQueries()
 
     // console.log("location ", location.state)
 
@@ -54,7 +57,7 @@ const Products = () => {
                     if (x == 0) {
                         x++
                         if (location.state.productsType == "category" || location.state.productsType == "sold" || location.state.productsType == "tags") {
-                            setSearchQuaries({
+                            setSearchQueries({
                                 ...searchQueries,
                                 [location.state.productsType]: [location.state.other],
                                 productsPerPage : 12
@@ -64,7 +67,7 @@ const Products = () => {
                      
                         else if (location.state.productsType == "sold") {
 
-                            setSearchQuaries({
+                            setSearchQueries({
                                 ...searchQueries,
                                 sold: location.state.other,
                                 productsPerPage : 12
@@ -72,7 +75,7 @@ const Products = () => {
                             getInitialProductsFun({ type: location.state.productsType, value: location.state.other })
                         }
                         else if(location.state.productsType == "all" && location.state.other == "all"){
-                            setSearchQuaries({
+                            setSearchQueries({
                                 ...searchQueries,
                                 category: [...searchQueries.category,location.state.other],
                                 tags: [...searchQueries.tags,location.state.other],
@@ -133,7 +136,7 @@ const Products = () => {
         let { name, value, checked } = e.target;
 
         if (name == "category" || name == "features" || name == "tags") {
-            setSearchQuaries({
+            setSearchQueries({
                 ...searchQueries,
                 [name]: checked ? [...searchQueries[name], value] : [...searchQueries[name]].filter(v => v != value)
             })
@@ -161,7 +164,7 @@ const Products = () => {
                 }
             }
 
-            setSearchQuaries({
+            setSearchQueries({
                 ...searchQueries,
                 price: arrayMinMax
             })
@@ -373,7 +376,7 @@ const Products = () => {
 
                             <span className="sorting_sec hidden  md:flex w-8/12 w-max-w-8/12 overflow-x-auto px-2 py-2 md:w-full flex gap-x-4 absolute z-30 right-0 bg-white md:relative">
                                 <button onClick={() => {
-                                    !searchQueries.nameSort ? setSearchQuaries({ ...searchQueries, nameSort: "-1" }) : searchQueries.nameSort == "-1" ? setSearchQuaries({ ...searchQueries, nameSort: "1" }) : setSearchQuaries({ ...searchQueries, nameSort: "" })
+                                    !searchQueries.nameSort ? setSearchQueries({ ...searchQueries, nameSort: "-1" }) : searchQueries.nameSort == "-1" ? setSearchQueries({ ...searchQueries, nameSort: "1" }) : setSearchQueries({ ...searchQueries, nameSort: "" })
                                     getInitialProductsFun({ sort: true, sortType: "nameSort" })
                                 }} className="text-gray-400 text-sm flex items-center gap-x-1 shadow-sm py-1 px-3 rounded-full">
                                     <span>Name</span>
@@ -383,7 +386,7 @@ const Products = () => {
                                 </button>
 
                                 <button onClick={() => {
-                                    !searchQueries.ratingSort ? setSearchQuaries({ ...searchQueries, ratingSort: "-1" }) : searchQueries.ratingSort == "-1" ? setSearchQuaries({ ...searchQueries, ratingSort: "1" }) : setSearchQuaries({ ...searchQueries, ratingSort: "" })
+                                    !searchQueries.ratingSort ? setSearchQueries({ ...searchQueries, ratingSort: "-1" }) : searchQueries.ratingSort == "-1" ? setSearchQueries({ ...searchQueries, ratingSort: "1" }) : setSearchQueries({ ...searchQueries, ratingSort: "" })
                                     getInitialProductsFun({ sort: true, sortType: "ratingSort" })
                                 }} className="text-gray-400 text-sm flex items-center gap-x-1 shadow-sm py-1 px-3 rounded-full">
                                     <span>Ratings</span>
@@ -393,7 +396,7 @@ const Products = () => {
                                 </button>
 
                                 <button onClick={() => {
-                                    !searchQueries.priceSort ? setSearchQuaries({ ...searchQueries, priceSort: "-1" }) : searchQueries.priceSort == "-1" ? setSearchQuaries({ ...searchQueries, priceSort: "1" }) : setSearchQuaries({ ...searchQueries, priceSort: "" })
+                                    !searchQueries.priceSort ? setSearchQueries({ ...searchQueries, priceSort: "-1" }) : searchQueries.priceSort == "-1" ? setSearchQueries({ ...searchQueries, priceSort: "1" }) : setSearchQueries({ ...searchQueries, priceSort: "" })
                                     getInitialProductsFun({ sort: true, sortType: "priceSort" })
                                 }} className="text-gray-400 text-sm flex items-center gap-x-1 shadow-sm py-1 px-3 rounded-full">
                                     <span>Price</span>
@@ -403,7 +406,7 @@ const Products = () => {
                                 </button>
 
                                 <button onClick={() => {
-                                    !searchQueries.dateSort ? setSearchQuaries({ ...searchQueries, dateSort: "-1" }) : searchQueries.dateSort == "-1" ? setSearchQuaries({ ...searchQueries, dateSort: "1" }) : setSearchQuaries({ ...searchQueries, dateSort: "" })
+                                    !searchQueries.dateSort ? setSearchQueries({ ...searchQueries, dateSort: "-1" }) : searchQueries.dateSort == "-1" ? setSearchQueries({ ...searchQueries, dateSort: "1" }) : setSearchQueries({ ...searchQueries, dateSort: "" })
                                     getInitialProductsFun({ sort: true, sortType: "dateSort" })
                                 }} className="text-gray-400 text-sm flex items-center gap-x-1 shadow-sm py-1 px-3 rounded-full">
                                     <span>Date</span>
@@ -420,7 +423,7 @@ const Products = () => {
                         <div className="w-8/12 lg:w-3/12 h-14 bg-white border-gray-600 flex flex-row items-center px-2">
                             <Search 
                             searchQueries={searchQueries}
-                            setSearchQuaries={setSearchQuaries}
+                            setSearchQueries={setSearchQueries}
                             fieldCss="shadow-md h-10 w-full  z-10 relative rounded-full"
                             inputCss="block w-full h-full px-6 rounded-full text-gray-400"
                             buttonCss="absolute top-0 right-0 h-full text-white grid place-items-center w-12 sm:w-12 md:w-12 lg:w-16 xl:w-16"
@@ -445,7 +448,7 @@ const Products = () => {
                     </div>
 
                     <div className="pagination sticky">
-                        <Pagination fun={(e)=> paginationFun({e, searchQueries, setSearchQuaries, dispatch})} activePage={searchQueries.pageNo} numbersOfButton={(state.productsLength / searchQueries.productsPerPage)} />
+                        <Pagination fun={(e)=> paginationFun({e, searchQueries, setSearchQueries, dispatch})} activePage={searchQueries.pageNo} numbersOfButton={(state.productsLength / searchQueries.productsPerPage)} />
                     </div>
 
                 </div>

@@ -1,6 +1,9 @@
 
 
 const Contact = () => {
+    const fieldset = "flex flex-col lg:max-w-80%";
+    const label = " text-sm md:text-base lg:text-xl xl:text-2xl font-semibold font-nunito text-gray-400 px-1";
+    const input = "border-b outline-0 py-1.5 text-xs md:text-sm lg:text-base xl:text-xl px-1 py-0.5 text-xs text-gray-400 font-nunito rounded"
     return (
         <div className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 bg-white mt-2" >
             <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-center text-theme-blue-600 ">Contact Us</h2>
@@ -12,28 +15,28 @@ const Contact = () => {
                         <img src="./images/contact_msg.png" className="h-full w-full opacity-80" alt="" />
                     </div>
                     <form className="col-span-12 sm:col-span-12 md:col-span-12 lg:col-span-12 grid gird-cols-12 gap-y-2.5 ">
-                        <fieldset className="flex flex-col lg:max-w-80%">
-                            <label htmlFor="name" className=" text-sm md:text-base lg:text-xl xl:text-2xl font-semibold font-nunito text-gray-400 px-1">Full Name</label>
+                        <fieldset className={fieldset}>
+                            <label htmlFor="name" className={label}>Full Name</label>
                             <input type="text" id="name" className="border-b outline-0 py-1.5 text-xs md:text-sm lg:text-base xl:text-xl md:text-base px-1  text-gray-400 font-nunito rounded" />
                         </fieldset>
 
-                        <fieldset className="flex flex-col lg:max-w-80%">
-                            <label htmlFor="email" className=" text-sm md:text-base lg:text-xl xl:text-2xl font-semibold font-nunito text-gray-400 px-1">Email</label>
-                            <input type="text" id="email" className="border-b outline-0 py-1.5 text-xs md:text-sm lg:text-base xl:text-xl px-1 py-0.5 text-xs text-gray-400 font-nunito rounded" />
+                        <fieldset className={fieldset}>
+                            <label htmlFor="email" className={label}>Email</label>
+                            <input type="text" id="email" className={input} />
                         </fieldset>
 
-                        <fieldset className="flex flex-col lg:max-w-80%">
-                            <label htmlFor="contact" className=" text-sm md:text-base lg:text-xl xl:text-2xl font-semibold font-nunito text-gray-400 px-1">Contact No.</label>
-                            <input type="tel" id="contact" className="border-b outline-0 py-1.5 text-xs md:text-sm lg:text-base xl:text-xl px-1 py-0.5 text-xs text-gray-400 font-nunito rounded" />
+                        <fieldset className={fieldset}>
+                            <label htmlFor="contact" className={label}>Contact No.</label>
+                            <input type="tel" id="contact" className={input} />
                         </fieldset>
 
-                        <fieldset className="flex flex-col lg:max-w-80%">
+                        <fieldset className={fieldset}>
                             <label htmlFor="subject" className="text-sm md:text-base lg:text-xl xl:text-2xl font-semibold font-nunito text-gray-400 px-1">Subject</label>
-                            <input type="text" id="contact" className="border-b outline-0 py-1.5 text-xs md:text-sm lg:text-base xl:text-xl px-1 py-0.5 text-xs text-gray-400 font-nunito rounded" />
+                            <input type="text" id="contact" className={input} />
                         </fieldset>
 
-                        <fieldset className="flex flex-col lg:max-w-80%">
-                            <label htmlFor="msg" className=" text-sm md:text-base lg:text-xl xl:text-2xl font-semibold font-nunito text-gray-400 px-1">Message</label>
+                        <fieldset className={fieldset}>
+                            <label htmlFor="msg" className={label}>Message</label>
                             <textarea  type="text" readOnly value="" rows="6" id="contact" className="border outline-0 px-1 py-2.5 text-xs md:text-sm lg:text-base xl:text-xl text-gray-400 font-nunito rounded" > </textarea>
                         </fieldset>
 

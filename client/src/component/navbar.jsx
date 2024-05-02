@@ -74,10 +74,10 @@ const Navbar = () => {
                             {/* <li onClick={()=> navLinksActivate(2)} className="relative flex items-center justify-center nav-link w-full md:w-max px-0.5">
                                 <NavLink className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-x border-0 md:border-b-2 md:border-white md:text-blue-600 md:bg-white hover:border-blue-600 font-semibold text-theme-blue-600 px-3 py-0.5" >Menu</NavLink>
                             </li> */}
-                            <li onClick={()=> navLinksActivate(3)} className="nav-link flex items-center justify-center w-full md:w-max px-0.5">
+                            <li onClick={()=> navLinksActivate(2)} className="nav-link flex items-center justify-center w-full md:w-max px-0.5">
                                 <button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-x border-0 md:border-b-2 md:border-white md:text-blue-600 md:bg-white hover:border-blue-600 font-semibold text-theme-blue-600 px-3 py-0.5">About</button>
                             </li>
-                            <li onClick={()=> navLinksActivate(4)} className="nav-link flex items-center justify-center w-full md:w-max">
+                            <li onClick={()=> navLinksActivate(3)} className="nav-link flex items-center justify-center w-full md:w-max">
                                 <button className="w-full text-start sm:text-start md:text-center sm:w-full md:w-auto text-base sm:text-base md:text-lg lg:text-x border-0 md:border-b-2 md:border-white md:text-blue-600 md:bg-white hover:border-blue-600 font-semibold text-theme-blue-600 px-3 py-0.5">Contact</button>
                             </li>
 

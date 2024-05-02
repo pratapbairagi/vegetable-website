@@ -17,6 +17,7 @@ import { get_products } from "../redux/product/action"
 import Spinner from "../component/spinner"
 import StoresMap from "../component/map"
 import { useLocation } from "react-router-dom"
+import useSearchQueries from "../component/customHook/useSearchQueries"
 // import { getDistanceOfShop } from "../component/getDitanceFun"
 
 
@@ -25,23 +26,24 @@ const Home = () => {
     const state = useSelector(state => state.product);
     const location = useLocation()
     const {current_position, destination_position} = useSelector(state=> state.mapCoords)
+    const [searchQueries, setSearchQueries] = useSearchQueries()
 
-    const [searchFilter, setSeachFilter] = useState({
-        category: "",
-        title: "",
-        price: {
-            lte: 0,
-            gte: 1000
-        },
-        tags: [],
-        features: [],
-        nameSort : 0, 
-        dateSort : 0, 
-        sold : 0, 
-        ratingSort : 0,
-        productsPerPage : 10,
-        pageNo : 1
-    })
+    // const [searchQueries, setSearchQueries] = useState({
+    //     category: "",
+    //     title: "",
+    //     price: {
+    //         lte: 0,
+    //         gte: 1000
+    //     },
+    //     tags: [],
+    //     features: [],
+    //     nameSort : 0, 
+    //     dateSort : 0, 
+    //     sold : 0, 
+    //     ratingSort : 0,
+    //     productsPerPage : 10,
+    //     pageNo : 1
+    // })
 
     let x = 0
     useEffect(() => {
@@ -49,32 +51,24 @@ const Home = () => {
             if (x == 0) {
                 x++
                 dispatch(get_products({
-                    title: searchFilter.title,
-                    category: searchFilter.category,
-                    price: searchFilter.price,
-                    tags: searchFilter.tags,
-                    features: searchFilter.features,
-                    nameSort : searchFilter.nameSort, 
-                    dateSort : searchFilter.dateSort, 
-                    sold : searchFilter.sold, 
-                    ratingSort : searchFilter.ratingSort,
-                    productsPerPage : searchFilter.productsPerPage,
-                    pageNo : searchFilter.pageNo
+                    title: searchQueries.title,
+                    category: searchQueries.category,
+                    price: searchQueries.price,
+                    tags: searchQueries.tags,
+                    features: searchQueries.features,
+                    nameSort : searchQueries.nameSort, 
+                    dateSort : searchQueries.dateSort, 
+                    sold : searchQueries.sold, 
+                    ratingSort : searchQueries.ratingSort,
+                    productsPerPage : searchQueries.productsPerPage,
+                    pageNo : searchQueries.pageNo
                 }))
             }
         }
 
     }, [])
     console.log(current_position)
-    console.log(destination_position)
 
-    // useEffect(() => {
-    //     getDistanceOfShop({location, searchQueries : searchFilter, setSearchQuaries : setSeachFilter})
-    // }, [location.state]);
-
-    
-    
-    
     return (
         <div className='relative' style={{ background: "rgb(248, 248, 248)" }}>
              {/* <Spinner /> */}

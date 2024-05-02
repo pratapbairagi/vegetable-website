@@ -2,8 +2,6 @@ import { useDispatch, useSelector } from "react-redux"
 import Pagination from "./pagination"
 import { memo, useEffect, useMemo } from "react";
 import { admin_orders, change_order_status } from "../redux/order/action";
-import { delete_product } from "../redux/product/action";
-import { NavLink } from "react-router-dom";
 
 const DashboardOrders = () => {
 
@@ -11,7 +9,6 @@ const DashboardOrders = () => {
     const { sellerOrders, order } = useSelector(state => state.order)
 
     const fetchOrders = useMemo(() => () => {
-        console.log("seller memo")
         dispatch(admin_orders())
     }, [dispatch])
 
@@ -26,8 +23,6 @@ const DashboardOrders = () => {
     const orderStatusChange_handler = ({orderId, status}) => {
         dispatch(change_order_status(orderId,status))
     }
-
-    console.log("seller order ", sellerOrders)
 
     return (
         <div className="w-max max-w-max h-max min-h-screen max-w-full flex flex-col md:mb-0 ">
