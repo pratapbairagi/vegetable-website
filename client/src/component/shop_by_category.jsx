@@ -19,7 +19,7 @@ const Shop_by_category = ({ products }) => {
                 return (<li onClick={(e) => {
                     dispatch(filteredProducts({ active_category: v.category, filteredProducts: products.filteredProducts.map((f) => { return { ...f, active: f.category == v.category ? true : false } }) }))
                 }} key={i} className={`cursor-pointer h-max w-max sm:w-max ${v.active ? "bg-blue-500 text-orange-100" : "text-blue-500 bg-transparent"}  rounded-full px-3`}>
-                    <button className="text-base sm:text-base md:text-lg lg:text-lg px-3 py-1 font-bold font-nunito w-max sm:w-max text-start uppercase">{v.category}</button>
+                    <button className="text-sm md:text-base px-3 pt-[4px] pb-[3px] font-bold font-nunito w-max sm:w-max text-start uppercase">{v.category}</button>
                 </li>)
             })
 
@@ -45,7 +45,7 @@ const Shop_by_category = ({ products }) => {
         <>
             <div id="shop_by_category" className="w-full h-max py-4 sm:py-6 md:py-8 lg:py-12 lg:pb-4 bg-white mt-2">
                 {/* <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-center text-theme-blue-600 ">Shop By Category</h2> */}
-                <ul className="flex w-full max-w-[1400px] overflow-x-auto justify-start lg:justify-center mt-4">
+                <ul className="flex w-full max-w-[1400px] overflow-x-auto justify-start lg:justify-center mt-4 px-2">
                 {memoizedFilterProducts_tabs}
                 </ul>
                 <div className="w-full h-max grid grid-cols-12 gap-y-3 mt-6 sm:mt-6 md:mt-8 lg:mt-10 xl:mt-12">

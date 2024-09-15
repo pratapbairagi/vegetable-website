@@ -27,7 +27,7 @@ const Card1 = ({ title, price, images, ratings, description, id, seller }) => {
                 <div className="w-full h-max grid grid-cols-12 px-2 sm:px-2 md:px-3 lg:px-4 xl:px-5">
                     <ul className="col-span-12 flex gap-x-0.5 mt-1">
                        
-                        <StarRatingComponent name="rate1" starCount={5} value={4}  editable={false} />
+                        <StarRatingComponent  name="rate1" starCount={5} value={4}  editable={false} />
                     </ul>
                     <NavLink to={`/vegetable/${id}`} className="col-span-12 capitalize text-lg md:text-xl lg:text-2xl font-extrabold font-nunito text-theme-blue-600 mt-1 cursor-pointer">{title}</NavLink>
                     <p className="col-span-12 text-sm sm:text-sm md:text-base lg:text-base text-gray-500 font-nunito mt-1.5 sm:mt-1.5 md:mt-1 lg:mt-2 line-clamp-2 min-h-12 " style={{lineHeight:"130%"}}>{description}</p>
