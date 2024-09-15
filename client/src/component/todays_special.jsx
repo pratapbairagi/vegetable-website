@@ -5,6 +5,8 @@ import { NavLink } from "react-router-dom"
 
 const Todays_special = ({products}) => {
 
+    console.log("todays spcl ", products)
+
     return (
         <>
             <div className="w-full h-max py-8 sm:py-10 md:py-12 lg:py-14 xl:py-16 lg:pb-6 xl:pb-8 mt-2 bg-white">

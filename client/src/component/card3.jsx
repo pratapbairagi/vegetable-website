@@ -8,8 +8,10 @@ import SellerProductTag from "./sellerProductTag"
 const Card3 = ({product}) => {
     const {cart} = useSelector(state=> state.cart)
     const dispatch = useDispatch()
+
+    console.log("disc ", product.features.value)
     return (
-        <div className="card col-span-6 sm:col-span-5 md:col-span-4 lg:col-span-3 h-full shadow-sm hover:shadow-md lg:h-max min-h-30vh w-max md:max-w-[50%] lg:max-w-[35%] flex flex-col lg:flex-row py-2 pb-1">
+        <div className="card col-span-6 sm:col-span-5 md:col-span-4 lg:col-span-3 h-full shadow-sm hover:shadow-md lg:h-max min-h-30vh min-w-[50%] md:min-w-[240px] w-max md:max-w-[50%] lg:max-w-[35%] flex flex-col lg:flex-row py-2 pb-1">
             <div className="h-3/6 lg:h-60 w-full lg:w-3/6 relative">
             
                 <SellerProductTag containerClass="top-0 md:top-2 right-1 md:right-2" seller={product.seller} productId={product._id}/>
@@ -22,8 +24,8 @@ const Card3 = ({product}) => {
             </div>
             <div className=" lg:w-3/6 lg:px-4 flex flex-col justify-between lg:py-2 lg:min-w-">
             <h5 className="w-full flex items-center gap-x-4 px-2">
-                <span className="text-base sm:text-base md:text-xl lg:text-2xl font-extrabold text-theme-green-600 font-nunito ">₹ {product.price}/KG</span>
-               {product.features && product.features.feature == "discount" &&  <span className="text-xs sm:text-xs md:text-sm lg:text-base xl:text-lg font-bold line-through text-red-400">₹ 40/KG</span> } 
+                <span className="text-base sm:text-base md:text-xl font-extrabold text-theme-green-600 font-nunito ">₹ {product.price}/KG</span>
+               {product.features && product.features.feature == "discount" &&  <span className="text-xs sm:text-xs md:text-sm lg:text-base font-bold line-through text-red-400 ">₹ {product.price + (product.price*product.features.value/100)}/KG</span> } 
             </h5>
 
             <p className="px-2 text-2xs sm:text-2xs md:text-xs lg:text-sm xl:text-base min-h-12 line-clamp-3 lg:line-clamp-5 lg:min-h-24 text-gray-400 mt-2">{product.description}</p>
