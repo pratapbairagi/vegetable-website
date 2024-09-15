@@ -1,8 +1,8 @@
 import axios from "axios"
 import { ADMIN_ORDERS_FAILED, ADMIN_ORDERS_REQUEST, ADMIN_ORDERS_SUCCESS, CHANGE_ORDER_STATUS_FAILED, CHANGE_ORDER_STATUS_REQUEST, CHANGE_ORDER_STATUS_SUCCESS, GET_ORDERS_FAILED, GET_ORDERS_REQUEST, GET_ORDERS_SUCCESS, GET_ORDER_REQUEST, GET_ORDER_SUCCESS, ORDER_FAILED, ORDER_REQUEST, ORDER_SUCCESS } from "./type"
 
-const rootUrl = "http://localhost:5005";
-// const rootUrl = "https://veg-etable.vercel.app";
+// const rootUrl = "http://localhost:5005";
+const rootUrl = "https://veg-etable.vercel.app";
 
 export const order_request = (order) => async (dispatch) => {
     try {

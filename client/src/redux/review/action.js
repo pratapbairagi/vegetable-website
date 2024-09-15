@@ -1,8 +1,8 @@
 import axios from "axios";
 import { ADD_REVIEW_FAILED, ADD_REVIEW_REQUEST, ADD_REVIEW_SUCCESS, GET_REVIEWS_FAILED, GET_REVIEWS_REQUEST, GET_REVIEWS_SUCCESS } from "./type";
 
-const rootUrl = "http://localhost:5005";
-// const rootUrl = "https://veg-etable.vercel.app";
+// const rootUrl = "http://localhost:5005";
+const rootUrl = "https://veg-etable.vercel.app";
 
 export const add_review = ({reviewData, productId}) => async (dispatch) => {
     try {
