@@ -23,6 +23,20 @@ const veg = new mongoose.Schema({
         required : [true, "Maximum stock should not exceed 40 or 40kg."],
         default : 0
     },
+    subCategory: {
+        type: String
+    },
+    discount: {
+        type: Number,
+        default: 0 // percentage or amount off
+    },
+    sku: {
+        type: String,
+        unique: true
+    },
+    brand: {
+        type: String
+    },
     numberOfReviews : {
         type : Number,
         default : 0
@@ -80,7 +94,7 @@ const veg = new mongoose.Schema({
     },
     coordinates : {
         type : [Number],
-        default : [0, 0]
+        default : [28.5228859, 77.2592721]
     }
 });
 

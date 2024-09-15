@@ -1,13 +1,14 @@
 import axios from "axios";
 import { ADD_TO_CART_FAILED, ADD_TO_CART_REQUEST, ADD_TO_CART_SUCCESS, QTY_TO_CART_FAILED, QTY_TO_CART_REQUEST, QTY_TO_CART_SUCCESS, REMOVE_FROM_CART_FAILED, REMOVE_FROM_CART_REQUEST, REMOVE_FROM_CART_SUCCESS } from "./types";
-
+const rootUrl = "http://localhost:5005";
+// const rootUrl = "https://veg-etable.vercel.app";
 
 
 export const add_to_cart = (id) => async (dispatch, getState) => {
-    // const url = `http://localhost:5005/api/vegetable/cart/${id}`
-    const url = `https://veg-etable.vercel.app/api/vegetable/cart/${id}`
+    const url = `${rootUrl}/api/vegetable/cart/${id}`
 
-    console.log("cart")
+    alert(id);
+
    try {
        dispatch({
            type : ADD_TO_CART_REQUEST
@@ -16,12 +17,13 @@ export const add_to_cart = (id) => async (dispatch, getState) => {
        const config = {
            headers : {
                "Content-Type" : "application/json"
-            // "access-control-allow-originn" : rootUrl
+            // "access-control-allow-origin" : rootUrl
            }
        };
 
        const {data} = await axios.get(url, config);
 
+       console.log("added cart ", data)
        dispatch({
            type : ADD_TO_CART_SUCCESS,
            payload : data

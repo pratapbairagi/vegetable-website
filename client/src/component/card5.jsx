@@ -36,10 +36,10 @@ const Card5 = ({ product, cPostion }) => {
                 <span className="text-xs font-semibold text-gray-400">{(Math.ceil(distnc).toString()).length >= 4 ? ((Math.ceil(distnc)) / 1000).toFixed(2) + " km" : Math.ceil(distnc) + " mtr/s"}</span>
                 </span>
             </div>
-            <div className="detail_sec h-16 md:h-20 flex justify-center items-center gap-x-2 relative px-3 md:px-5 py-2 pt-0 md:pt-1 gap-y-0.5">
-                <div className="w-8/12">
-                    <NavLink to={`/vegetable/${product._id}`} className="text-base md:text-lg font-bold text-gray-500 line-clamp-1">{product.title}</NavLink>
-                    <h6 className="text-xs md:text-sm font-bold text-gray-400 px-1">{product.price}/KG </h6>
+            <div className="detail_sec h-16 md:h-20 flex justify-center items-center gap-x-2 relative px-3 md:px-4 lg:px-3 py-2 pt-0 md:pt-1 gap-y-0.5">
+                <div className="w-8/12 flex flex-col items-start">
+                    <NavLink to={`/vegetable/${product._id}`} className="text-base md:text-base font-bold text-gray-500 line-clamp-1">{product.title}</NavLink>
+                    <h6 className="text-xs md:text-sm font-bold text-gray-400 lg:mt-1">{product.price}/KG </h6>
                 </div>
                 {
                     cart.find(v => v._id == product._id) ?

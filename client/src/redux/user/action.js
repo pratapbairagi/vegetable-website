@@ -1,8 +1,8 @@
 import axios from "axios"
-import { USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT_FAILED, USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_REGISTER_FAILED, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_FAILED, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "./type";
+import { GET_SELLERS_FAILED, GET_SELLERS_REQUEST, GET_SELLERS_SUCCESS, GET_USERS_FAILED, GET_USERS_REQUEST, GET_USERS_SUCCESS, USER_LOGGED_FAILED, USER_LOGGED_REQUEST, USER_LOGGED_SUCCESS, USER_LOGIN_FAILED, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS, USER_LOGOUT_FAILED, USER_LOGOUT_REQUEST, USER_LOGOUT_SUCCESS, USER_REGISTER_FAILED, USER_REGISTER_REQUEST, USER_REGISTER_SUCCESS, USER_UPDATE_FAILED, USER_UPDATE_REQUEST, USER_UPDATE_SUCCESS } from "./type";
 
-// const rootUrl = "http://localhost:5005"
-const rootUrl = "https://veg-etable.vercel.app"
+const rootUrl = "http://localhost:5005"
+// const rootUrl = "https://veg-etable.vercel.app"
 export const user_register = (user) => async (dispatch) => {
     // console.log("is register action workig with logout")
     try {
@@ -51,7 +51,7 @@ export const user_login = (user) => async (dispatch) => {
             headers : {
                 "Content-Type": "application/json"
             },
-            "access-control-allow-origin" : `${rootUrl}`,
+            // "access-control-allow-origin" : `${rootUrl}`,
             withCredentials: true
         }
 
@@ -164,6 +164,60 @@ export const user_update = (user) => async (dispatch) => {
         console.log(error)
         dispatch({
             type : USER_UPDATE_FAILED,
+            payload : error.response.data.message
+        })
+    }
+}
+
+export const get_users = ({search="", pageNo=1, limit=20, type="Sellers"}) => async (dispatch) => {
+    try {
+        const url = `${rootUrl}/api/users?search=${search}&pageNo=${pageNo}&limit=${limit}&type=${type}`;
+        dispatch({
+            type : GET_USERS_REQUEST
+        })
+
+        const config = {
+            headers : { "Content-Type" : "application/json" },
+            "access-control-allow-origin" : rootUrl,
+            withCredentials : true
+        }
+
+        const {data} = await axios.get(url, config);
+
+        dispatch({
+            type : GET_USERS_SUCCESS,
+            payload : data
+        })
+    } catch (error) {
+        dispatch({
+            type : GET_USERS_FAILED,
+            payload : error.response.data.message
+        })
+    }
+}
+
+export const get_sellers = ({search="", pageNo=1, limit=20, type="Sellers"}) => async (dispatch) => {
+    try {
+        const url = `${rootUrl}/api/sellers?search=${search}&pageNo=${pageNo}&limit=${limit}&type=${type}`;
+        dispatch({
+            type : GET_SELLERS_REQUEST
+        })
+
+        const config = {
+            headers : { "Content-Type" : "application/json" },
+            "access-control-allow-origin" : rootUrl,
+            withCredentials : true
+        }
+
+        const {data} = await axios.get(url, config);
+
+        dispatch({
+            type : GET_SELLERS_SUCCESS,
+            payload : data
+        })
+    } catch (error) {
+        dispatch({
+            type : GET_SELLERS_FAILED,
             payload : error.response.data.message
         })
     }

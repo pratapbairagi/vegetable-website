@@ -129,6 +129,7 @@ exports.getVegetables = async (req, res, next) => {
     }
 
     const products = await Vegetable.find(query).limit(10).populate("seller");
+    const totalNumberOfProducts = await Vegetable.countDocuments()
 
     res.status(200).json({
       success: true,
@@ -137,7 +138,8 @@ exports.getVegetables = async (req, res, next) => {
       categories,
       filteredProducts,
       features: featureBasedProducts,
-      soldVegetables
+      soldVegetables,
+      totalNumberOfProducts
     })
   } catch (error) {
     return next(new ErrorHandler(error))
@@ -344,6 +346,7 @@ exports.getVegetable = async (req, res, next) => {
 
 exports.addToCart = async (req, res, next) => {
   try {
+    console.log("add to cart")
     const { id } = req.params;
 
     const product = await Vegetable.findById(id)
@@ -558,4 +561,35 @@ exports.delete_product = async (req, res, next) => {
   }
 }
 
+
+exports.getSellerProducts = async (req, res, next) => {
+  try {
+    const {search, limit, pageNo} = req.query;
+
+    let skip = (pageNo - 1) * limit
+
+    let query = { seller : req.user._id.toString() };
+
+    if(search){
+      query.$or = [
+        { title : search.toLowerCase() },
+        { category :{ $in : [search.toLowerCase()] } },
+        { tags :{ $in : [search.toLowerCase()] } }
+      ]
+    }
+
+    let sellerProducts = await Vegetable.find(query).limit(limit).skip(skip);
+    let sellerProductsLength = await Vegetable.countDocuments(query);
+
+    res.status(200).json({
+      success : true,
+      message : "",
+      sellerProducts,
+      sellerProductsLength
+    })
+
+  } catch (error) {
+    return next(new ErrorHandler(error))
+  }
+}
 // module.exports = {getVegetables, addProduct}

@@ -71,6 +71,7 @@ exports.order_place = async (req, res, next) => {
 
         async function createAndStoreOrders() {
             let storeOrders = []
+            let newDate = new Date
 
             for (let sellerId of seller) {
                 let products = await newOrder.filter(v => v.seller == sellerId)
@@ -83,7 +84,7 @@ exports.order_place = async (req, res, next) => {
                     paymentAmount: products.reduce((curr, accum) => curr + accum.price * accum.qty / 1000, 0),
                     shippingAddress: req.body.shippingInfo,
                     statusDates: {
-                        orderDate: new Date,
+                        orderDate: newDate,
                         processingDate: null,
                         shippedDate: null,
                         outForDeliveryDate : null,
@@ -168,27 +169,34 @@ exports.getOrders = async (req, res, next) => {
 // admin
 
 exports.getAdmin_orders = async (req, res, next) => {
-    console.log("trigger")
     try {
-        // seller id of ordered products 661991bba32d43ea95cd9341
-        // console.log("user id => ", req.user._id) // 661991bba32d43ea95cd9341
         const isUserExist = await User.findById(req.user._id)
 
         if (!isUserExist) return next(new ErrorHandler("Unauthorized pr session expired !", 401));
 
-        const orders = await Order.find({ products: { $elemMatch: { "seller": req.user._id } } })
-
+        // const orders = await Order.find({ products: { $elemMatch: { "seller": req.user._id } } })
+        const orders = await Order.find()
+        let totalNumberOfOrders = await Order.countDocuments();
+        let totalNumberOfCompletedOrders = await Order.countDocuments({ status   : "delivered"});
+        let totalNumberOfPendingOrders = await Order.countDocuments({ status : "pending" });
+        let totalNumberOfProcessingOrders = await Order.countDocuments({ status : "processing" });
+        
         res.status(200).json({
             success: true,
             message: "",
-            orders: orders
+            orders: orders,
+            totalNumberOfOrders : totalNumberOfOrders,
+            totalNumberOfCompletedOrders : totalNumberOfCompletedOrders,
+            totalNumberOfPendingOrders : totalNumberOfPendingOrders,
+            totalNumberOfProcessingOrders: totalNumberOfProcessingOrders
+
         })
     } catch (error) {
         return next(new ErrorHandler(error))
     }
 }
 
-exports.change_admin_order_status = async (req, res, next) => {
+exports.change_seller_order_status = async (req, res, next) => {
     try {
         const { id } = req.params;
 
@@ -198,9 +206,12 @@ exports.change_admin_order_status = async (req, res, next) => {
 
         if (!isOrderExist) return next(new ErrorHandler("Order not found !", 404));
 
+        if( req.user.role === "seller" ||  req.user.role === "admin"){
         let isSeller = await isOrderExist.products.every(product => product.seller == sellerId);
 
-        if (!isSeller) return (new ErrorHandler("You are not autgorized to change statue !", 401));
+        if (!isSeller || req.user.role !== "admin") return (new ErrorHandler("You are not autgorized to change statue !", 401));
+
+        }
 
         if (!req.body.status) return next(new ErrorHandler("Status is required, to updated !", 400))
 
@@ -210,19 +221,39 @@ exports.change_admin_order_status = async (req, res, next) => {
     req.body.status == "delivered" ? "deliveredDate" : "pending"
     
         // const updatedOrderStatus = await Order.findByIdAndUpdate(id, { status : req.body.status, statusDates : { ...isOrderExist.statusDates, [statusDatesOption] : new Date() } }, { new: true });
-        const existingOrders = await Order.findById(id);
+        
+        let existingOrders
+
+        existingOrders = await Order.find({_id : id});
+        let userOrders = await Order.find({user : existingOrders[0].user})
+
+        // console.log("seller", userOrders)
+
         let updatedOrderStatus;
 
+
+
+
         if (req.body.status) {
-            for(const product of existingOrders.products){
+        // console.log("seller", userOrders)
+
+        if(req.user.role === "admin"){
+            
+        for(const order of userOrders){
+         await Order.findByIdAndUpdate(order._id, { status : req.body.status, statusDates : { ...isOrderExist.statusDates, [statusDatesOption] : new Date() } }, { new: true });
+            
+        }
+
+        // console.log("overall ", userOrders)
+            for(const product of userOrders.products){
+            // console.log("single order ", product)
                 
+
                 const isProductsExist = await Vegetable.findById(product._id);
 
                 if(!isProductsExist) return next( new ErrorHandler("Product does not exist, or deleted !", 400));
                 
                 if( req.body.status === "processing"){
-                    console.log("processing 1", isProductsExist.stock)
-                    console.log("processing 2", product.qty)
                     if(isProductsExist.stock < product.qty ) return next(new ErrorHandler("Stock is not sufficient!", 400));
                 }
 
@@ -237,10 +268,9 @@ exports.change_admin_order_status = async (req, res, next) => {
 
             }
         }
+        }
 
         const orders = await Order.find({ products: { $elemMatch: { "seller": req.user._id } } })
-
-        // console.log("seller ", orders)
 
         res.status(200).json({
             success : true,
@@ -251,10 +281,10 @@ exports.change_admin_order_status = async (req, res, next) => {
 
 
     } catch (error) {
-        console.log("err", error)
         return next(new ErrorHandler(error))
     }
 }
+
 
 exports.get_order = async (req, res, next) => {
     try {

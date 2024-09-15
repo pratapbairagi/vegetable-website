@@ -7,6 +7,8 @@ const userAuth = async (req, res, next) => {
     try {
         const {jwt} = req.cookies;
 
+        console.log("jwt ", req)
+
         const key = "sdfifgiweAe[q-we=qe 79tuurfb75d6d&@BYFfb&IyuBFyibd6bw5465o78^P(N(:I5bk*r97r6br&"
 
         if(!jwt || jwt == null || jwt == undefined ){

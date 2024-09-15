@@ -1,43 +1,44 @@
 import axios from "axios"
-import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_FAILED, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_ERROR, CLEAR_SUCCESS, DELETE_PRODUCT_FAILED, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILED, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, GET_FILTER_AND_SORT_PRODUCTS_FAILED, GET_FILTER_AND_SORT_PRODUCTS_REQUEST, GET_FILTER_AND_SORT_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS } from "./types"
+import { ADD_PRODUCT_FAILED, ADD_PRODUCT_REQUEST, ADD_PRODUCT_SUCCESS, CATEGORIE_SELECTED_FAILED, CATEGORIE_SELECTED_REQUEST, CATEGORIE_SELECTED_SUCCESS, CLEAR_ERROR, CLEAR_SUCCESS, DELETE_PRODUCT_FAILED, DELETE_PRODUCT_REQUEST, DELETE_PRODUCT_SUCCESS, EDIT_PRODUCT_FAILED, EDIT_PRODUCT_REQUEST, EDIT_PRODUCT_SUCCESS, GET_FILTER_AND_SORT_PRODUCTS_FAILED, GET_FILTER_AND_SORT_PRODUCTS_REQUEST, GET_FILTER_AND_SORT_PRODUCTS_SUCCESS, GET_PRODUCTS_FAILED, GET_PRODUCTS_REQUEST, GET_PRODUCTS_SUCCESS, GET_PRODUCT_FAILED, GET_PRODUCT_REQUEST, GET_PRODUCT_SUCCESS, GET_SELLER_FILTER_AND_PRODUCTS_FAILED, GET_SELLER_FILTER_AND_PRODUCTS_REQUEST, GET_SELLER_FILTER_AND_PRODUCTS_SUCCESS } from "./types"
 
-const rootUrl = "https://veg-etable.vercel.app"
-// const rootUrl = "http://localhost:5005"
+// const rootUrl = "https://veg-etable.vercel.app"
+const rootUrl = "http://localhost:5005"
 
 export const add_product = (product) => async (dispatch) => {
     const url = `${rootUrl}/api/vegetable`;
     // const url = "http://localhost:5005/api/vegetable";
     try {
         dispatch({
-            type : ADD_PRODUCT_REQUEST
+            type: ADD_PRODUCT_REQUEST
         });
 
         const config = {
             headers: { "Content-Type": "application/json" },
-            "access-control-allow-originn" : rootUrl,
-            withCredentials : true
+            "access-control-allow-origin": rootUrl,
+            withCredentials: true
         }
         const { data } = await axios.post(url, product, config)
-        
+
         dispatch({
-            type : ADD_PRODUCT_SUCCESS,
-            payload : data
+            type: ADD_PRODUCT_SUCCESS,
+            payload: data
         })
 
     } catch (error) {
         dispatch({
-            type : ADD_PRODUCT_FAILED,
-            payload : error.response.data.message
+            type: ADD_PRODUCT_FAILED,
+            payload: error.response.data.message
         })
     }
 }
 
-export const get_products = ({title="", category="", price={lte:0,gte:1000}, tags=[], features=[],productsPerPage=10, pageNo=1}) => async (dispatch) => {
+export const get_products = ({ title = "", category = "", price = { lte: 0, gte: 1000 }, tags = [], features = [], productsPerPage = 10, pageNo = 1 }) => async (dispatch) => {
     // let url = `http://localhost:5005/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
     const url = `${rootUrl}/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
-    try{
+    try {
+
         dispatch({
-            type : GET_PRODUCTS_REQUEST
+            type: GET_PRODUCTS_REQUEST
         });
 
         const config = {
@@ -46,59 +47,55 @@ export const get_products = ({title="", category="", price={lte:0,gte:1000}, tag
             // withCredentials : true
         }
 
-        const {data} = await axios.get(url, config )
+        const { data } = await axios.get(url, config)
 
         dispatch({
-            type : GET_PRODUCTS_SUCCESS,
-            payload : data
-        }) 
+            type: GET_PRODUCTS_SUCCESS,
+            payload: data
+        })
 
-    }catch (error) {
+    } catch (error) {
         dispatch({
-            type : GET_PRODUCTS_FAILED,
-            payload : error.response.data.message
+            type: GET_PRODUCTS_FAILED,
+            payload: error.response.data.message
         })
     }
 }
 
-export const get_filter_and_sort_products = ({title="", category=[], price=[{gte : 0, lte : 1000}], tags=[], features=[], sold = 0, nameSort = "", dateSort = "", ratingSort = "", priceSort = "", productsPerPage=6, pageNo=1 }) => async (dispatch) => {
-    console.log("filllll")
-    let prices = {gte : 0, lte : 1000}
-    if(price.length > 0){
+export const get_filter_and_sort_products = ({ title = "", category = [], price = [{ gte: 0, lte: 1000 }], tags = [], features = [], sold = 0, nameSort = "", dateSort = "", ratingSort = "", priceSort = "", productsPerPage = 6, pageNo = 1 }) => async (dispatch) => {
+    let prices = { gte: 0, lte: 1000 }
+    if (price.length > 0) {
         prices = {
             ...prices,
-            gte : Math.min(price.map(v=> v.gte)),
-            lte : Math.max(price.map(v=> v.lte)),
+            gte: Math.min(price.map(v => v.gte)),
+            lte: Math.max(price.map(v => v.lte)),
         }
     }
 
-    console.log(category)
     // let url = `http://localhost:5005/api/store/vegetables?title=${title}&category=${category.join(",")}&price[lte]=${prices.lte}&price[gte]=${prices.gte}&tags=${tags.join(",")}&features=${features.join(",")}&nameSort=${nameSort}&dateSort=${dateSort}&ratingSort=${ratingSort}&priceSort=${priceSort}&sold=${sold}&productsPerPage=${productsPerPage}&pageNo=${pageNo}`;
     let url = `${rootUrl}/api/store/vegetables?title=${title}&category=${category.join(",")}&price[lte]=${prices.lte}&price[gte]=${prices.gte}&tags=${tags.join(",")}&features=${features.join(",")}&nameSort=${nameSort}&dateSort=${dateSort}&ratingSort=${ratingSort}&priceSort=${priceSort}&sold=${sold}&productsPerPage=${productsPerPage}&pageNo=${pageNo}`
     try {
         dispatch({
-            type : GET_FILTER_AND_SORT_PRODUCTS_REQUEST
+            type: GET_FILTER_AND_SORT_PRODUCTS_REQUEST
         });
 
-            const config = {
-                headers : { "Content-Type" : "application/json" },
-            "access-control-allow-origin" : rootUrl
-                // withCredentials : true
-            };
+        const config = {
+            headers: { "Content-Type": "application/json" },
+            "access-control-allow-origin": rootUrl
+            // withCredentials : true
+        };
 
-            const {data} = await axios.get(url, config);
+        const { data } = await axios.get(url, config);
 
-            console.log("products => ", data)
-
-            dispatch({
-                type : GET_FILTER_AND_SORT_PRODUCTS_SUCCESS,
-                payload : data
-            })
+        dispatch({
+            type: GET_FILTER_AND_SORT_PRODUCTS_SUCCESS,
+            payload: data
+        })
 
     } catch (error) {
         dispatch({
-            type : GET_FILTER_AND_SORT_PRODUCTS_FAILED,
-            payload : error.response.data.message
+            type: GET_FILTER_AND_SORT_PRODUCTS_FAILED,
+            payload: error.response.data.message
         })
     }
 }
@@ -110,7 +107,7 @@ export const get_product = (id) => async (dispatch) => {
 
     try {
         dispatch({
-            type : GET_PRODUCT_REQUEST
+            type: GET_PRODUCT_REQUEST
         });
 
         const config = {
@@ -120,16 +117,44 @@ export const get_product = (id) => async (dispatch) => {
             // withCredentials : true
         }
 
-        const {data} = await axios.get(url, config)
+        const { data } = await axios.get(url, config)
 
         dispatch({
-            type : GET_PRODUCT_SUCCESS,
+            type: GET_PRODUCT_SUCCESS,
+            payload: data
+        })
+
+    } catch (error) {
+        dispatch({
+            type: GET_PRODUCT_FAILED,
+            payload: error.response.data.message
+        })
+    }
+}
+
+export const get_seller_filter_products = ({search = "", limit = 10, pageNo = 1 }) => async (dispatch) => {
+    try {
+        const url = `${rootUrl}/api/seller-products?search=${search}&pageNo=${pageNo}&limit=${limit}`;
+        dispatch({
+            type : GET_SELLER_FILTER_AND_PRODUCTS_REQUEST
+        })
+
+        const config = {
+            headers : { "Content-Type" : "application/json" },
+            "access-control-allow-origin" : rootUrl,
+            withCredentials : true
+        }
+
+        const {data} = await axios.get(url, config);
+
+        dispatch({
+            type : GET_SELLER_FILTER_AND_PRODUCTS_SUCCESS,
             payload : data
         })
 
     } catch (error) {
         dispatch({
-            type : GET_PRODUCT_FAILED,
+            type : GET_SELLER_FILTER_AND_PRODUCTS_FAILED,
             payload : error.response.data.message
         })
     }
@@ -164,7 +189,7 @@ export const filteredProducts = ({ active_category, filteredProducts }) => async
     const url = `${rootUrl}/api/selected_category/${active_category}`
     try {
         dispatch({
-            type : CATEGORIE_SELECTED_REQUEST
+            type: CATEGORIE_SELECTED_REQUEST
         });
 
         const config = {
@@ -173,7 +198,7 @@ export const filteredProducts = ({ active_category, filteredProducts }) => async
         }
 
         // console.log("active => ", active_category, " == ",  filteredProducts)
-        let x 
+        let x
 
         // const {data} = await axios.get(url, config );
 
@@ -183,49 +208,49 @@ export const filteredProducts = ({ active_category, filteredProducts }) => async
 
 
         dispatch({
-            type : CATEGORIE_SELECTED_SUCCESS,
-            payload : filteredProducts
+            type: CATEGORIE_SELECTED_SUCCESS,
+            payload: filteredProducts
         })
-        
+
     } catch (error) {
         dispatch({
-            type : CATEGORIE_SELECTED_FAILED,
-            payload : error.response.data.message
+            type: CATEGORIE_SELECTED_FAILED,
+            payload: error.response.data.message
         })
     }
 }
 
-export const editProduct = ({id, createProduct}) => async (dispatch) => {
+export const editProduct = ({ id, createProduct }) => async (dispatch) => {
     console.log(createProduct)
     // const url = `http://localhost:5005/api/vegetable/edit/${id}`
     const url = `${rootUrl}/api/vegetable/edit/${id}`
 
     try {
         dispatch({
-            type : EDIT_PRODUCT_REQUEST
+            type: EDIT_PRODUCT_REQUEST
         });
 
         const config = {
-            headers : {
-                "Content-type" : "application/json"
+            headers: {
+                "Content-type": "application/json"
             },
-            "access-control-allow-originn" : rootUrl,
-            withCredentials : true
+            "access-control-allow-originn": rootUrl,
+            withCredentials: true
         }
 
-        const {data} = await axios.put(
+        const { data } = await axios.put(
             url, createProduct, config
         )
 
         dispatch({
-            type : EDIT_PRODUCT_SUCCESS,
-            payload : data
+            type: EDIT_PRODUCT_SUCCESS,
+            payload: data
         });
 
     } catch (error) {
         dispatch({
-            type : EDIT_PRODUCT_FAILED,
-            payload : error.response.data.message
+            type: EDIT_PRODUCT_FAILED,
+            payload: error.response.data.message
         })
     }
 }
@@ -234,40 +259,40 @@ export const delete_product = (id) => async (dispatch) => {
     try {
         const url = `${rootUrl}/api/vegetable/${id}`
         dispatch({
-            type : DELETE_PRODUCT_REQUEST
+            type: DELETE_PRODUCT_REQUEST
         })
 
         const config = {
             headers: { "Content-Type": "application/json" },
-            "access-control-allow-originn" : rootUrl,
-            withCredentials : true
+            "access-control-allow-originn": rootUrl,
+            withCredentials: true
         }
 
-        const {data} = await axios.delete(url, config);
+        const { data } = await axios.delete(url, config);
 
         dispatch({
-            type : DELETE_PRODUCT_SUCCESS,
-            payload : data
+            type: DELETE_PRODUCT_SUCCESS,
+            payload: data
         })
 
     } catch (error) {
         dispatch({
-            type : DELETE_PRODUCT_FAILED,
-            payload : error.response.data.message
+            type: DELETE_PRODUCT_FAILED,
+            payload: error.response.data.message
         })
-        
+
     }
 }
 
 
 export const clear_success = () => (dispatch) => {
     dispatch({
-        type : CLEAR_SUCCESS
+        type: CLEAR_SUCCESS
     })
 }
 
 export const clear_error = () => (dispatch) => {
     dispatch({
-        type : CLEAR_ERROR
+        type: CLEAR_ERROR
     })
 }

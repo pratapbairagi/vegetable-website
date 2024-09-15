@@ -24,6 +24,26 @@ const reviewModel = new mongoose.Schema({
     comment : {
         type : String
     },
+    replies: [
+        {
+            user: {
+                type: mongoose.Schema.Types.ObjectId,
+                ref: "User"
+            },
+            comment: {
+                type: String
+            },
+            createdAt: {
+                type: Date,
+                default: Date.now
+            }
+        }
+    ],
+    visibility: {
+        type: String,
+        enum: ["approved", "pending", "rejected"],
+        default: "pending"
+    },
     createdAt : {
         type : Date,
         default : Date.now

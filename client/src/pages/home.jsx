@@ -18,6 +18,7 @@ import Spinner from "../component/spinner"
 import StoresMap from "../component/map"
 import { useLocation } from "react-router-dom"
 import useSearchQueries from "../component/customHook/useSearchQueries"
+import Googlemap from "../component/googleMap"
 // import { getDistanceOfShop } from "../component/getDitanceFun"
 
 
@@ -70,12 +71,13 @@ const Home = () => {
     console.log(current_position)
 
     return (
-        <div className='relative' style={{ background: "rgb(248, 248, 248)" }}>
+        <div className='relative xl:max-w-[1400px] mx-auto' style={{ background: "rgb(248, 248, 248)" }}>
              {/* <Spinner /> */}
                 
                 <>
                     <Hero />
                     <Features />
+                    {/* <Googlemap/> */}
                     <About />
                     {state.loading ? 
                     <Spinner/> 

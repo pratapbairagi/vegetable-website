@@ -9,14 +9,34 @@ export const Order_place = ( state ={
     message : "",
     order : null,
     orders : [],
-    sellerOrders : []
+    sellerOrders : [],
+    totalNumberOfOrders : 0,
+    totalNumberOfCompletedOrders : 0,
+    totalNumberOfPendingOrders : 0,
+    totalNumberOfProcessingOrders : 0
 }, action) => {
     switch(action.type){
-        case ORDER_REQUEST,
-        GET_ORDERS_REQUEST,
-        ADMIN_ORDERS_REQUEST,
-        CHANGE_ORDER_STATUS_REQUEST, 
-        GET_ORDER_REQUEST :
+        case ORDER_REQUEST:
+            return {
+                ...state,
+                loading : true
+            }
+        case GET_ORDERS_REQUEST:
+            return {
+                ...state,
+                loading : true
+            }
+        case ADMIN_ORDERS_REQUEST:
+            return {
+                ...state,
+                loading : true
+            }
+        case CHANGE_ORDER_STATUS_REQUEST:
+            return {
+                ...state,
+                loading : true
+            }
+        case GET_ORDER_REQUEST :
             return {
                 ...state,
                 loading : true
@@ -43,7 +63,11 @@ export const Order_place = ( state ={
                 loading: false,
                 success : true,
                 message : action.payload.message,
-                sellerOrders : action.payload.orders
+                sellerOrders : action.payload.orders,
+                totalNumberOfOrders : action.payload.totalNumberOfOrders,
+                totalNumberOfCompletedOrders : action.payload.totalNumberOfCompletedOrders,
+                totalNumberOfPendingOrders : action.payload.totalNumberOfPendingOrders,
+                totalNumberOfProcessingOrders: action.payload.totalNumberOfProcessingOrders
             }
         case CHANGE_ORDER_STATUS_SUCCESS :
             return {

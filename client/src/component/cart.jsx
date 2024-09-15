@@ -108,7 +108,7 @@ const Cart = ({}) => {
                     </div>
 
                     <div className="grid grid-cols-12 mt-1 border-b border-dashed pb-3 px-2">
-                        <span className="col-span-5 flex justify-start text-sm lg:text-base text-gray-400 font-semibold font-nunito">Dilevery Charges</span>
+                        <span className="col-span-5 flex justify-start text-sm lg:text-base text-gray-400 font-semibold font-nunito">Delivery Charges</span>
                         <span className="col-span-7 gap-x-4 flex flex-wrap justify-end text-gray-600 font-bold font-nunito">
                             <span className={`text-theme-green-600 text-sm lg:text-base ${cart.reduce((accum, cv)=> accum + cv.price * cv.qty/1000, 0 ) >= 300 ? "" : "line-through"}`}>Free Delivery</span>
                             <span className={`text-red-700 ${cart.reduce((accum, cv)=> accum + cv.price * cv.qty/1000, 0) >= 300 ? "line-through" : ""}  text-sm lg:text-base`}> 50</span>

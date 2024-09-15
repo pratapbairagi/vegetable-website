@@ -210,3 +210,69 @@ exports.user_update = async (req, res, next) => {
         return next(new ErrorHandler(error, 500))
     }
 }
+
+
+exports.allUsers = async (req, res, next) => {
+    try {
+        const {search, limit, pageNo, type} = req.query;
+        let skip = (pageNo - 1) * limit
+
+        const query = { role : "user"};
+
+        let users = [];
+        let totalUsersLength = 0;
+
+        if(search){
+            query.$or = [
+                { first_name : search.toLowerCase() },
+                { last_name : search.toLowerCase() }
+            ] 
+        }
+        
+             users = await User.find(query).limit(limit).skip(skip).select("-password")
+            totalUsersLength = await User.countDocuments(query)
+
+        res.status(200).json({
+            success : true,
+            message : "",
+            users,
+            totalUsersLength
+        })
+
+    } catch (error) {
+        return next(new ErrorHandler(error))
+    }
+}
+
+
+exports.allSeller = async (req, res, next) => {
+    try {
+        const {search, limit, pageNo, type} = req.query;
+        let skip = (pageNo - 1) * limit
+
+        const query = { role : "seller"};
+
+        let sellers = [];
+        let totalSellersLength = 0;
+
+        if(search){
+            query.$or = [
+                { first_name : search.toLowerCase() },
+                { last_name : search.toLowerCase() }
+            ] 
+        }
+        
+         sellers = await User.find(query).limit(limit).skip(skip).select("-password")
+         totalSellersLength = await User.countDocuments(query)
+
+        res.status(200).json({
+            success : true,
+            message : "",
+            sellers,
+            totalSellersLength
+        })
+
+    } catch (error) {
+        return next(new ErrorHandler(error))
+    }
+}

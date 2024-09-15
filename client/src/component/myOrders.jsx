@@ -20,7 +20,7 @@ const MyOrders = () => {
 
     console.log(orders)
     return (
-        <div className="w-full h-max min-h-90vh flex flex-col my-1 lg:mt-36 px-2 lg:px-4">
+        <div className="w-full h-max min-h-90vh flex flex-col my-1 lg:mt-[12vh] px-2 lg:px-4">
             <h6 className="text-lg lg:text-xl xl:text-2xl font-bold text-gray-400 w-full py-2" >My Orders</h6>
             <div className="grid grid-cols-12 w-full h-max py-2 gap-3">
                 {orders.map((v, i) => {

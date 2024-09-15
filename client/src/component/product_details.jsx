@@ -118,11 +118,12 @@ const Product_details = () => {
     return (
         <>
             {loading ? <Spinner /> : product?.product != null &&
-                <div className="w-full min-h-full grid grid-cols-12 pb-3 lg:max-w-80% mx-auto pt-3 lg:pt-32">
-                    <div className="col-span-12 lg:mr-3 md:col-span-8 grid-cols-12 grid grid-cols-12 gap-y-2 order-1 lg:max-h-70vh">
-                        <div id="imageScroll" className="flex min-w-full scroll-overflow-hidden col-span-12 w-full max-w-full overflow-x-auto h-full">
+                <div className="w-full min-h-full grid grid-cols-12 pb-3 lg:max-w-80% mx-auto  pt-3 lg:pt-6">
+                   
+                    <div className="col-span-12 lg:mr-3 md:col-span-6 grid-cols-12 grid gap-y-2 order-1 lg:max-h-80vh ">
+                        <div id="imageScroll" className=" flex min-w-full scroll-overflow-hidden col-span-12 md:col-span-12 w-full max-w-full overflow-x-auto h-full">
                             {product != null && product.product.images.map((v, i) => {
-                                return <img key={i} src={v.url} className="col-span-12 w-full min-w-full object-contain lg:max-h-80vh bg-gray-100" alt="" />
+                                return <img key={i} src={v.url} className="col-span-12 w-full min-w-full object-contain lg:max-h-80vh " alt="" />
                             })}
                         </div>
 
@@ -140,10 +141,10 @@ const Product_details = () => {
                     </div>
 
 
-                    <div className="col-span-12 md:col-span-4 px-2 mt-7 lg:mt-0 flex items-center md:items-start justify-start content-start  order-2 flex-wrap md:order-2">
+                    <div className="col-span-12 md:col-span-6  px-2 mt-7 lg:mt-0 flex items-center md:items-start justify-start content-start  order-2 flex-wrap md:order-2">
 
                         <div className="w-full flex flex-wrap items-center justify-start">
-                            <h5 className="text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-400 mt-1">{product != null ? product.product.title : ""}</h5>
+                            <h5 className="text-base md:text-lg lg:text-xl font-bold font-nunito text-gray-400 mt-1 capitalize">{product != null ?`Quality ${product.product.title}` : ""}</h5>
                             <div className="flex mt-1">
 
                                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" strokeWidth={1.5} className="w-4 md:5 lg:w-6 fill-yellow-600 ml-4 mr-1">
@@ -167,29 +168,27 @@ const Product_details = () => {
                             </div>
 
                         </div>
-                        <h5 className="text-2xl md:text-3xl lg:text-4xl md:mt-0.5 lg:mt-1 font-bold font-nunito text-gray-600 flex hidden md:block">{product != null ? product.product.features.map((v, i) => { return <span key={i}>{v.feature}</span> }) : ""} <span className="">{product != null ? product.product.title : ""}</span></h5>
-                        <h4 className="text-3xl md:text-4xl lg:text-5xl md:mt-3.5 lg:mt-5 font-extrabold text-theme-blue-600 font-nunito hidden md:block w-full md:mb-10">{product != null ? product.product.price : ""}/KG</h4>
+                        <h5 className="text-2xl md:text-3xl capitalize md:mt-0.5 font-bold font-nunito text-gray-600 flex hidden md:block">{product != null ? memoizedproductFeatures : ""} <span className=""> {product != null ? product.product.title : ""} </span></h5>
+                        <h4 className="text-3xl md:mt-3.5 lg:mt-6 font-extrabold text-theme-blue-600 font-nunito hidden md:block w-full md:mb-4 lg:mb-3">{product != null ? product.product.price : ""}/KG</h4>
 
                         <div className="w-full hidden md:flex justify-start flex">
-                            <button disabled={cart.find(v => v._id == id)?.qty == 0 ? true : false} onClick={() => dispatch(cart_qty({ product: product.product, operator: "-100" }))} className="bg-theme-blue-600 p-1 md:py-1.5 md:px-4 lg:px-4 rounded-full md:rounded-none ">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-6 md:w-7 stroke-gray-100">
+                            <button disabled={cart.find(v => v._id == id)?.qty == 0 ? true : false} onClick={() => dispatch(cart_qty({ product: product.product, operator: "-100" }))} className="bg-theme-blue-600 p-1 md:py-1.5 md:px-3 rounded-full md:rounded-none ">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-5 md:w-6 stroke-gray-100">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M5 12h14" />
                                 </svg>
                             </button>
                             <span className="px-3 md:px-4 text-xl md:text-2xl lg:text-3xl text-gray-600 flex items-center">{product != null ? cart.find(v => v._id == product.product._id)?.qty : 0}</span>
-                            <button disabled={product != null && product.product.stock > 0 ? false : true} onClick={() => dispatch(cart_qty({ product: product.product, operator: "100" }))} className="bg-theme-blue-600 p-1 md:px-4 lg:px-4 rounded-full md:rounded-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-6 md:w-7 stroke-gray-100">
+                            <button disabled={product != null && product.product.stock > 0 ? false : true} onClick={() => dispatch(cart_qty({ product: product.product, operator: "100" }))} className="bg-theme-blue-600 p-1 md:px-3 rounded-full md:rounded-none">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} className="w-5 md:w-6 stroke-gray-100">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
                                 </svg>
                             </button>
                         </div>
 
-                        <div className="col-span-12 hidden md:flex gap-x-2 items-center px-1.5 mt-3 md:mt-5 w-full ">
+                        <div className="col-span-12 hidden md:flex gap-x-2 items-center mt-3 md:mt-5 w-full ">
                             <span className="text-theme-green-600 font-bold text-sm bg-green-200 px-4 py-1 rounded">{product != null ? product.product.stock > 0 ? "Available" : "Unavailable" : ""}</span>
                             <span className="text-sm font-bold text-gray-400">{product != null ? (product.product.stock / 1000).toFixed(2) : ""}kg</span>
                         </div>
-
-
 
 
                         <div className="col-span-11 w-full ml-3 md:ml-0 hidden md:flex justify-center border-b border-t border-theme-blue-600 mt-5 py-2">
@@ -203,9 +202,9 @@ const Product_details = () => {
                             </fieldset>
                         </div>
 
-                        <div className="w-full hidden md:flex items-center px-0 mt-5 justify-between">
-                            <span className="text-base md:text-xl font-bold text-theme-green-600 font-nunito">Free Delivery by tomorrow</span>
-                            <span className="text-xs md:text-sm font-bold text-gray-400 font-nunito underline">Want fast delivery ?</span>
+                        <div className="w-full hidden md:flex items-center px-0 mt-3 justify-between">
+                            <span className="text-sm font-bold text-theme-green-600 font-nunito">Free Delivery by tomorrow</span>
+                            <span className="text-2xs font-bold text-gray-400 font-nunito underline">Want fast delivery ?</span>
                         </div>
 
                         <ul className="col-span-12  hidden md:flex md:flex max-h-full overflow-x-auto scroll-overflow-hidden px-2 gap-x-2 md:mt-6 cursor-pointer">
@@ -220,9 +219,9 @@ const Product_details = () => {
 
                     </div>
                     <div className="col-span-12 px-2 mt-1 sm:mt-1.5 flex items-center gap-x-3 order-4">
-                        <h5 className="text-2xl font-bold font-nunito text-gray-600 flex md:hidden">
+                        <h5 className="text-2xl font-bold font-nunito text-gray-600 flex md:hidden capitalize">
                             {memoizedproductFeatures}
-                            <span className="">{product != null ? product.product.title : ""}</span>
+                            <span className="ml-1"> {product != null ? product.product.title : ""} </span>
                         </h5>
                     </div>
 
@@ -248,16 +247,13 @@ const Product_details = () => {
                         <span className="text-xs font-bold text-gray-400 font-nunito underline">Want fast delivery ?</span>
                     </div>
 
-                    <div className="col-span-12 flex flex-col items-start gap-y-3 px-3 mt-8 justify-between order-9">
+                    <div className="col-span-12 flex flex-col items-start gap-y-3 px-3 mt-8 md:mt-0 justify-between order-9">
                         <h6 className="text-xl md:text-2xl lg:text-3xl font-nunito text-gray-600 font-bold">Description</h6>
-                        <p className="text-sm md:text-base lg:text-2xl text-gray-400 md:mt-2 lg:mt-3" style={{ lineHeight: "160%" }}>{product != null ? product.product.description : ""}</p>
+                        <p className="text-sm md:text-lg text-gray-400 md:mt-1" style={{ lineHeight: "160%" }}>{product != null ? product.product.description : ""}</p>
                     </div>
 
                     <div className="col-span-12 px-3 flex gap-x-2 order-10 mt-5 md:mt-7 lg:mt-9">
                         <ul className="flex flex-wrap gap-x-2 gap-y-2">
-                            {/* {product != null ? product.product.tags.map((v, i) => {
-                                return <li key={i}><button className=" px-2 py-1 text-sm md:text-base xl:text-xl text-green-600 font-bold font-nunito bg-green-100">#{v}</button></li>
-                            }) : ""} */}
                             {memoizedTags}
                         </ul>
                     </div>
@@ -265,7 +261,8 @@ const Product_details = () => {
                         <StoresMap />
                     </div>
 
-                    <div className="col-span-12 order-11 flex flex-col px-3 md:px-4 lg:px-5 xl:px-6 mt-5 md:mt-6 lg:mt-7 py-6" style={{ background: "#FFF4E7" }}>
+                    {/* <div className="col-span-12 order-11 flex flex-col px-3 md:px-4 lg:px-5 xl:px-6 mt-5 md:mt-6 lg:mt-7 py-6" style={{ background: "#FFF4E7" }}> */}
+                    <div className="col-span-12 order-11 flex flex-col px-3 md:px-4 lg:px-5 xl:px-6 mt-5 md:mt-6 lg:mt-7 py-6 bg-gray-100">
                         <h6 className="text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-600">Related Vegetables</h6>
                         <ul className="flex max-w-full overflow-x-auto pt-6 md:pt-8 lg:pt-10 gap-x-3 md:gap-x-4 lg:gap-x-5 scroll-overflow-hidden">
                             {/* {product != null ? product.relatedProducts?.map((v, i) => {
@@ -281,13 +278,7 @@ const Product_details = () => {
                     <div className="col-span-12 relative order-11 flex flex-col md:flex-row md:justify-between px-3 md:px-4 lg:px-5 xl:px-6 mt-3 md:mt-5 lg:mt-7 py-6" style={{ background: "#F8F7FF" }}>
                         <button onClick={() => add_review_handler()} className="text-base md:text-xl lg:text-2xl font-bold font-nunito text-gray-400 bg-white rounded px-2 md:px-4 py-3 border-b">Add Review</button>
                         <div className="w-full md:w-9/12 lg:10/12 min-h-12 bg-white flex gap-x-1 justify-center items-center">
-                            {/* {Array.from({ length: 5 }, (_, index) => {
-                                return <svg key={index} xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={2} stroke="currentColor" className="w-6 h-6 stroke-gray-400">
-                                    <path strokeLinecap="round" strokeLinejoin="round" d="M11.48 3.499a.562.562 0 0 1 1.04 0l2.125 5.111a.563.563 0 0 0 .475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 0 0-.182.557l1.285 5.385a.562.562 0 0 1-.84.61l-4.725-2.885a.562.562 0 0 0-.586 0L6.982 20.54a.562.562 0 0 1-.84-.61l1.285-5.386a.562.562 0 0 0-.182-.557l-4.204-3.602a.562.562 0 0 1 .321-.988l5.518-.442a.563.563 0 0 0 .475-.345L11.48 3.5Z" />
-                                </svg>
-                            })} */}
                             {memoizedFiveStarsToShow}
-
                         </div>
                         <div id="add_review_container" className="w-screen h-screen flex flex-col border  fixed z-40 top-0 bg-white left-0 py-10 hidden flex items-center justify-center">
                             { review && <h6 className="font-semibold px-8 py-10 text-gray-400 text-lg md:text-xl ">Your Previous Review</h6>}
@@ -334,7 +325,7 @@ const Product_details = () => {
                             <div className="w-full flex justify-between">
                                 <div className="flex flex-col bg-white rounded">
                                     <img src={product != null ? product.product.images[0].url : ""} className="w-20 md:w-24 h-28 md:h-32 lg:w-32 lg:h-44 object-contain border-b" alt="" />
-                                    <h6 className="text-2xs md:text-xs lg:text-sm mt-1 font-bold text-gray-500 px-0.5 text-center pb-1.5 capitalize">{product != null ? product.product.title : ""}</h6>
+                                    <h6 className="text-2xs md:text-xs lg:text-sm mt-1 font-bold text-gray-500 px-0.5 text-center pb-1.5 capitalize"> {product != null ? product.product.title : ""} </h6>
                                 </div>
 
                                 <ul className="flex flex-col min-w-70% gap-y-3">

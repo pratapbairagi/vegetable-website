@@ -128,7 +128,7 @@ const Products = () => {
 
     }
 
-    console.log("queries => ", state)
+    console.log("queries => ", state.loading)
 
     let arrayMinMax = []
 
@@ -197,12 +197,8 @@ const Products = () => {
             // }
             // }
         })
-    }
+    }    
 
-
-    
-
-    console.log(current_position)
     return (
         <div className="w-full relative z-10 flex flex-col">
             <div className="w-full shadow grid grid-cols-12 h-14 sticky top-0 bg-white z-30">
@@ -431,7 +427,7 @@ const Products = () => {
                         </div>
                     </div>
 
-                    <div style={{ alignContent:"start"}} className={`products md:min-h-80vh w-full grid ${state.loading ? "" : "p-3 md:p-4 lg:p-6 xl:p-6"} grid-cols-12 gap-2  sm:gap-3 md:gap-6  py-3 items-start justify-start md:py-4 lg:py-5 xl:py-6`}>
+                    <div style={{ alignContent:"start"}} className={`products md:min-h-80vh w-full grid ${state.loading ? "" : "p-3 md:p-4 lg:p-6 xl:p-6"} grid-cols-12 gap-2  sm:gap-3  py-3 items-start justify-start md:py-4 lg:py-5 xl:py-6`}>
                         <div className="w-full col-span-12 pl-2">
                             <span className="fonnt-bold text-gray-400"> Result : {state.productsLength} products found</span>
                         </div>

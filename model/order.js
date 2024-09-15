@@ -73,6 +73,30 @@ const orderSchema = mongoose.Schema({
         }
     }
 ],
+trackingNumber: {
+    type: String
+},
+shippingMethod: {
+    type: String,
+    enum: ["standard", "express", "overnight"],
+    default: "standard"
+},
+couponCode: {
+    type: String
+},
+discountAmount: {
+    type: Number,
+    default: 0
+},
+paymentDetails: {
+    method: {
+        type: String,
+        enum: ["credit_card", "paypal", "bank_transfer"]
+    },
+    transactionId: {
+        type: String
+    }
+},
     totalQuantity : {
         type : Number,
         default : 0

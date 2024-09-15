@@ -13,9 +13,17 @@ export const cart = (state={
 }, action) => {
 
     switch(action.type){
-        case ADD_TO_CART_REQUEST,
-        QTY_TO_CART_REQUEST,
-        REMOVE_FROM_CART_REQUEST :
+        case ADD_TO_CART_REQUEST :
+            return {
+                ...state,
+                loading : true
+            }
+            case REMOVE_FROM_CART_REQUEST :
+            return {
+                ...state,
+                loading : true
+            }
+           case QTY_TO_CART_REQUEST :
             return {
                 ...state,
                 loading : true

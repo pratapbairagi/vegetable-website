@@ -85,6 +85,7 @@ const AddProductForm = () => {
                                 }
                                 } className="w-max text-sm md:text-base xl:text-xl px-2 lg:px-3 py-0.5 font-bold font-nunito text-theme-blue-600 bg-gray-100 flex pt-1 h-full">Save</button>
                             </span>
+                            
                             <span className="w-full flex flex-wrap justify-start items-center mt-2 gap-x-2 gap-y-2">
                                 {createProduct.category?.map((v, i) => {
                                     return <span className="text-xs bg-white text-gray-400 font-semibold px-2 py-1 rounded flex items-center gap-x-2" key={i}>{v}
@@ -106,14 +107,7 @@ const AddProductForm = () => {
                         </fieldset>
                         <fieldset className="col-span-12 md:col-span-5 flex flex-col bg-gray-100 px-4 py-4">
                             <label className="text-sm sm:text-base md:text-lg lg:text-xl font-semibold text-gray-400" htmlFor="#feature">Features</label>
-                            {/* <select onChange={(e)=>{ 
-                        setCreateProduct({...createProduct, features : [...createProduct.features.map(v=> v.feature == e.target[e.target.selectedIndex].innerHTML ? {...v, active : true } : { ...v })   ] }) 
-                        }} className="py-2 bg-white px-2 text-gray-400 font-semibold outline-0" name="features" id="">
-                    <option value={null}>Select</option>
-                        {createProduct.features?.map((v,i)=>{
-                            return <option key={i} className="py-2 px-1" value={v.value}>{v.feature}</option>
-                        })}
-                    </select> */}
+                            
                             {createProduct.features.map((v, i) => {
                                 return (
                                     <span key={v._id} className="w-full flex gap-x-2 h-max mt-1">

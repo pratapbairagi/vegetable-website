@@ -4,6 +4,7 @@ import { OnKeyPressFunction, OnchangeFunction } from "./inputFunctions"
 import { useNavigate, useNavigation, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import { editProduct, get_product } from "../redux/product/action"
+import Spinner from "./spinner"
 
 
 
@@ -92,7 +93,7 @@ export const EditVegetable = () => {
     return (
         <>
             {state.loading ? <Spinner /> : state.product && state.product.product &&
-                <div className="w-full h-max  min-h-screen flex flex-col pb-10 lg:mt-28">
+                <div className="w-full h-max  min-h-screen flex flex-col pb-10 lg:mt-0">
                     <h6 className="text-base sm:text-lg md:text-xl xl:text-2xl font-extrabold font-nunito text-center mt-5 md:mt-6 lg:mt-7 text-theme-blue-600">Edit Vegetable</h6>
 
                     <div className="w-full h-max mx-auto grid grid-cols-12 px-2 sm:px-3 md:px-4 lg:px-5 xl:px-6 md:gap-x-2 gap-y-3 md:gap-y-4 lg:gap-y-5 xl:gap-y-6 lg:gap-x-7 xl:gap-x-8 mt-5 md:mt-6 lg:mt-7 xl:mt-8">

@@ -195,8 +195,7 @@ const StoresMap = () => {
     }
 
     const submitDestinationMarl_As_storeLocation = () => {
-        if (destination_position) {
-            alert("update")
+        if (destination_position) {           
             dispatch(user_update({
                 storeLocation: {
                     type: "Point",
