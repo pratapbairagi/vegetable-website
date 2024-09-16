@@ -401,6 +401,10 @@ exports.createVeg = async (req, res, next) => {
       return next(new ErrorHandler("Session expired or something went wrong. Please login again !", 401))
     }
 
+    if(images.length < 1 || images.every(v=> v.url ) === false){
+      return next(new ErrorHandler("Images is required !", 400))
+    }
+
     for (let x = 0; images.length > x; x++) {
       let result = await cloudinary.uploader.upload(images[x].url, {
         folder: "vegetables"

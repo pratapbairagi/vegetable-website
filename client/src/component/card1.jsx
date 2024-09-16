@@ -30,23 +30,23 @@ const Card1 = ({ title, price, images, ratings, description, id, seller }) => {
                         <StarRatingComponent  name="rate1" starCount={5} value={4}  editable={false} />
                     </ul>
                     <NavLink to={`/vegetable/${id}`} className="col-span-12 capitalize text-lg md:text-xl lg:text-2xl font-extrabold font-nunito text-theme-blue-600 mt-1 cursor-pointer">{title}</NavLink>
-                    <p className="col-span-12 text-sm sm:text-sm md:text-base lg:text-base text-gray-500 font-nunito mt-1.5 sm:mt-1.5 md:mt-1 lg:mt-2 line-clamp-2 min-h-12 " style={{lineHeight:"130%"}}>{description}</p>
-                    <div className="col-span-6 mt-4 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-7 border">
+                    <p className="col-span-12 text-sm sm:text-sm text-gray-500 font-nunito mt-1.5 sm:mt-1.5 md:mt-1 lg:mt-2 line-clamp-3 min-h-12 " style={{lineHeight:"130%"}}>{description}</p>
+                    <div className="col-span-6 mt-4 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-7">
                         {
                             cart.find(v => v._id == id) ?
-                                <button className={`w-max flex items-center gap-x-2 md:gap-x-2.5 text-2xs sm:text-2xs md:text-xs lg:text-sm font-semibold text-gray-100 bg-theme-green-600 px-2 sm:px-2 md:px-2 lg:px-2.5 py-1 sm:py-1 md:py-1.5 lg:py-1 rounded-sm hover:bg-green-500`}>
+                                <button className={`w-max flex items-center gap-x-2 md:gap-x-2.5 text-2xs sm:text-2xs md:text-xs font-semibold text-gray-100 bg-theme-green-600 px-2 sm:px-2 md:px-2 lg:px-2.5 py-1 sm:py-1 md:py-1.5 lg:py-1 rounded-sm hover:bg-green-500`}>
                                     <span>ADDED</span>
                                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" className="fill-white w-3 lg:w-5">
                                         <path d="M438.6 105.4c12.5 12.5 12.5 32.8 0 45.3l-256 256c-12.5 12.5-32.8 12.5-45.3 0l-128-128c-12.5-12.5-12.5-32.8 0-45.3s32.8-12.5 45.3 0L160 338.7 393.4 105.4c12.5-12.5 32.8-12.5 45.3 0z" />
                                     </svg>
                                 </button>
                                 :
-                                <button onClick={() => dispatch(add_to_cart(id))} className={`w-max text-2xs sm:text-2xs md:text-xs lg:text-sm font-semibold text-gray-100 bg-theme-blue-600 px-2 sm:px-2 md:px-2 lg:px-2.5 py-1 sm:py-1 md:py-1.5 lg:py-1 rounded-sm hover:bg-blue-500`}>ADD TO CART</button>
+                                <button onClick={() => dispatch(add_to_cart(id))} className={`w-max text-2xs sm:text-2xs md:text-xs font-semibold text-gray-100 bg-theme-blue-600 px-2 sm:px-2 md:px-2 lg:px-2.5 py-1 sm:py-1 rounded-sm hover:bg-blue-500`}>ADD TO CART</button>
                         }
 
                     </div>
                     <div className="col-span-6 mt-4 sm:mt-4 md:mt-5 lg:mt-6 xl:mt-7 flex justify-end items-center">
-                        <span className="text-base sm:text-base md:text-xl font-bold text-theme-green-600 h-max w-max whitespace-nowrap">₹ {price}/KG</span>
+                        <span className="text-base sm:text-base md:text-lg font-bold text-theme-green-600 h-max w-max whitespace-nowrap">₹ {price}/KG</span>
                     </div>
                 </div>
             </div>
