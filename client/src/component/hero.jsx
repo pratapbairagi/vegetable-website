@@ -8,7 +8,7 @@ const Hero = () => {
         { name : "fish", index : 1, active : false, image : "./images/carousel-2.jpg", description : "", redirect : "" }
     ])
     return (
-        <div className="w-full max-w-[100%] overflow-x-auto relative">
+        <div className="w-full max-w-[100%] overflow-x-hidden relative">
        
              {/* <div className="pb-4 md:pt-[7vh] lg:pt-[9vh] h-90vh sm:h-90vh md:h-50vh lg:min-h-[70vh] xl:min-h-[90vh]  w-full relative z-0 grid grid-cols-12 relative bg-white" style={{backgroundImage:"url('./images/chicken_banner4.jpg')", backgroundRepeat:"no-repeat", backgroundSize:"cover", backgroundPosition:"center"}} > */}
             {activeBanner.map((v,i)=>{ 

@@ -415,12 +415,14 @@ exports.createVeg = async (req, res, next) => {
         url: result.secure_url
       })
     }
+    let lowerCaseCategory = category.map(v=> v.toLowerCase())
+    let lowerCaseTags = tags.map(v=> v.toLowerCase())
 
     let product = await Vegetable.create({
       title: title.toLowerCase(),
-      category: category,
+      category: lowerCaseCategory,
       description: description.toLowerCase(),
-      tags,
+      tags : lowerCaseTags,
       features,
       stock,
       price,
@@ -498,18 +500,16 @@ exports.editProduct = async (req, res, next) => {
     }
 
     isProductExist = await Vegetable.findByIdAndUpdate(id, {
-      title: req.body.title,
-      category: req.body.category,
+      title: req.body.title.toLowerCase(),
+      category: req.body.category.map(v=> v.toLowerCase()),
       price: req.body.price,
-      tags: req.body.tags,
+      tags: req.body.tags.map(v=> v.toLowerCase()),
       features: req.body.features,
-      description: req.body.description,
+      description: req.body.description.toLowerCase(),
       stock: req.body.stock,
       images: image,
       coordinates: isUserExist.storeLocation.coordinates
     })
-
-    console.log("match ad agter update => ", isProductExist)
 
 
     res.status(200).json({
