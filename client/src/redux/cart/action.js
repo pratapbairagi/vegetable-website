@@ -7,8 +7,6 @@ const rootUrl = "https://veg-etable.vercel.app";
 export const add_to_cart = (id) => async (dispatch, getState) => {
     const url = `${rootUrl}/api/vegetable/cart/${id}`
 
-    alert(id);
-
    try {
        dispatch({
            type : ADD_TO_CART_REQUEST
@@ -23,7 +21,6 @@ export const add_to_cart = (id) => async (dispatch, getState) => {
 
        const {data} = await axios.get(url, config);
 
-       console.log("added cart ", data)
        dispatch({
            type : ADD_TO_CART_SUCCESS,
            payload : data
