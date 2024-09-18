@@ -10,7 +10,8 @@ const Service_features = () => {
     return (
         <div className="px-4 py-16 mx-auto sm:max-w-xl md:max-w-full lg:max-w-screen-xl md:px-24 lg:px-8 lg:py-20">
             <div className="max-w-xl mb-10 md:mx-auto sm:text-center lg:max-w-2xl md:mb-12">
-                <h2 className="max-w-lg mb-6 font-sans text-3xl font-bold leading-none tracking-tight text-gray-500 sm:text-4xl md:mx-auto" style={{lineHeight:"130%"}}>
+                
+                <h2 className="w-full mb-6 font-nunito text-2xl font-bold leading-md tracking-md text-theme-blue-600 sm:text-3xl mx-auto text-center" style={{lineHeight:"130%"}}>
                     <span className="relative inline-block">
                         <svg
                             viewBox="0 0 52 24"
@@ -38,7 +39,7 @@ const Service_features = () => {
                     </span>{' '}
                     deliver door to door fresh fish and chicken.
                 </h2>
-                <p className="text-base text-gray-700 md:text-lg">
+                <p className="text-base text-blue-300 md:text-lg text-center tracking-[0.8px]">
                     Our main focus is to bring fish and chicken to your doorstep and serve at best price as compared to all nearest local shop.
                 </p>
             </div>

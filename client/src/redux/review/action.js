@@ -1,5 +1,5 @@
 import axios from "axios";
-import { ADD_REVIEW_FAILED, ADD_REVIEW_REQUEST, ADD_REVIEW_SUCCESS, GET_REVIEWS_FAILED, GET_REVIEWS_REQUEST, GET_REVIEWS_SUCCESS } from "./type";
+import { ADD_REVIEW_FAILED, ADD_REVIEW_REQUEST, ADD_REVIEW_SUCCESS, GET_ALL_REVIEWS_FAILED, GET_ALL_REVIEWS_REQUEST, GET_ALL_REVIEWS_SUCCESS, GET_REVIEWS_FAILED, GET_REVIEWS_REQUEST, GET_REVIEWS_SUCCESS } from "./type";
 
 // const rootUrl = "http://localhost:5005";
 const rootUrl = "https://veg-etable.vercel.app";
@@ -57,6 +57,30 @@ export const get_reviews = (productId) => async (dispatch) => {
     } catch (error) {
         dispatch({
             type : GET_REVIEWS_FAILED,
+            payload : error.response.data.message
+        })
+    }
+}
+
+export const get_all_reviews = () => async (dispatch) => {
+
+    const url = `${rootUrl}/api/reviews`;
+
+    try {
+        dispatch({
+            type : GET_ALL_REVIEWS_REQUEST
+        });
+
+        const { data } = await axios.get(url);
+
+        dispatch({
+            type : GET_ALL_REVIEWS_SUCCESS,
+            payload : data
+        })
+
+    } catch (error) {
+        dispatch({
+            type : GET_ALL_REVIEWS_FAILED,
             payload : error.response.data.message
         })
     }

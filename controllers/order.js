@@ -4,6 +4,7 @@ const ErrorHandler = require("../middleware/errorHandler");
 const Vegetable = require("../model/vegetable.js");
 const Order = require("../model/order.js");
 const Reviews = require("../model/review.js");
+const { sendNotifications } = require("../notification.js");
 
 
 exports.order_place = async (req, res, next) => {
@@ -26,10 +27,10 @@ exports.order_place = async (req, res, next) => {
         // console.log("order place 2=> ",isProductsExist)
         // remove : coordinates, features, rating, rewiews, tags, _id
 
-        let newOrder = req.body.cart.map((obj) => {
-            const { coordinates, features, rating, rewiews, category, tags, ...rest } = obj;
-            return rest
-        });
+        // let newOrder = req.body.cart.map((obj) => {
+        //     const { coordinates, features, rating, rewiews, category, tags, ...rest } = obj;
+        //     return rest
+        // });
 
         newOrder = newOrder.map((v) => {
             return {
@@ -43,31 +44,6 @@ exports.order_place = async (req, res, next) => {
         let seller = new Set(newOrder.map(v => v.seller))
         seller = [...seller]
 
-        //    seller.forEach(element => {
-        //    products = newOrder.filter((v)=>{
-        //         return v.seller === element
-        // })
-        // orders.push({
-        //     products : products, 
-        //     user :isUserExist._id,
-        //     totalQuantity: products.reduce((curr, accum, index) => curr + accum.qty, 0),
-        //     // totalDeliveryCharge: products.reduce((curr, accum, index) => curr + accum.price * accum.qty/1000, 0) > 300 ? 0 : 50,
-        //     totalDeliveryCharge: 0,
-        //     // paymentAmount : products.reduce((curr, accum, index) => curr + accum.price * accum.qty/1000, 0) > 300 ? products.reduce((curr, accum, index) => curr + accum.price * accum.qty/1000, 0)  :  products.reduce((curr, accum, index) => curr + accum.price * accum.qty/1000, 0) + 50,
-        //     paymentAmount : products.reduce((curr, accum, index) => curr + accum.price * accum.qty/1000, 0),
-        //     shippingAddress: req.body.shippingInfo
-
-        // })
-        //    });
-
-        //    orders.forEach((el)=>{
-        //     let ord = fun(el)
-        //     storeOrders.push(ord)
-        //    })
-
-        //   async function fun(el){
-        //     return await Order.create(el) 
-        //    }
 
         async function createAndStoreOrders() {
             let storeOrders = []
@@ -102,6 +78,10 @@ exports.order_place = async (req, res, next) => {
 
         createAndStoreOrders().then((data) => {
 
+            const notification = { message: 'Order placed successfully !', order : data };
+            sendNotifications(notification);
+            
+
             res.status(201).json({
                 success: true,
                 message: "Order Placed Successfully !",
@@ -109,18 +89,14 @@ exports.order_place = async (req, res, next) => {
             })
         })
 
-
-        // res.status(201).json({
-        //     success: true,
-        //     message: "Order Placed Successfully !",
-        //     order: order
-        // })
-
     } catch (error) {
         console.log("order place error => ", error)
         return next(new ErrorHandler(error))
     }
 }
+
+
+;
 
 exports.getOrder = async (req, res, next) => {
     try {

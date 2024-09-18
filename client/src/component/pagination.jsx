@@ -2,7 +2,7 @@
 
 const Pagination = ({fun, numbersOfButton, activePage}) => {
     return (
-        <div className=" flex justify-center sm:justify-center md:justify-start md:px-10 border-t pt-5 pb-5 bg-white w-full">
+        <div className=" flex justify-center sm:justify-center md:justify-start md:px-10 border-t pt-5 pb-5 bg-gray-100 w-full">
            {numbersOfButton > 1 ?<nav className="">
                 <ul className="pagination">
                     <li>

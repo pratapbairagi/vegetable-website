@@ -14,4 +14,5 @@ userRoute.route("/users").get(userAuth, allUsers);
 userRoute.route("/sellers").get(userAuth, allSeller);
 
 
+
 module.exports = userRoute;

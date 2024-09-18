@@ -38,7 +38,6 @@ let x = 0
         if(location.state != null){
             if(location.state.value && x == 0){
                 x++
-                console.log("render", x)
                 dispatch(get_products({
                     title : location.state.value
                 }))
@@ -46,9 +45,8 @@ let x = 0
         }
     },[location.state])
 
-    console.log("results => ", state)
     return (
-        <div className="w-full flex flex-col px-1 py-2 lg:pt-28" style={{background:"rgb(248, 248, 248)"}}>
+        <div className="w-full lg:max-w-[1400px] mx-auto flex flex-col px-1 py-2 lg:pt-28" style={{background:"rgb(248, 248, 248)"}}>
             <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-center text-theme-blue-600 ">Results</h2>
             {state.products && <h6 className="text-center text-gray-200 font-bold text-base mb-2">Found : {state.products.length}</h6>}
             <ul className="w-full flex lg:grid lg:grid-cols-12 flex-col lg:flex-row flex-wrap justify-start lg:justify-center lg:items-center gap-y-1 gap-x-1 min-h-80vh" style={{justifyItems:"center", placeItems:"start", alignItems:"center", justifyContent:"center", placeContent:"start"}}>

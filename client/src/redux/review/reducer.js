@@ -1,7 +1,7 @@
 // import { ADD_REVIEW_REQUEST, ADD_REVIEW_SUCCESS, ADD_REVIEW_FAILED } ;
 
 import { GET_ORDER_SUCCESS } from "../order/type"
-import { ADD_REVIEW_REQUEST, ADD_REVIEW_SUCCESS, ADD_REVIEW_FAILED, GET_REVIEWS_REQUEST, GET_REVIEWS_SUCCESS, GET_REVIEWS_FAILED } from "./type"
+import { ADD_REVIEW_REQUEST, ADD_REVIEW_SUCCESS, ADD_REVIEW_FAILED, GET_REVIEWS_REQUEST, GET_REVIEWS_SUCCESS, GET_REVIEWS_FAILED, GET_ALL_REVIEWS_REQUEST, GET_ALL_REVIEWS_SUCCESS, GET_ALL_REVIEWS_FAILED } from "./type"
 
 
 const reviews = (state = {
@@ -10,12 +10,22 @@ const reviews = (state = {
     error: false,
     message: "",
     review: null,
-    reviews: []
+    reviews: [],
+    allReviews : []
 }, action) => {
 
     switch (action.type) {
-        case ADD_REVIEW_REQUEST,
-        GET_REVIEWS_REQUEST :
+        case ADD_REVIEW_REQUEST:
+            return {
+                ...state,
+                loading: true
+            }
+        case GET_REVIEWS_REQUEST :
+            return {
+                ...state,
+                loading: true
+            }
+            case GET_ALL_REVIEWS_REQUEST :
             return {
                 ...state,
                 loading: true
@@ -37,6 +47,14 @@ const reviews = (state = {
                 message : "",
                 reviews : action.payload.reviews
             }
+            case GET_ALL_REVIEWS_SUCCESS :
+            return {
+                ...state,
+                loading : false,
+                success : true,
+                message : "",
+                allReviews : action.payload.allReviews
+            }
         case GET_REVIEWS_FAILED :
             return {
                 ...state,
@@ -45,6 +63,13 @@ const reviews = (state = {
                 message : action.payload
             }
         case ADD_REVIEW_FAILED :
+            return {
+                ...state,
+                loading : false,
+                error : true,
+                message : action.payload
+            }
+            case GET_ALL_REVIEWS_FAILED :
             return {
                 ...state,
                 loading : false,

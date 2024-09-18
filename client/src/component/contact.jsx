@@ -109,12 +109,13 @@ const Contact = () => {
   };
 
   return (
-    <div className="bg-white py-12">
+    <div className="bg-white py-12 flex flex-wrap px-2">
       {" "}
-             <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-center text-theme-blue-600 ">Contact Us</h2>
+             <h2 className="text-xl sm:text-xl md:text-2xl lg:text-3xl xl:text-4xl font-extrabold font-nunito text-center text-theme-blue-600 w-full mb-8">Contact Us</h2>
 
+        <img src="./images/contact_details.png" className="w-full lg:w-[40%]" alt="telephone image" />
       {/* Added mt-12 for margin */}
-      <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-lg p-6 grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+      <div className="w-full lg:w-[60%] mx-auto bg-white shadow-lg rounded-lg p-6 grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
         {/* Contact Form */}
         <div className="space-y-4">
           <h2 className="text-2xl font-semibold text-gray-800">Get in Touch</h2>

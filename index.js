@@ -16,6 +16,7 @@ const global_errorHandler = require("./utils/global_errorHandler.js");
 const orderRoute = require("./router/order.js");
 const reviewRoute = require("./router/review.js");
 // const responseSize  = require("response-size");
+const { addClient, removeClient, sendNotifications } = require("./notification.js");
 
 const app = express(http);
 // const upload = multer({dest : "uploads/"})
@@ -25,6 +26,7 @@ app.use(cors(
     {
     credentials : true,
     origin : ["http://localhost:5173", "http://localhost:5005", "https://veg-etable.vercel.app", "https://veg-etable.vercel.app/"],
+    // origin : "*",
     // origin : ["https://veg-etable.vercel.app", "https://veg-etable.vercel.app/"],
     // origin : ["http://localhost:5173"],
     methods: "GET, POST, PUT, PATCH, DELETE",
@@ -50,6 +52,21 @@ app.use("/api", vegetableRouter )
 app.use("/api", orderRoute)
 app.use("/api", reviewRoute)
 
+// SSE setup
+app.get("/event", (req, res) => {
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+
+  // Add client to the list
+  addClient(res);
+
+  // Remove client from the list on close
+  req.on('close', () => {
+      removeClient(res);
+  });
+});
+
 app.use(express.static(path.join(__dirname, "./client/build")))
 app.get("*", (req, res)=>{
 
@@ -66,3 +83,5 @@ dbConnection();
 app.listen(port, ()=>{
     console.log(`http://localhost:${port}`)
 })
+
+module.exports = {sendNotifications}

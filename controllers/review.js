@@ -7,7 +7,6 @@ const Vegetable = require("../model/vegetable");
 
 exports.addReview = async (req, res, next) => {
     try {
-        console.log("working 0")
 
         const productId = req.params.id;
         const userId = req.user._id
@@ -59,6 +58,7 @@ exports.addReview = async (req, res, next) => {
                 comment: req.body.comment,
                 rating: req.body.rating,
                 product: productId,
+                productImage : isProductExist.images,
                 userName: userName,
                 user: userId,
                 createdAt: new Date()
@@ -87,8 +87,6 @@ exports.addReview = async (req, res, next) => {
 
         const reviews = await Reviews.find({ product: isProductExist._id });
 
-        console.log("working 6")
-
         res.status(201).json({
             success: true,
             message: "Review added successfully !",
@@ -111,6 +109,21 @@ exports.getReviews = async (req, res, next) => {
             success: true,
             message: "",
             reviews: reviews
+        })
+    } catch (error) {
+        return next(new ErrorHandler(error))
+    }
+}
+
+
+exports.getAllReviews = async (req, res, next) => {
+    try {
+        let allReviews = await Reviews.find();
+
+        res.status(200).json({
+            success : true,
+            message : "",
+            allReviews
         })
     } catch (error) {
         return next(new ErrorHandler(error))

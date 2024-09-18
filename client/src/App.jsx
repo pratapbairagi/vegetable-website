@@ -7,12 +7,12 @@ import Navbar from './component/navbar';
 import "./custome.css";
 import Hero from './component/hero'
 import Features from './component/features'
-import About from './component/about'
+import About from './component/about/about.jsx'
 import Most_selling_section from './component/most_selling_section'
 import Shop_by_category from './component/shop_by_category'
 import Todays_special from './component/todays_special'
 import Service_features from './component/service_features'
-import Service_feedbacks from './component/service_feedbacks'
+import Service_feedbacks from './component/service_feedback/service_feedbacks.jsx'
 import Contact from './component/contact'
 import Footer from './component/footer'
 import Cart from './component/cart'
@@ -59,11 +59,40 @@ function App() {
     }
   }, [auth])
 
-  console.log("render")
+  
+  // order notification
+
+  const [notification, setNotification] = useState("")
+
+useEffect(() => {
+  const eventSource = new EventSource('https://veg-etable.vercel.app/event');
+
+
+  eventSource.onmessage = (event) => {
+      const newNotification = JSON.parse(event.data);
+      handleNotification(newNotification);
+  };
+
+  return () => {
+      eventSource.close();
+  };
+}, []);
+
+const handleNotification = (notification) => {
+  // Here you could do more complex processing if needed
+  setNotification(notification);
+};
+
+  eventSource.onerror = function(event) {
+    console.error('SSE error:', event);
+  };
 
   return (
     <ErrorBoundary>
       <div className='relative'>
+      {notification &&  <div className='fixed h-[70px] z-30 top-0 left-0 w-full max-w-[1400px] left-[50%] flex justify-start items-center' style={{transform:"translate(-50%)"}} id='notification'>
+          <h5 className='w-max px-8 py-1 h-full flex items-center bg-white text-green-700 font-semibold'>{notification}</h5>
+        </div>}
         <BrowserRouter>
           <Navbar />
           <Toaster/>

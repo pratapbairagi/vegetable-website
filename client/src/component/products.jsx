@@ -200,7 +200,7 @@ const Products = () => {
     }    
 
     return (
-        <div className="w-full relative z-10 flex flex-col">
+        <div className="w-full max-w-[1400px] mx-auto relative z-10 flex flex-col mb-3">
             <div className="w-full shadow grid grid-cols-12 h-14 sticky top-0 bg-white z-30">
                 <div className="col-span-3 flex justify-start items-center px-3 md:px-4 lg:px-5 xl:px-6">
                     <NavLink to="/" className="font-bold text-theme-blue-600">Website</NavLink>

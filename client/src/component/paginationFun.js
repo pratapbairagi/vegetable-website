@@ -1,7 +1,7 @@
 import { get_filter_and_sort_products } from "../redux/product/action"
 
 
-export const paginationFun = ({e, searchQueries, setSearchQuaries, dispatch})=> {
+export const paginationFun = ({e, searchQueries, setSearchQuaries = () => null, dispatch})=> {
         if(typeof e == "number"){
             setSearchQuaries({
                 ...searchQueries,

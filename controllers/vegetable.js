@@ -120,10 +120,15 @@ exports.getVegetables = async (req, res, next) => {
           let searchStrings = req.query[key].toLowerCase();
           searchStrings = searchStrings.split(" ")
 
-          // query[key] = { $in : searchStrings}
-          // query["features.feature"] = { $in : searchStrings}
-          // query["category"] = { $in : searchStrings}
-          query["tags"] = { $in: searchStrings }
+          // query["tags"] = { $in: searchStrings }
+
+          query = {
+            $or : [
+              { title : {$in : searchStrings } },
+              { tags : {$in : searchStrings } },
+              { "features.feature" : {$in : searchStrings } }
+            ]
+          }
         }
       }
     }
@@ -300,11 +305,9 @@ exports.getFilteredAndSortedProducts = async (req, res, next) => {
 }
 
 exports.getVegetable = async (req, res, next) => {
-  console.log("working")
   try {
     const { id } = req.params;
     const product = await Vegetable.findById(id)
-    console.log("working 2 ", product)
 
     let relatedOptions
     relatedOptions = [product.category, product.tags, product.features]
@@ -346,7 +349,6 @@ exports.getVegetable = async (req, res, next) => {
 
 exports.addToCart = async (req, res, next) => {
   try {
-    console.log("add to cart")
     const { id } = req.params;
 
     const product = await Vegetable.findById(id)
@@ -449,8 +451,6 @@ exports.editProduct = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    // console.log("body => ", req.body)
-
     let isProductExist;
 
     isProductExist = await Vegetable.findById(id)
@@ -550,8 +550,6 @@ exports.delete_product = async (req, res, next) => {
     }
 
     await Vegetable.findByIdAndDelete({ _id: isProductExist._id });
-
-    console.log("deleted")
 
     res.status(200).json({
       success: true,

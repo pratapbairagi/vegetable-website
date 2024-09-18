@@ -1,6 +1,6 @@
 import { useDispatch } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
-import { get_filter_and_sort_products } from "../redux/product/action";
+import { get_filter_and_sort_products, get_products } from "../redux/product/action";
 import { memo, useRef, useState } from "react";
 import useSearchQueries from "./customHook/useSearchQueries";
 
@@ -17,20 +17,20 @@ const Search = ({fieldCss="", inputCss="", buttonCss="", svgCss=""}) => {
 
         
         if (location.pathname != "/search" && location.pathname != "/products") {
-        console.log("search product 1");
-
             navigate("/search", { state: { value: searchString } })
         }
         else{
-        console.log("search product 2");
-
-
             setSearchQueries({
                 ...searchQueries,
                 title : searchString
             })
 
             dispatch(get_filter_and_sort_products({
+                ...searchQueries,
+                title : searchString
+            }))
+
+            dispatch(get_products({
                 ...searchQueries,
                 title : searchString
             }))

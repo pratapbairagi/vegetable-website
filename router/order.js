@@ -1,7 +1,7 @@
 
 
 const express = require("express");
-const { order_place, getOrder, getOrders, getAdmin_orders, change_admin_order_status, get_order, change_seller_order_status } = require("../controllers/order");
+const { order_place, getOrder, getOrders, getAdmin_orders, change_admin_order_status, get_order, change_seller_order_status, setNotification } = require("../controllers/order");
 const userAuth = require("../middleware/userAuth.js");
 const userRole = require("../middleware/userRole.js");
 

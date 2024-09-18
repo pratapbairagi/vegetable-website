@@ -33,6 +33,7 @@ export const add_product = (product) => async (dispatch) => {
 }
 
 export const get_products = ({ title = "", category = "", price = { lte: 0, gte: 1000 }, tags = [], features = [], productsPerPage = 10, pageNo = 1 }) => async (dispatch) => {
+    console.log("search big one", title)
     // let url = `http://localhost:5005/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
     const url = `${rootUrl}/api/vegetables?title=${title}&category=${category}&price[lte]=${price.lte}&price[gte]=${price.gte}&tags=${tags.join(",")}&features=${features.join(",")}`;
     try {
@@ -63,6 +64,7 @@ export const get_products = ({ title = "", category = "", price = { lte: 0, gte:
 }
 
 export const get_filter_and_sort_products = ({ title = "", category = [], price = [{ gte: 0, lte: 1000 }], tags = [], features = [], sold = 0, nameSort = "", dateSort = "", ratingSort = "", priceSort = "", productsPerPage = 6, pageNo = 1 }) => async (dispatch) => {
+    
     let prices = { gte: 0, lte: 1000 }
     if (price.length > 0) {
         prices = {
@@ -133,6 +135,8 @@ export const get_product = (id) => async (dispatch) => {
 }
 
 export const get_seller_filter_products = ({search = "", limit = 10, pageNo = 1 }) => async (dispatch) => {
+    console.log("search ")
+    
     try {
         const url = `${rootUrl}/api/seller-products?search=${search}&pageNo=${pageNo}&limit=${limit}`;
         dispatch({
